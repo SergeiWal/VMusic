@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VMusic.Views
+namespace VMusic.Views.Autorization
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Autorization.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Autorization : Window
     {
-        public MainWindow()
+        public Autorization()
         {
             InitializeComponent();
         }
