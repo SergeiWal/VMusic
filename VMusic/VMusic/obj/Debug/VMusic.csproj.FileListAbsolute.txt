@@ -1,0 +1,15 @@
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\VMusic.exe.config
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\VMusic.exe
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\VMusic.pdb
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csprojAssemblyReference.cache
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\MainWindow.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\App.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic_MarkupCompile.cache
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic_MarkupCompile.lref
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\MainWindow.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.g.resources
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.Properties.Resources.resources
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.GenerateResource.cache
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.CoreCompileInputs.cache
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.exe
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.pdb
