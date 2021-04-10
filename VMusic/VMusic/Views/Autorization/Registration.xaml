@@ -1,18 +1,18 @@
-﻿<Page x:Class="VMusic.Views.Autorization.Login"
+﻿<Page x:Class="VMusic.Views.Autorization.Registration"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VMusic.Views.Autorization"
       xmlns:viewModel ="clr-namespace:VMusic.ViewModels"
-      xmlns:loccommand ="clr-namespace:VMusic.Commands"
       mc:Ignorable="d" 
-      Height="420" Width="340"
-      Title="Login">
+      Height="520" Width="340"
+      Title="Registration">
+
     <Page.CommandBindings>
     </Page.CommandBindings>
     <Page.DataContext>
-        <viewModel:AutorizationModel/>
+        <viewModel:RegistrationModel/>
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -37,6 +37,10 @@
                     Margin="0 15" >
             <TextBlock FontSize="32" Margin="0 15" HorizontalAlignment="Center">VMUSIC</TextBlock>
             <StackPanel Margin="0 10" >
+                <TextBlock>Имя</TextBlock>
+                <TextBox x:Name="NameBox"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="0 10" >
                 <TextBlock>Логин</TextBlock>
                 <TextBox x:Name="LoginBox"></TextBox>
             </StackPanel>
@@ -44,23 +48,30 @@
                 <TextBlock>Пароль</TextBlock>
                 <PasswordBox x:Name="PasswordBox" ></PasswordBox>
             </StackPanel>
+            <StackPanel Margin="0 10">
+                <TextBlock>Повторите пароль</TextBlock>
+                <PasswordBox x:Name="RepeatPasswordBox" ></PasswordBox>
+            </StackPanel>
+            
+            
+            
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
                     Margin="0 15"
-                    Command="{Binding LoginCommand}"
+                    Command="{Binding RegisterCommand}"
                     >
-            <Button.Content>
-                    <TextBlock>Войти</TextBlock>
+                <Button.Content>
+                    <TextBlock>Регистрация</TextBlock>
                 </Button.Content>
             </Button>
             <StackPanel Margin="0 15">
                 <Button Style="{StaticResource TrassissionButton}"
-                        Click="ToLoginAsAdmin_Click">
-                    <TextBlock Style="{StaticResource TextButton}">Войти как админ</TextBlock>
+                        Click="ToLogin_Click">
+                    <TextBlock Style="{StaticResource TextButton}">Войти как пользователь</TextBlock>
                 </Button>
                 <Button Style="{StaticResource TrassissionButton}"
-                        Click="ToRegistration_Click">
-                    <TextBlock Style="{StaticResource TextButton}">Регистрация</TextBlock>
+                        Click="ToLoginAsAdmin_Click">
+                    <TextBlock Style="{StaticResource TextButton}">Войти как админ</TextBlock>
                 </Button>
             </StackPanel>
         </StackPanel>

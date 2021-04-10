@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VMusic.Views.Autorization"
         mc:Ignorable="d"
-        Title="Autorization" Height="534" Width="414"
+        Title="Autorization" Height="520" Width="340"
         ResizeMode="NoResize"
-        WindowStyle="None">
-    <Frame></Frame>
+        WindowStyle="None"
+        AllowsTransparency ="True"
+        Background="Transparent"
+        MouseDown="Window_MouseDown">
+    <Frame x:Name="Frame" NavigationUIVisibility="Hidden"></Frame>
 </Window>

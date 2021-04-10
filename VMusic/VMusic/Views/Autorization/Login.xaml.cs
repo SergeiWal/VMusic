@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VMusic.ViewModels;
 
 namespace VMusic.Views.Autorization
 {
@@ -23,6 +24,17 @@ namespace VMusic.Views.Autorization
         public Login()
         {
             InitializeComponent();
+           
         }
+
+        private void ToLoginAsAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LoginAsAdmin());
+        }
+        private void ToRegistration_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Registration());
+        }
+        
     }
 }

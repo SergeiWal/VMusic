@@ -10,27 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace VMusic.Views.Autorization
 {
     /// <summary>
-    /// Логика взаимодействия для Autorization.xaml
+    /// Логика взаимодействия для Registration.xaml
     /// </summary>
-    public partial class Autorization : Window
+    public partial class Registration : Page
     {
-        public Autorization()
+        public Registration()
         {
             InitializeComponent();
-            Frame.Navigate(new Login());
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ToLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+            NavigationService.Navigate(new Login());
+        }
+
+        private void ToLoginAsAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LoginAsAdmin());
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿<Page x:Class="VMusic.Views.Autorization.Login"
+﻿<Page x:Class="VMusic.Views.Autorization.LoginAsAdmin"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VMusic.Views.Autorization"
       xmlns:viewModel ="clr-namespace:VMusic.ViewModels"
-      xmlns:loccommand ="clr-namespace:VMusic.Commands"
       mc:Ignorable="d" 
       Height="420" Width="340"
-      Title="Login">
+      Title="LoginAsAdmin">
     <Page.CommandBindings>
     </Page.CommandBindings>
     <Page.DataContext>
@@ -47,16 +46,16 @@
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
                     Margin="0 15"
-                    Command="{Binding LoginCommand}"
+                    Command="{Binding LoginAsAdminCommand}"
                     >
-            <Button.Content>
+                <Button.Content>
                     <TextBlock>Войти</TextBlock>
                 </Button.Content>
             </Button>
             <StackPanel Margin="0 15">
                 <Button Style="{StaticResource TrassissionButton}"
-                        Click="ToLoginAsAdmin_Click">
-                    <TextBlock Style="{StaticResource TextButton}">Войти как админ</TextBlock>
+                        Click="ToLogin_Click">
+                    <TextBlock Style="{StaticResource TextButton}">Войти как пользователь</TextBlock>
                 </Button>
                 <Button Style="{StaticResource TrassissionButton}"
                         Click="ToRegistration_Click">

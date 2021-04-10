@@ -13,3 +13,14 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.GenerateResource.cache
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.CoreCompileInputs.cache
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.exe
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.pdb
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Autorization.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Login.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\App.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Resources\AutorizationStyles.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Autorization.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Login.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\LoginAsAdmin.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\LoginAsAdmin.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Registration.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Registration.baml
