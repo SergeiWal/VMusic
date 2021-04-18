@@ -152,6 +152,24 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource AppControlButton}"
                                     Width="32" Height="32">
+                                    <materialDesign:PackIcon Kind="Search" Foreground="DeepPink"
+                                                         Width="32" Height="32" />
+                                </Button>
+                                <TextBlock VerticalAlignment="Center" 
+                                       FontSize="18"
+                                       Margin="5 0"
+                                       Text="Поиск"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                    <Button Background="Transparent"
+                            BorderThickness="0"
+                            Margin="10 10">
+                        <Grid Width="140"
+                            Height="32">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource AppControlButton}"
+                                    Width="32" Height="32">
                                     <materialDesign:PackIcon Kind="Settings" Foreground="DeepPink"
                                                          Width="32" Height="32" />
                                 </Button>
