@@ -8,33 +8,30 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using VMusic.ViewModels.Autorization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VMusic.ViewModels;
 
 namespace VMusic.Views.Autorization
 {
     /// <summary>
     /// Логика взаимодействия для Login.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class Login : Window
     {
         public Login()
         {
             InitializeComponent();
-           
+            DataContext = new AutorizationViewModel(this);
         }
 
-        private void ToLoginAsAdmin_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new LoginAsAdmin());
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
-        private void ToRegistration_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Registration());
-        }
-        
     }
 }

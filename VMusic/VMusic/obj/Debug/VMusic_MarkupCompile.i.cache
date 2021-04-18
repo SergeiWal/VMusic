@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\GIT\VMusic\VMusic\VMusic\App.xaml
-6-1401802319
+5-761035994
 
-14-1671976582
+13-1888348202
 13-1505183044
-Resources\AutorizationStyles.xaml;Views\Autorization\Autorization.xaml;Views\Autorization\Login.xaml;Views\Autorization\LoginAsAdmin.xaml;Views\Autorization\Registration.xaml;Views\MainWindow.xaml;
+Resources\AutorizationStyles.xaml;Views\Autorization\Login.xaml;Views\Autorization\LoginAsAdmin.xaml;Views\Autorization\Registration.xaml;Views\MainWindow.xaml;
 
-True
+False
 

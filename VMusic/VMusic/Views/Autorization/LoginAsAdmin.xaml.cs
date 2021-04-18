@@ -10,29 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VMusic.ViewModels.Autorization;
 
 namespace VMusic.Views.Autorization
 {
     /// <summary>
     /// Логика взаимодействия для LoginAsAdmin.xaml
     /// </summary>
-    public partial class LoginAsAdmin : Page
+    public partial class LoginAsAdmin : Window
     {
         public LoginAsAdmin()
         {
             InitializeComponent();
+            DataContext = new AutorizationViewModel(this);
         }
 
-        private void ToLogin_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new Login());
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
-        private void ToRegistration_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Registration());
-        }
-        
     }
 }

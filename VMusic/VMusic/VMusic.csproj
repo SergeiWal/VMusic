@@ -56,12 +56,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\AutorizationCommand.cs" />
-    <Compile Include="ViewModels\AutorizationModel.cs" />
-    <Compile Include="ViewModels\RegistrationModel.cs" />
-    <Compile Include="Views\Autorization\Autorization.xaml.cs">
-      <DependentUpon>Autorization.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\Autorization\AutorizationViewModel.cs" />
+    <Compile Include="ViewModels\Autorization\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\Autorization\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -79,10 +76,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\AutorizationStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Autorization\Autorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

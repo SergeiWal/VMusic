@@ -9,14 +9,22 @@ using System.Windows;
 using VMusic.Commands;
 using VMusic.Views.Autorization;
 
-namespace VMusic.ViewModels
+namespace VMusic.ViewModels.Autorization
 {
-    class RegistrationModel: INotifyPropertyChanged
+    class RegistrationViewModel : BaseViewModel
     {
+
+        private Window owner;
+
         private string name;
         private string login;
         private string password;
         private string repeatPassword;
+
+        public RegistrationViewModel(Window owner)
+        {
+            this.owner = owner;
+        }
 
 
         public string Name
@@ -57,46 +65,51 @@ namespace VMusic.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        private Command registerCommand;
+        private Command registrationCommand;
+        private Command switchToLoginCommand;
+        private Command switchToLoginAsAdminCommand;
         private Command exitCommand;
 
-        public Command RegisterCommand
+        public Command RegistrationCommand
         {
             get
             {
-                return registerCommand ?? (registerCommand = new Command((obj) => {
-                    closeAutorizationWindows();
+                return registrationCommand ?? (registrationCommand = new Command((obj) => {
+                    owner.Close();
                 }));
             }
         }
+
+        public Command SwitchToLoginCommand
+        {
+            get
+            {
+                return switchToLoginCommand ?? (switchToLoginCommand = new Command((obj) =>
+                {
+                    SwitchTo(new Login(), owner);
+                }));
+            }
+        }
+
+        public Command SwitchToLoginAsAdminCommand
+        {
+            get
+            {
+                return switchToLoginAsAdminCommand ?? (switchToLoginAsAdminCommand = new Command((obj) => {
+                    SwitchTo(new LoginAsAdmin(), owner);
+                }));
+            }
+        }
+
         public Command ExitCommand
         {
             get
             {
                 return exitCommand ?? (exitCommand = new Command((obj) => {
-                    closeAutorizationWindows();
+                    owner.Close();
                 }));
             }
         }
 
-        private void closeAutorizationWindows()
-        {
-            var windows = Application.Current.Windows;
-            foreach (var window in windows)
-            {
-                var currentWindow = window as Window;
-                if (currentWindow is Autorization)
-                {
-                    currentWindow.Close();
-                }
-            }
-        }
     }
 }
