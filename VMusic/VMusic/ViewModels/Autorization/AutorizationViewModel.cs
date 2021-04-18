@@ -9,7 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VMusic.Commands;
+using VMusic.Views.Admin;
 using VMusic.Views.Autorization;
+using VMusic.Views.Client;
 
 namespace VMusic.ViewModels.Autorization
 {
@@ -88,7 +90,7 @@ namespace VMusic.ViewModels.Autorization
             get 
             {
                 return loginCommand ?? ( loginCommand = new Command((obj)=> {
-                    owner.Close();
+                    SwitchTo(new ClientMainWindow(), owner);
                 }));
             }
         }
@@ -97,7 +99,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return loginAsAdminCommand ?? (loginAsAdminCommand = new Command((obj) => {
-                    owner.Close();
+                   SwitchTo(new AdminMainWindow(), owner);
                 }));
             }
         }

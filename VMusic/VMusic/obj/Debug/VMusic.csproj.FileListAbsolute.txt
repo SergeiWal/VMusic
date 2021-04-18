@@ -30,3 +30,5 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.CopyComplete
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\ClientMainWindow.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Resources\ClientStyles.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\ClientMainWindow.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\AdminMainWindow.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\AdminMainWindow.baml

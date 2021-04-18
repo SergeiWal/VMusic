@@ -10,7 +10,6 @@
         WindowStyle="None"
         AllowsTransparency ="True"
         Background="Transparent"
-        MouseDown="Window_MouseDown"
         Title="ClientMainWindow" 
         Height="600" Width="1024">
     <Grid Background="{StaticResource BackgroundColor}">

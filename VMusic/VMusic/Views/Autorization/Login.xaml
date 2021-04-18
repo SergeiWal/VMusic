@@ -47,6 +47,7 @@
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
                     Margin="0 15"
+                    Command="{Binding LoginCommand }"
                     >
                 <Button.Content>
                     <TextBlock>Войти</TextBlock>

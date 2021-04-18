@@ -75,7 +75,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return registrationCommand ?? (registrationCommand = new Command((obj) => {
-                    owner.Close();
+                   SwitchTo(new Login(), owner);
                 }));
             }
         }

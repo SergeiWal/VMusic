@@ -10,7 +10,6 @@
         WindowStyle="None"
         AllowsTransparency ="True"
         Background="Transparent" 
-        MouseDown="Window_MouseDown"
         Title="AdminMainWindow" 
         Height="495" Width="920">
     <Grid Background="{StaticResource BackgroundColor}">

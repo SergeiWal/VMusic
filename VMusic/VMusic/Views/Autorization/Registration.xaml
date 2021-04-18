@@ -59,6 +59,7 @@
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
                     Margin="0 10"
+                    Command="{Binding RegistrationCommand}"
                     >
                 <Button.Content>
                     <TextBlock>Регистрация</TextBlock>
