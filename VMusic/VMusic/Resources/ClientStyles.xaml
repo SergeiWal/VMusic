@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VMusic"
+                    >
+    <LinearGradientBrush x:Key="BackgroundColor">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#FF3C374B" Offset="0"/>
+            <GradientStop Color="#FF1F1F1F" Offset="1"/>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ElementColor" Color="DeepPink"/>
+
+    <Style x:Key="AppControlButton" TargetType="Button">
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="VerticalLine" TargetType="Border">
+        <Setter Property="Background" Value="DeepPink"/>
+        <Setter Property="Width" Value="2"/>
+        <Setter Property="Height" Value="72"/>
+    </Style>
+    
+</ResourceDictionary>
