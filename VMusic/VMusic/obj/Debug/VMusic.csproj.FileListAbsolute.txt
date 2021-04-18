@@ -21,3 +21,9 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\LoginAsAdmin.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\LoginAsAdmin.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Registration.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Autorization\Registration.baml
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\MaterialDesignColors.dll
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\MaterialDesignColors.pdb
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\GIT\VMusic\VMusic\VMusic\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\VMusic.csproj.CopyComplete

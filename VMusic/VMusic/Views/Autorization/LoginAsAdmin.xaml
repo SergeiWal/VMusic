@@ -37,10 +37,12 @@
             <StackPanel Margin="0 10" >
                 <TextBlock>Логин</TextBlock>
                 <TextBox x:Name="LoginBox"></TextBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <StackPanel Margin="0 10">
                 <TextBlock>Пароль</TextBlock>
                 <PasswordBox x:Name="PasswordBox" ></PasswordBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
@@ -50,7 +52,7 @@
                     <TextBlock>Войти</TextBlock>
                 </Button.Content>
             </Button>
-            <StackPanel Margin="0 15">
+            <StackPanel Margin="0 5">
                 <Button Style="{StaticResource TrassissionButton}"
                         Command="{Binding SwitchToLoginCommand}">
                     <TextBlock Style="{StaticResource TextButton}">Войти как пользователь</TextBlock>

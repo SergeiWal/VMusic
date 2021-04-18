@@ -36,31 +36,35 @@
             <StackPanel Margin="0 10" >
                 <TextBlock>Имя</TextBlock>
                 <TextBox x:Name="NameBox"></TextBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <StackPanel Margin="0 10" >
                 <TextBlock>Логин</TextBlock>
                 <TextBox x:Name="LoginBox"></TextBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <StackPanel Margin="0 10">
                 <TextBlock>Пароль</TextBlock>
                 <PasswordBox x:Name="PasswordBox" ></PasswordBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <StackPanel Margin="0 10">
                 <TextBlock>Повторите пароль</TextBlock>
                 <PasswordBox x:Name="RepeatPasswordBox" ></PasswordBox>
+                <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
 
 
             <Button x:Name="EnterButton" 
                     Style="{StaticResource EnterButton}" 
-                    Margin="0 15"
+                    Margin="0 10"
                     >
                 <Button.Content>
                     <TextBlock>Регистрация</TextBlock>
                 </Button.Content>
             </Button>
-            <StackPanel Margin="0 15">
+            <StackPanel Margin="0 5">
                 <Button Style="{StaticResource TrassissionButton}"
                         Command="{Binding SwitchToLoginCommand}">
                     <TextBlock Style="{StaticResource TextButton}">Войти как пользователь</TextBlock>
