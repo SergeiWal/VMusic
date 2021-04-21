@@ -35,6 +35,9 @@ namespace VMusic.ViewModels
         }
 
         private Command exitCommand;
+        private Command windowSizeChangeCommand;
+        private Command collapseWindow;
+
         public Command ExitCommand
         {
             get
@@ -42,6 +45,30 @@ namespace VMusic.ViewModels
                 return exitCommand ?? (exitCommand = new Command((obj) => {
                     owner.Close();
                 }));
+            }
+        }
+
+        public Command WindowSizeChangeCommand
+        {
+            get
+            {
+                return  windowSizeChangeCommand ?? (windowSizeChangeCommand = new Command((obj) =>
+                    {
+                        owner.WindowState = owner.WindowState != WindowState.Maximized ? WindowState.Maximized : WindowState.Normal;
+                    }
+                ));
+            }
+        }
+
+        public Command CollapseWindow
+        {
+            get
+            {
+                return collapseWindow ?? (collapseWindow = new Command((obj) =>
+                    {
+                        owner.WindowState = WindowState.Minimized;
+                    }
+                ));
             }
         }
     }

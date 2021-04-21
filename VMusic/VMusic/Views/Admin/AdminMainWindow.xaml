@@ -11,7 +11,9 @@
         AllowsTransparency ="True"
         Background="Transparent" 
         Title="AdminMainWindow" 
-        Height="495" Width="920">
+        Height="495" Width="920"
+        MinHeight="495" MinWidth="920"
+        MouseDown="Window_MouseDown">
     <Grid Background="{StaticResource BackgroundColor}">
 
         <Grid.ColumnDefinitions>
@@ -138,10 +140,12 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        Margin="10">
-                <Button Style="{StaticResource AppControlButton}">
+                <Button Style="{StaticResource AppControlButton}"
+                        Command="{Binding CollapseWindow}">
                     <materialDesign:PackIcon Kind="Minus" Foreground="{StaticResource ElementColor}"/>
                 </Button>
-                <Button Style="{StaticResource AppControlButton}">
+                <Button Style="{StaticResource AppControlButton}"
+                        Command="{Binding WindowSizeChangeCommand}">
                     <materialDesign:PackIcon Kind="FullscreenExit" Foreground="{StaticResource ElementColor}"/>
                 </Button>
                 <Button Style="{StaticResource AppControlButton}"
