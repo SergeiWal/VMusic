@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VMusic.ViewModels.Admin;
 
 namespace VMusic.Views.Admin
 {
@@ -22,6 +23,7 @@ namespace VMusic.Views.Admin
         public AdminMainWindow()
         {
             InitializeComponent();
+            DataContext = new AdminMainViewModel(this);
         }
     }
 }

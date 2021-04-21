@@ -144,7 +144,8 @@
                 <Button Style="{StaticResource AppControlButton}">
                     <materialDesign:PackIcon Kind="FullscreenExit" Foreground="{StaticResource ElementColor}"/>
                 </Button>
-                <Button Style="{StaticResource AppControlButton}">
+                <Button Style="{StaticResource AppControlButton}"
+                        Command="{Binding ExitCommand}">
                     <materialDesign:PackIcon Kind="PresenceExit" Foreground="{StaticResource ElementColor}"/>
                 </Button>
             </WrapPanel>

@@ -6,11 +6,21 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
+using VMusic.Commands;
 
 namespace VMusic.ViewModels
 {
     class BaseViewModel: INotifyPropertyChanged
     {
+
+        protected Window owner;
+
+        public BaseViewModel(Window owner)
+        {
+            this.owner = owner;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -22,6 +32,17 @@ namespace VMusic.ViewModels
         {
             window.Show();
             owner.Close();
+        }
+
+        private Command exitCommand;
+        public Command ExitCommand
+        {
+            get
+            {
+                return exitCommand ?? (exitCommand = new Command((obj) => {
+                    owner.Close();
+                }));
+            }
         }
     }
 }

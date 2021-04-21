@@ -65,7 +65,8 @@
                 <Button Style="{StaticResource AppControlButton}">
                     <materialDesign:PackIcon Kind="FullscreenExit" Foreground="{StaticResource ElementColor}"/>
                 </Button>
-                <Button Style="{StaticResource AppControlButton}">
+                <Button Style="{StaticResource AppControlButton}"
+                        Command="{Binding ExitCommand}">
                     <materialDesign:PackIcon Kind="PresenceExit" Foreground="{StaticResource ElementColor}"/>
                 </Button>
             </WrapPanel>
@@ -202,7 +203,14 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0"></Image>
+                <materialDesign:PackIcon Grid.Column="0"
+                                         Kind="Music"
+                                         Foreground="DeepPink"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Width="48"
+                                         Height="48"/>
+
                 <StackPanel Grid.Column="1"
                             Margin="2 7">
                     <TextBlock Text="name" FontSize="18"/>

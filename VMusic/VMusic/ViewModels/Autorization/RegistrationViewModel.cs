@@ -14,16 +14,13 @@ namespace VMusic.ViewModels.Autorization
     class RegistrationViewModel : BaseViewModel
     {
 
-        private Window owner;
-
         private string name;
         private string login;
         private string password;
         private string repeatPassword;
 
-        public RegistrationViewModel(Window owner)
+        public RegistrationViewModel(Window owner): base(owner)
         {
-            this.owner = owner;
         }
 
 
@@ -68,8 +65,7 @@ namespace VMusic.ViewModels.Autorization
         private Command registrationCommand;
         private Command switchToLoginCommand;
         private Command switchToLoginAsAdminCommand;
-        private Command exitCommand;
-
+        
         public Command RegistrationCommand
         {
             get
@@ -97,16 +93,6 @@ namespace VMusic.ViewModels.Autorization
             {
                 return switchToLoginAsAdminCommand ?? (switchToLoginAsAdminCommand = new Command((obj) => {
                     SwitchTo(new LoginAsAdmin(), owner);
-                }));
-            }
-        }
-
-        public Command ExitCommand
-        {
-            get
-            {
-                return exitCommand ?? (exitCommand = new Command((obj) => {
-                    owner.Close();
                 }));
             }
         }
