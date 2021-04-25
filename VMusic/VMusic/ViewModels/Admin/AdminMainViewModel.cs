@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace VMusic.ViewModels.Admin
 {
-    class AdminMainViewModel: BaseViewModel
+    class AdminMainViewModel: BaseWindowViewModel
     {
         public AdminMainViewModel(Window owner) : base(owner)
         {

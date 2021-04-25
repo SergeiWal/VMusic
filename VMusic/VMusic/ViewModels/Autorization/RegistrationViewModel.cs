@@ -11,7 +11,7 @@ using VMusic.Views.Autorization;
 
 namespace VMusic.ViewModels.Autorization
 {
-    class RegistrationViewModel : BaseViewModel
+    class RegistrationViewModel : BaseWindowViewModel
     {
 
         private string name;

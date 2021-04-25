@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace VMusic.ViewModels.Client
 {
-    class ClientMainViewModel: BaseViewModel
+    class ClientMainViewModel: BaseWindowViewModel
     {
         public ClientMainViewModel(Window owner) : base(owner)
         {

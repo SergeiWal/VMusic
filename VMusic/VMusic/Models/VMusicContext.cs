@@ -14,7 +14,7 @@ namespace VMusic.Models
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Sing> Sings { get; set; }
+        public DbSet<Song> Songs { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
     }
 }

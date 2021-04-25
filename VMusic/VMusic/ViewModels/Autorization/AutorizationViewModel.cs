@@ -15,7 +15,7 @@ using VMusic.Views.Client;
 
 namespace VMusic.ViewModels.Autorization
 {
-    class AutorizationViewModel : BaseViewModel
+    class AutorizationViewModel : BaseWindowViewModel
     {
         private string login;
         private string password;

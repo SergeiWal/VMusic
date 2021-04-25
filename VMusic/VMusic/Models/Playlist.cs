@@ -15,11 +15,11 @@ namespace VMusic.Models
         public int? UserId { get; set; }
         public User User { get; set; }
 
-        public ICollection<Sing> Sings { get; set; }
+        public ICollection<Song> Songs { get; set; }
 
         public Playlist()
         {
-            Sings = new List<Sing>();
+            Songs = new List<Song>();
         }
     }
 }

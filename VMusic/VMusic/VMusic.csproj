@@ -74,16 +74,20 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\MusicGenre.cs" />
     <Compile Include="Models\Playlist.cs" />
-    <Compile Include="Models\Sing.cs" />
+    <Compile Include="Models\Song.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VMusicContext.cs" />
     <Compile Include="ViewModels\Admin\AdminMainViewModel.cs" />
     <Compile Include="ViewModels\Autorization\AutorizationViewModel.cs" />
     <Compile Include="ViewModels\Autorization\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseWindowViewModel.cs" />
     <Compile Include="ViewModels\Client\ClientMainViewModel.cs" />
     <Compile Include="Views\Admin\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MusicPage.xaml.cs">
+      <DependentUpon>MusicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Autorization\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -113,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\MusicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

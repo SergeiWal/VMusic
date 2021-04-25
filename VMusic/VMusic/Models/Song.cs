@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VMusic.Models
 {
-    class Sing
+    class Song
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace VMusic.Models
 
         public ICollection<Playlist> Playlists { get; set; }
 
-        public Sing()
+        public Song()
         {
             Playlists = new List<Playlist>();
         }
