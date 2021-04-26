@@ -36,3 +36,5 @@ D:\GIT\VMusic\VMusic\VMusic\bin\Debug\EntityFramework.dll
 D:\GIT\VMusic\VMusic\VMusic\bin\Debug\EntityFramework.SqlServer.dll
 D:\GIT\VMusic\VMusic\VMusic\bin\Debug\EntityFramework.xml
 D:\GIT\VMusic\VMusic\VMusic\bin\Debug\EntityFramework.SqlServer.xml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\MusicPage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\MusicPage.baml
