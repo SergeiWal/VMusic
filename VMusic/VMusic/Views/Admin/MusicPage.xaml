@@ -168,7 +168,8 @@
                        Margin="0 5 5 10"
                        VerticalScrollBarVisibility="Hidden"
                        HorizontalScrollBarVisibility="Disabled">
-            <ListView Background="Transparent">
+            <ListView Background="Transparent" 
+                      ItemsSource="{Binding Songs}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border  BorderThickness="0"
@@ -184,7 +185,8 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Name="Id" Text="" FontSize="18"
+                                <TextBlock Name="Id" 
+                                           Text="{Binding Id}" FontSize="18"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                                 </TextBlock>
@@ -197,20 +199,20 @@
                                                  Margin="5 5"/>
                                     </Grid>
                                     <StackPanel>
-                                        <TextBlock Name="Name" Text="" FontSize="18" Margin="5 5"></TextBlock>
-                                        <TextBlock Name="Author" Text="" FontSize="18" Margin="5 5"></TextBlock>
+                                        <TextBlock Name="Name" Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
+                                        <TextBlock Name="Author" Text="{Binding Author}" FontSize="18" Margin="5 5"></TextBlock>
                                     </StackPanel>
                                 </WrapPanel>
                                 <WrapPanel Grid.Row="0" Grid.Column="2">
                                     <TextBlock Name="Album"
-                                    Text="" FontSize="18" Margin="5 5"></TextBlock>
+                                    Text="{Binding Album}" FontSize="18" Margin="5 5"></TextBlock>
                                 </WrapPanel>
 
                                 <TextBlock Grid.Row="0" Grid.Column="3" 
                                            Name="Rating"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           Text=""
+                                           Text="{Binding Rating}"
                                            FontSize="18" Margin="5 5">
                                 </TextBlock>
 

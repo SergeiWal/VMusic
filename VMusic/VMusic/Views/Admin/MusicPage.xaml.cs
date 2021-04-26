@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VMusic.Models;
+using VMusic.ViewModels.Admin;
 
 namespace VMusic.Views.Admin
 {
@@ -23,6 +25,7 @@ namespace VMusic.Views.Admin
         public MusicPage()
         {
             InitializeComponent();
+            DataContext = new MusicPageViewModel(new List<Song>());
         }
     }
 }
