@@ -29,7 +29,9 @@
 
         <Frame Grid.Row="1"
                Grid.Column="1" Grid.ColumnSpan="2"
-               Margin="15 15"/>
+               HorizontalAlignment="Stretch"
+               Margin="15 15"
+               Content="{Binding CurrentPage}"/>
 
         <Grid Grid.Row="0" Grid.Column="0"
               Grid.RowSpan="2"
