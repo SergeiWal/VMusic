@@ -8,11 +8,77 @@
       d:DesignHeight="450"
       d:DesignWidth="700"
       Title="AddMusicPage">
-
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
         <Border CornerRadius="20" Grid.RowSpan="3"
                 Grid.ColumnSpan="5"
                 Background="#FF131317">
         </Border>
+
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Margin="10 10">
+
+            <StackPanel Margin="0 10">
+                <TextBlock>Название</TextBlock>
+                <TextBox x:Name="Name" ></TextBox>
+                <Border Style="{StaticResource Underline}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0 10">
+                <TextBlock>Автор</TextBlock>
+                <TextBox x:Name="Author" ></TextBox>
+                <Border Style="{StaticResource Underline}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0 10">
+                <TextBlock>Альбом</TextBlock>
+                <TextBox x:Name="Album" ></TextBox>
+                <Border Style="{StaticResource Underline}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0 10">
+                <TextBlock>Жанр</TextBlock>
+                <ComboBox x:Name="Genre" >
+                    <TextBlock Text="Поп"></TextBlock>
+                    <TextBlock Text="Рок"></TextBlock>
+                    <TextBlock Text="Инструментальная"></TextBlock>
+                    <TextBlock Text="Инди"></TextBlock>
+                    <TextBlock Text="Реп"></TextBlock>
+                    <TextBlock Text="Фолк"></TextBlock>
+                    <TextBlock Text="Джаз"></TextBlock>
+                </ComboBox>
+                <Border Style="{StaticResource Underline}"/>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Margin="10 30">
+            <Image x:Name="MusicImg"></Image>
+            <Button
+                Margin="0 10"
+                Style="{StaticResource EnterButton}">
+                <TextBlock Text="Изоброжение"></TextBlock>
+            </Button>
+            <Button
+                Margin="0 10"
+                Style="{StaticResource EnterButton}">
+                <TextBlock Text="Трек"></TextBlock>
+            </Button>
+            <Button Margin="0 10"
+                Style="{StaticResource EnterButton}">
+                <TextBlock Text="Добавить"></TextBlock>
+            </Button>
+        </StackPanel>
+
+
     </Grid>
 </Page>

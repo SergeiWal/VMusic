@@ -10,11 +10,11 @@ namespace VMusic.ViewModels.Admin
 {
     class MusicPageViewModel: BaseViewModel
     {
-        public ObservableCollection<Song> Songs;
+        public ObservableCollection<SongViewModel> Songs;
 
-        public MusicPageViewModel(ICollection<Song> songs)
+        public MusicPageViewModel(List<Song> songs)
         {
-            Songs = new ObservableCollection<Song>();
+            Songs = new ObservableCollection<SongViewModel>(songs.Select(s=> new SongViewModel(s)));
         }
     }
 }

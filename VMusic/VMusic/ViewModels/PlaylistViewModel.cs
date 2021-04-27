@@ -13,7 +13,7 @@ namespace VMusic.ViewModels
     {
         private Playlist playlist;
 
-        public PlaylistViewModel()
+        public PlaylistViewModel(Playlist playlist)
         {
             this.playlist = playlist;
         }
