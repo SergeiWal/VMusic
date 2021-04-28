@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using VMusic.Commands;
 using VMusic.Converters;
@@ -80,6 +81,7 @@ namespace VMusic.ViewModels.Admin
                 OnPropertyChanged("ResultString");
             }
         }
+
 
         private Command addMusic;
         private Command addSource;

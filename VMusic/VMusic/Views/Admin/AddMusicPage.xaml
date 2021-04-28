@@ -62,7 +62,6 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Stretch"
                     Margin="10 30">
-            <Image x:Name="MusicImg"></Image>
             <Button
                 Margin="0 10"
                 Style="{StaticResource EnterButton}"

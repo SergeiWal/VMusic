@@ -159,6 +159,11 @@
             <ListView Background="Transparent" 
                       BorderThickness="0"
                       ItemsSource="{Binding Songs}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border  BorderThickness="0"
