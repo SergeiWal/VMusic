@@ -42,5 +42,6 @@ namespace VMusic.Converters
             image.Freeze();
             return image;
         }
+
     }
 }

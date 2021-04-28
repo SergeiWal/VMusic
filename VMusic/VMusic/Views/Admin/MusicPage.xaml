@@ -165,16 +165,16 @@
         <ScrollViewer  Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="5"
                        Background="Transparent"
-                       Margin="0 5 5 10"
                        VerticalScrollBarVisibility="Hidden"
                        HorizontalScrollBarVisibility="Disabled">
             <ListView Background="Transparent" 
                       BorderThickness="0"
                       ItemsSource="{Binding Songs}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate >
                         <Border  BorderThickness="0"
                                  Height="60"
+                                 HorizontalAlignment="Stretch"
                                  Background="Transparent"
                                  BorderBrush="Transparent">
                             <Grid>
@@ -197,7 +197,8 @@
                                                Width="36" Height="36"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="5 5"/>
+                                                 Margin="5 5"
+                                               Source="{Binding Image}"/>
                                     </Grid>
                                     <StackPanel>
                                         <TextBlock Name="Name" Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
@@ -242,5 +243,6 @@
             </ListView>
         </ScrollViewer>
 
+       
     </Grid>
 </Page>

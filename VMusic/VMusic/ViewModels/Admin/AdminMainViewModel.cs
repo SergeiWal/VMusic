@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using VMusic.Commands;
+using VMusic.Repository;
 using VMusic.Views.Admin;
 
 namespace VMusic.ViewModels.Admin
 {
     class AdminMainViewModel: BaseWindowViewModel
     {
+
         private UserPage userPage;
         private AddMusicPage addMusicPage;
         private MusicPage musicPage;

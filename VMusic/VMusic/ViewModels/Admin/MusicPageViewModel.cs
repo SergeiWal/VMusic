@@ -5,16 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VMusic.Models;
+using VMusic.Repository;
 
 namespace VMusic.ViewModels.Admin
 {
     class MusicPageViewModel: BaseViewModel
     {
-        public ObservableCollection<SongViewModel> Songs;
+        private SongRepository repository;
+        public ObservableCollection<SongViewModel> Songs { get; set; }
 
-        public MusicPageViewModel(List<Song> songs)
+        public MusicPageViewModel()
         {
-            Songs = new ObservableCollection<SongViewModel>(songs.Select(s=> new SongViewModel(s)));
+            repository = new SongRepository();
+            Songs = new ObservableCollection<SongViewModel>(repository.GetAllObject().Select(s=> new SongViewModel(s)));
         }
     }
 }

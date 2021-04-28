@@ -26,25 +26,25 @@
 
             <StackPanel Margin="0 10">
                 <TextBlock>Название</TextBlock>
-                <TextBox x:Name="Name" ></TextBox>
+                <TextBox x:Name="Name" Text="{Binding Name, Mode=TwoWay}" ></TextBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
             <StackPanel Margin="0 10">
                 <TextBlock>Автор</TextBlock>
-                <TextBox x:Name="Author" ></TextBox>
+                <TextBox x:Name="Author" Text="{Binding Author, Mode=TwoWay}"  ></TextBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
             <StackPanel Margin="0 10">
                 <TextBlock>Альбом</TextBlock>
-                <TextBox x:Name="Album" ></TextBox>
+                <TextBox x:Name="Album" Text="{Binding Album, Mode=TwoWay}" ></TextBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
             <StackPanel Margin="0 10">
                 <TextBlock>Жанр</TextBlock>
-                <ComboBox x:Name="Genre" >
+                <ComboBox x:Name="Genre" SelectedItem="{Binding Genre, Mode=TwoWay}" >
                     <TextBlock Text="Поп"></TextBlock>
                     <TextBlock Text="Рок"></TextBlock>
                     <TextBlock Text="Инструментальная"></TextBlock>
@@ -65,18 +65,22 @@
             <Image x:Name="MusicImg"></Image>
             <Button
                 Margin="0 10"
-                Style="{StaticResource EnterButton}">
+                Style="{StaticResource EnterButton}"
+                Command="{Binding AddImage}">
                 <TextBlock Text="Изоброжение"></TextBlock>
             </Button>
             <Button
                 Margin="0 10"
-                Style="{StaticResource EnterButton}">
+                Style="{StaticResource EnterButton}"
+                Command="{Binding AddSource}">
                 <TextBlock Text="Трек"></TextBlock>
             </Button>
             <Button Margin="0 10"
-                Style="{StaticResource EnterButton}">
+                Style="{StaticResource EnterButton}"
+                Command="{Binding AddMusic}">
                 <TextBlock Text="Добавить"></TextBlock>
             </Button>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}"></TextBlock>
         </StackPanel>
 
 
