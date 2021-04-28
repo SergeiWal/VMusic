@@ -12,14 +12,18 @@ namespace VMusic.ViewModels.Admin
 {
     class AdminMainViewModel: BaseWindowViewModel
     {
+        private UserPage userPage;
         private AddMusicPage addMusicPage;
         private MusicPage musicPage;
+        private TopMusicPage topMusicList;
         private Page currentPage;
 
         public AdminMainViewModel(Window owner) : base(owner)
         {
+            userPage = new UserPage();
             addMusicPage = new AddMusicPage();
             musicPage = new MusicPage();
+            topMusicList = new TopMusicPage();
 
             CurrentPage = musicPage;
         }
@@ -36,7 +40,8 @@ namespace VMusic.ViewModels.Admin
 
         private Command switchToAddMusic;
         private Command switchToMusicList;
-
+        private Command switchToUserList;
+        private Command switchToTopMusicList;
 
         public Command SwitchToMusicList
         {
@@ -49,6 +54,18 @@ namespace VMusic.ViewModels.Admin
             }
         }
 
+        public Command SwitchToTopMusicList
+        {
+            get
+            {
+                return switchToTopMusicList ?? (switchToTopMusicList = new Command((obj) =>
+                {
+                    CurrentPage = topMusicList;
+                }));
+            }
+        }
+
+
         public Command SwitchToAddMusic
         {
             get
@@ -56,6 +73,17 @@ namespace VMusic.ViewModels.Admin
                 return switchToAddMusic ?? (switchToAddMusic = new Command((obj) =>
                 {
                     CurrentPage = addMusicPage;
+                }));
+            }
+        }
+
+        public Command SwitchToUserList
+        {
+            get
+            {
+                return switchToUserList ?? (switchToUserList = new Command((obj) =>
+                {
+                    CurrentPage = userPage;
                 }));
             }
         }

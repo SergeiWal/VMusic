@@ -69,6 +69,7 @@
                     <Button Background="Transparent"
                             BorderThickness="0"
                             Margin="10 10"
+                            Command="{Binding SwitchToTopMusicList}"
                             >
                         <Grid Width="160"
                             Height="32">
@@ -106,7 +107,8 @@
                     </Button>
                     <Button Background="Transparent"
                             BorderThickness="0"
-                            Margin="10 10">
+                            Margin="10 10"
+                            Command="{Binding SwitchToUserList}">
                         <Grid Width="160"
                             Height="32">
                             <StackPanel Orientation="Horizontal">

@@ -1,4 +1,4 @@
-﻿<Page x:Class="VMusic.Views.Admin.MusicPage"
+﻿<Page x:Class="VMusic.Views.Admin.TopMusicPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:VMusic.Views.Admin"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="477.2"
-      Title="MusicPage">
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TopMusicPage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,27 +32,15 @@
         <Button Grid.Column="1"
                 Style="{StaticResource AppControlButton}"
                 HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
                 Width="200"
+                Margin="10 0"
             >
             <Button.Content>
                 <TextBlock
                     Foreground="#FFBDBDBD"
                     Opacity="0.3"
-                    Text="Сортировать по рейтингу">
-                </TextBlock>
-            </Button.Content>
-        </Button>
-
-        <Button Grid.Column="2"
-                Style="{StaticResource AppControlButton}"
-                HorizontalAlignment="Left"
-                Width="200"
-        >
-            <Button.Content>
-                <TextBlock
-                    Foreground="#FFBDBDBD"
-                    Opacity="0.3"
-                    Text="Сортировать по id">
+                    Text="Обновить">
                 </TextBlock>
             </Button.Content>
         </Button>
@@ -87,7 +75,7 @@
                 Opacity="0.2"
                 Panel.ZIndex="1"
                 />
-        
+
 
 
         <TextBlock Grid.Row="1" Grid.Column="0"

@@ -41,3 +41,7 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\MusicPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\AddMusicPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Resources\ComboBoxStyles.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\AddMusicPage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\UserPage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\UserPage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.baml
