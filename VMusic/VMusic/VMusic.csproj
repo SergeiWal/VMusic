@@ -80,11 +80,13 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VMusicContext.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PlaylistRepository.cs" />
     <Compile Include="Repository\SongRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="ViewModels\Admin\AddMusicViewModel.cs" />
     <Compile Include="ViewModels\Admin\AdminMainViewModel.cs" />
     <Compile Include="ViewModels\Admin\MusicPageViewModel.cs" />
+    <Compile Include="ViewModels\Admin\TopMusicPageViewModel.cs" />
     <Compile Include="ViewModels\Autorization\AutorizationViewModel.cs" />
     <Compile Include="ViewModels\Autorization\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

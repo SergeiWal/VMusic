@@ -20,8 +20,8 @@
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1.4*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Border CornerRadius="20" Grid.RowSpan="3"
@@ -32,9 +32,8 @@
         <Button Grid.Column="1"
                 Style="{StaticResource AppControlButton}"
                 HorizontalAlignment="Left"
-                HorizontalContentAlignment="Left"
                 Width="200"
-                Margin="10 0"
+                Command="{Binding UpdateTopPlaylist}"
             >
             <Button.Content>
                 <TextBlock
@@ -44,39 +43,6 @@
                 </TextBlock>
             </Button.Content>
         </Button>
-
-
-        <StackPanel Grid.Column="4"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-                    Margin="10 0"
-                    Width="130">
-            <TextBox Text="Поиск" Foreground="#FFBDBDBD" 
-                       Opacity="0.3" 
-                       VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                       Grid.Column="4"
-                       Width="80"
-                       ></TextBox>
-            <Button Width="24" Height="24"
-                    VerticalAlignment="Center"
-                Style="{StaticResource AppControlButton}">
-                <materialDesign:PackIcon Kind="Search" 
-                                     Foreground="#FFBDBDBD" Opacity="0.3"
-                                     Width="24" Height="24"/>
-            </Button>
-        </StackPanel>
-        <Border Grid.Row="0" Grid.Column="4"
-                Height="2"
-                Background="#FFBDBDBD" Width="100"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Margin="10 5"
-                Opacity="0.2"
-                Panel.ZIndex="1"
-                />
-
-
 
         <TextBlock Grid.Row="1" Grid.Column="0"
             HorizontalAlignment="Center" 
@@ -99,17 +65,17 @@
             Text="альбом" 
             Foreground="DeepPink"
             ></TextBlock>
-        <materialDesign:PackIcon Kind="Heart" Grid.Row="1" Grid.Column="3"
+        <materialDesign:PackIcon Kind="Heart" Grid.Row="1" Grid.Column="4"
                                  Foreground="DeepPink" Width="24" Height="24"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="1" Grid.Column="4"
-            HorizontalAlignment="left" 
+        <TextBlock Grid.Row="1" Grid.Column="3"
+            HorizontalAlignment="Center" 
             VerticalAlignment="Center"
             FontSize="24"
-            Text="управление" 
+            Text="жанр" 
             Foreground="DeepPink"
-            Margin="5 0"
+            Margin="15 0"
             ></TextBlock>
 
 
@@ -153,21 +119,22 @@
         <ScrollViewer  Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="5"
                        Background="Transparent"
-                       Margin="0 5 5 10"
                        VerticalScrollBarVisibility="Hidden"
                        HorizontalScrollBarVisibility="Disabled">
-            <ListView Background="Transparent" 
+            <ListView Name="SongCollection" 
+                      Background="Transparent" 
                       BorderThickness="0"
-                      ItemsSource="{Binding Songs}">
+                      ItemsSource="{Binding TopSongList}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate >
                         <Border  BorderThickness="0"
                                  Height="60"
+                                 HorizontalAlignment="Stretch"
                                  Background="Transparent"
                                  BorderBrush="Transparent">
                             <Grid>
@@ -175,14 +142,14 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="1.5*"/>
                                     <ColumnDefinition Width="1.4*"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Name="Id" 
                                            Text="{Binding Id}" FontSize="18"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
+                                HorizontalAlignment="Left">
                                 </TextBlock>
                                 <WrapPanel Grid.Column="1">
                                     <Grid>
@@ -190,7 +157,8 @@
                                                Width="36" Height="36"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="5 5"/>
+                                                 Margin="5 5"
+                                               Source="{Binding Image}"/>
                                     </Grid>
                                     <StackPanel>
                                         <TextBlock Name="Name" Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
@@ -203,31 +171,21 @@
                                 </WrapPanel>
 
                                 <TextBlock Grid.Row="0" Grid.Column="3" 
+                               Name="Genre"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding Genre}"
+                               FontSize="18" Margin="5 5">
+                                </TextBlock>
+
+                                <TextBlock Grid.Row="0" Grid.Column="4" 
                                            Name="Rating"
-                                           HorizontalAlignment="Center"
+                                           HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
                                            Text="{Binding Rating}"
                                            FontSize="18" Margin="5 5">
                                 </TextBlock>
 
-                                <WrapPanel Grid.Row="0" Grid.Column="4" 
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Right"
-                               Margin="25 5">
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="Update" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="Delete" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                </WrapPanel>
-                                <Border Grid.ColumnSpan="5" 
-                            Background="#FFBDBDBD" Height="2"
-                            VerticalAlignment="Bottom"
-                            Opacity="0.2"
-                            Panel.ZIndex="1"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

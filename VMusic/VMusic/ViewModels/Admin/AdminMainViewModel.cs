@@ -38,6 +38,7 @@ namespace VMusic.ViewModels.Admin
             musicPage.DataContext = new MusicPageViewModel(LocalSongList);
 
             topMusicList = new TopMusicPage();
+            topMusicList.DataContext = new TopMusicPageViewModel();
 
             CurrentPage = musicPage;
         }
