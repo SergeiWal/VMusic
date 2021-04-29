@@ -21,7 +21,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.3*"/>
         </Grid.ColumnDefinitions>
 
         <Border CornerRadius="20" Grid.RowSpan="3"
@@ -29,67 +28,47 @@
                 Background="#FF131317">
         </Border>
 
-        <Button Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Style="{StaticResource AppControlButton}"
-                HorizontalAlignment="Left"
-                Width="200"
-            >
-            <Button.Content>
-                <TextBlock
-                    Foreground="#FFBDBDBD"
-                    Opacity="0.3"
-                    Text="Сортировать по имени">
-                </TextBlock>
-            </Button.Content>
-        </Button>
-
-        <Button Grid.Column="2"
-                Style="{StaticResource AppControlButton}"
-                HorizontalAlignment="Left"
-                Width="200"
-        >
-            <Button.Content>
-                <TextBlock
-                    Foreground="#FFBDBDBD"
-                    Opacity="0.3"
-                    Text="Сортировать по роли">
-                </TextBlock>
-            </Button.Content>
-        </Button>
-
-      
-
-
-        <StackPanel Grid.Column="4"
-                    Orientation="Horizontal"
+        <WrapPanel Grid.ColumnSpan="4"
+                   HorizontalAlignment="Center">
+            <Button Style="{StaticResource AppControlButton}"
                     HorizontalAlignment="Left"
-                    Margin="10 0"
-                    Width="130">
-            <TextBox Text="Поиск" Foreground="#FFBDBDBD" 
-                       Opacity="0.3" 
-                       VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                       Grid.Column="4"
-                       Width="80"
-                       ></TextBox>
-            <Button Width="24" Height="24"
-                    VerticalAlignment="Center"
-                Style="{StaticResource AppControlButton}">
-                <materialDesign:PackIcon Kind="Search" 
-                                     Foreground="#FFBDBDBD" Opacity="0.3"
-                                     Width="24" Height="24"/>
+                    Width="230"
+            >
+                <Button.Content>
+                    <TextBlock
+                        Foreground="#FFBDBDBD"
+                        Opacity="0.3"
+                        Text="Заблокривать/разблокировать">
+                    </TextBlock>
+                </Button.Content>
             </Button>
-        </StackPanel>
-        <Border Grid.Row="0" Grid.Column="4"
-                Height="2"
-                Background="#FFBDBDBD" Width="100"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Margin="10 5"
-                Opacity="0.2"
-                Panel.ZIndex="1"
-                />
+
+            <Button Style="{StaticResource AppControlButton}"
+                    HorizontalAlignment="Right"
+                    Width="225"
+            >
+                <Button.Content>
+                    <TextBlock
+                        Foreground="#FFBDBDBD"
+                        Opacity="0.3"
+                        Text="Удалить">
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+
+            <Button Style="{StaticResource AppControlButton}"
+                    HorizontalAlignment="Right"
+                    Width="225"
+            >
+                <Button.Content>
+                    <TextBlock
+                        Foreground="#FFBDBDBD"
+                        Opacity="0.3"
+                        Text="Сделать админом">
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
 
 
 
@@ -120,14 +99,6 @@
             FontSize="24"
             Text="роль" 
             Foreground="DeepPink"
-            ></TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="4"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-            FontSize="24"
-            Text="управление" 
-            Foreground="DeepPink"
-            Margin="5 0"
             ></TextBlock>
 
 
@@ -160,13 +131,7 @@
                 Opacity="0.2"
                 Panel.ZIndex="1"
                 />
-        <Border Grid.Row="1" Grid.RowSpan="3"
-                Grid.Column="3"
-                Background="#FFBDBDBD" Width="2"
-                HorizontalAlignment="Right"
-                Opacity="0.2"
-                Panel.ZIndex="1"
-                />
+        
 
         <ScrollViewer  Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="5"
@@ -194,7 +159,6 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="1.3*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Name="Id" 
@@ -212,34 +176,17 @@
                                 Text="Blocked" FontSize="18"
                                 Margin="10 0"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                                HorizontalAlignment="Center">
                                 </TextBlock>
 
                                 <TextBlock Grid.Row="0" Grid.Column="3" 
                                            Name="Role"
-                                           HorizontalAlignment="Left"
+                                           HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Text="Admin"
                                            FontSize="18" Margin="10 0">
                                 </TextBlock>
 
-                                <WrapPanel Grid.Row="0" Grid.Column="4" 
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Right"
-                               Margin="25 5">
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="UserBlock" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="UserBadge" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="Delete" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                </WrapPanel>
                                 <Border Grid.ColumnSpan="5" 
                             Background="#FFBDBDBD" Height="2"
                             VerticalAlignment="Bottom"
@@ -251,5 +198,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
+       
     </Grid>
 </Page>
