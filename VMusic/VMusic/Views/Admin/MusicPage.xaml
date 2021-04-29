@@ -38,7 +38,7 @@
                 <TextBlock
                     Foreground="#FFBDBDBD"
                     Opacity="0.3"
-                    Text="Сортировать по рейтингу">
+                    Text="Редактировать">
                 </TextBlock>
             </Button.Content>
         </Button>
@@ -47,12 +47,14 @@
                 Style="{StaticResource AppControlButton}"
                 HorizontalAlignment="Left"
                 Width="200"
+                Command="{Binding DeleteSong}"
+                CommandParameter="{Binding  SelectedSong}"
         >
             <Button.Content>
                 <TextBlock
                     Foreground="#FFBDBDBD"
                     Opacity="0.3"
-                    Text="Сортировать по id">
+                    Text="Удалить">
                 </TextBlock>
             </Button.Content>
         </Button>
@@ -116,10 +118,10 @@
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="4"
-            HorizontalAlignment="left" 
+            HorizontalAlignment="Center" 
             VerticalAlignment="Center"
             FontSize="24"
-            Text="управление" 
+            Text="жанр" 
             Foreground="DeepPink"
             Margin="5 0"
             ></TextBlock>
@@ -167,9 +169,11 @@
                        Background="Transparent"
                        VerticalScrollBarVisibility="Hidden"
                        HorizontalScrollBarVisibility="Disabled">
-            <ListView Background="Transparent" 
+            <ListView Name="SongCollection" 
+                      Background="Transparent" 
                       BorderThickness="0"
-                      ItemsSource="{Binding Songs}">
+                      ItemsSource="{Binding Songs}"
+                      SelectedItem="{Binding SelectedSong}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
@@ -223,19 +227,14 @@
                                            FontSize="18" Margin="5 5">
                                 </TextBlock>
 
-                                <WrapPanel Grid.Row="0" Grid.Column="4" 
+                                <TextBlock Grid.Row="0" Grid.Column="4" 
+                               Name="Genre"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               HorizontalAlignment="Right"
-                               Margin="25 5">
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="Update" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                    <Button Style="{StaticResource AppControlButton}"
-                                Width="32" Height="32" >
-                                        <materialDesign:PackIcon Kind="Delete" Width="32" Height="32" Foreground="DeepPink"></materialDesign:PackIcon>
-                                    </Button>
-                                </WrapPanel>
+                               Text="{Binding Genre}"
+                               FontSize="18" Margin="5 5">
+                                </TextBlock>
+
                                 <Border Grid.ColumnSpan="5" 
                             Background="#FFBDBDBD" Height="2"
                             VerticalAlignment="Bottom"

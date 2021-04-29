@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VMusic.ViewModels;
 using VMusic.ViewModels.Admin;
 
 namespace VMusic.Views.Admin
@@ -21,10 +23,10 @@ namespace VMusic.Views.Admin
     /// </summary>
     public partial class AddMusicPage : Page
     {
+
         public AddMusicPage()
         {
             InitializeComponent();
-            DataContext = new AddMusicViewModel();
         }
     }
 }

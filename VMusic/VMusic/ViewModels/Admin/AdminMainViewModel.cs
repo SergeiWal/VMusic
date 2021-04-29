@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,18 +14,29 @@ namespace VMusic.ViewModels.Admin
 {
     class AdminMainViewModel: BaseWindowViewModel
     {
+        private SongRepository songRepository;
+        public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
         private UserPage userPage;
         private AddMusicPage addMusicPage;
         private MusicPage musicPage;
         private TopMusicPage topMusicList;
-        private Page currentPage;
+        private Page currentPage; 
 
         public AdminMainViewModel(Window owner) : base(owner)
         {
+            songRepository = new SongRepository();
+            LocalSongList = new ObservableCollection<SongViewModel>(songRepository.GetAllObject()
+                .Select(b => new SongViewModel(b)));
+
             userPage = new UserPage();
+
             addMusicPage = new AddMusicPage();
+            addMusicPage.DataContext = new AddMusicViewModel(LocalSongList);
+            
             musicPage = new MusicPage();
+            musicPage.DataContext = new MusicPageViewModel(LocalSongList);
+
             topMusicList = new TopMusicPage();
 
             CurrentPage = musicPage;

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using VMusic.Commands;
@@ -16,19 +19,22 @@ namespace VMusic.ViewModels.Admin
     class AddMusicViewModel: BaseViewModel
     {
 
+        private ObservableCollection<SongViewModel> LocalSongList { get; set; }
+
         private string name;
         private string author;
         private string album;
-        private string genre;
+        private TextBlock genre; 
         private string resultString = "";
 
         private SongRepository repository;
         private string path;
         private byte[] img;
 
-        public AddMusicViewModel()
+        public AddMusicViewModel(ObservableCollection<SongViewModel> localSongList)
         {
             repository = new SongRepository();
+            LocalSongList = localSongList;
         }
 
 
@@ -62,7 +68,7 @@ namespace VMusic.ViewModels.Admin
             }
         }
 
-        public string Genre
+        public TextBlock Genre
         {
             get => genre;
             set
@@ -102,14 +108,25 @@ namespace VMusic.ViewModels.Admin
                                 Name = this.Name,
                                 Album = this.Album,
                                 Author = this.Author,
-                                Genre = GenreConverter.StringToGenre(this.Genre),
+                                Genre = GenreConverter.StringToGenre(this.Genre.Text),
                                 Image = this.img,
                                 Rating = 0,
                                 Source = this.path
                             };
-                            repository.Create(song);
-                            repository.Save();
-                            ResultString = "Добавлено успешно!!!";
+
+                            if (!IsRepeat(new SongViewModel(song)))
+                            {
+                                repository.Create(song);
+                                repository.Save();
+                                AddSongToLocalCollection(song);
+                                ResultString = "Добавлено успешно!!!";
+                                ClearField();
+                            }
+                            else
+                            {
+                                ResultString = "Трек уже содержиться в базе!!!";
+                            }
+
                         }
                         catch(SqlException e)
                         {
@@ -163,7 +180,25 @@ namespace VMusic.ViewModels.Admin
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Author) && !string.IsNullOrEmpty(Album) &&
-                   !string.IsNullOrEmpty(Genre);
+                   !string.IsNullOrEmpty(Genre.Text) && !string.IsNullOrEmpty(path);
+        }
+
+        private void AddSongToLocalCollection(Song song)
+        {
+            var song_db = repository.GetById(song.Id);
+            LocalSongList.Add(new SongViewModel(song_db));
+        }
+
+        private bool IsRepeat(SongViewModel song)
+        {
+            return LocalSongList.Contains(song);
+        }
+
+        private void ClearField()
+        {
+            Name = "";
+            Author = "";
+            Album = "";
         }
 
     }

@@ -14,7 +14,7 @@ namespace VMusic.ViewModels
 {
     class SongViewModel: BaseViewModel
     {
-        private Song song;
+        public Song song;
 
         public SongViewModel(Song song)
         {
@@ -96,5 +96,23 @@ namespace VMusic.ViewModels
             }
         }
 
+
+        public override bool Equals(object obj)
+        {
+            SongViewModel song = obj as SongViewModel;
+            if (song != null)
+            {
+                if (this.Id == song.Id)
+                {
+                    return true;
+                }
+                else if(this.Name == song.Name && this.Author == song.Author)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
     }
 } 

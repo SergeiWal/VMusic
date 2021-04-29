@@ -26,7 +26,6 @@ namespace VMusic.Views.Admin
         public MusicPage()
         {
             InitializeComponent();
-            DataContext = new MusicPageViewModel();
         }
     }
 }
