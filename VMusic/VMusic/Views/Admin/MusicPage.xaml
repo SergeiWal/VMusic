@@ -139,7 +139,7 @@
         <ScrollViewer  Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="5"
                        Background="Transparent"
-                       VerticalScrollBarVisibility="Hidden"
+                       VerticalScrollBarVisibility="Auto"
                        HorizontalScrollBarVisibility="Disabled">
             <ListView Name="SongCollection" 
                       Background="Transparent" 

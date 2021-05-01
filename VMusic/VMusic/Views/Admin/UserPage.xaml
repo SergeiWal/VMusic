@@ -137,7 +137,7 @@
                        Grid.ColumnSpan="5"
                        Background="Transparent"
                        Margin="0 5 5 10"
-                       VerticalScrollBarVisibility="Hidden"
+                       VerticalScrollBarVisibility="Auto"
                        HorizontalScrollBarVisibility="Disabled">
             <ListView Background="Transparent" 
                       BorderThickness="0"

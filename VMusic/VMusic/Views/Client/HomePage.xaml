@@ -104,13 +104,13 @@
         <ScrollViewer  Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="5"
                        Background="Transparent"
-                       VerticalScrollBarVisibility="Hidden"
+                       VerticalScrollBarVisibility="Auto"
                        HorizontalScrollBarVisibility="Disabled">
             <ListView Name="SongCollection" 
                       Background="Transparent" 
                       BorderThickness="0"
                       ItemsSource="{Binding LocalSongList}"
-                      SelectedItem="{Binding SelectedSong}">
+                      SelectedItem="{Binding CurrentSong}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
