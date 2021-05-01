@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,7 @@ namespace VMusic.ViewModels.Client
     {
 
         private SongViewModel currentSong;
+        private ObservableCollection<SongViewModel> currentPlaylist;
 
         public SongViewModel CurrentSong
         {
@@ -22,6 +24,17 @@ namespace VMusic.ViewModels.Client
                 OnPropertyChanged("CurrentSong");
             }
         }
+
+        public ObservableCollection<SongViewModel> CurrentPlaylist
+        {
+            get => currentPlaylist;
+            set
+            {
+                currentPlaylist = value;
+                OnPropertyChanged("CurrentPlaylist");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

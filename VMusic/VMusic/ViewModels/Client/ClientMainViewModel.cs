@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using VMusic.Commands;
 using VMusic.Models;
 using VMusic.Repository;
@@ -21,6 +22,9 @@ namespace VMusic.ViewModels.Client
 
         private bool isPlayed = false;
         private MediaPlayer player;
+        private double progress = 0;
+        private double duration;
+        private DispatcherTimer timer;
 
         private HomePage homePage;
         private HomePageViewModel homePageViewModel;
@@ -28,8 +32,6 @@ namespace VMusic.ViewModels.Client
         private Page currentPage;
         private SongViewModel currentSong;
         private SongContent songContent;
-
-
         private SongRepository songRepository;
 
         public ClientMainViewModel(Window owner) : base(owner)
@@ -45,6 +47,11 @@ namespace VMusic.ViewModels.Client
             homePage.DataContext = homePageViewModel;
 
             CurrentPage = homePage;
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += tickCallback;
+            timer.Start();
         }
 
         public Page CurrentPage
@@ -76,6 +83,28 @@ namespace VMusic.ViewModels.Client
                 OnPropertyChanged("Volume");
             }
         }
+
+        public double Progress
+        {
+            get => progress;
+            set
+            {
+                progress = value;
+                OnPropertyChanged("Progress");
+            }
+        }
+
+        public double Duration
+        {
+            get => duration;
+            set
+            {
+                duration = value;
+                OnPropertyChanged("Duration");
+            }
+        }
+
+
 
         private Command switchToHomePage;
         private Command stopAndPlay;
@@ -124,7 +153,6 @@ namespace VMusic.ViewModels.Client
                         var song = songRepository.GetById(CurrentSong.Id);
                         songRepository.RatingUpdate(song);
                         songRepository.Save();
-                        MessageBox.Show("like");
                     }
                 }));
             }
@@ -140,6 +168,15 @@ namespace VMusic.ViewModels.Client
                 {
                     PlaySong(this.CurrentSong.Source);
                 }
+            }
+        }
+
+        private void tickCallback(object sender, EventArgs e)
+        {
+            if (player.Source != null && player.NaturalDuration.HasTimeSpan)
+            {
+                Duration = player.NaturalDuration.TimeSpan.TotalSeconds;
+                Progress = player.Position.TotalSeconds;
             }
         }
 

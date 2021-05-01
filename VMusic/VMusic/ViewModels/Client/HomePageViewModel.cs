@@ -32,7 +32,7 @@ namespace VMusic.ViewModels.Client
             {
                 currentSong = value;
                 songContent.CurrentSong = value;
-                //MessageBox.Show(songContent.CurrentSong.Name);
+                songContent.CurrentPlaylist = LocalSongList;
                 OnPropertyChanged("CurrentSong");
             }
         }

@@ -265,7 +265,8 @@
                     </Button>
                 </WrapPanel>
                 <ProgressBar Width="360" Foreground="DeepPink"
-                             Value="0"></ProgressBar>
+                             Minimum="0" Maximum="{Binding Duration}"
+                             Value="{Binding Progress}"></ProgressBar>
             </StackPanel>
 
 
