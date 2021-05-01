@@ -31,8 +31,8 @@ namespace VMusic.ViewModels.Client
             set
             {
                 currentSong = value;
-                songContent.CurrentSong = value;
                 songContent.CurrentPlaylist = LocalSongList;
+                songContent.CurrentSong = value;
                 OnPropertyChanged("CurrentSong");
             }
         }

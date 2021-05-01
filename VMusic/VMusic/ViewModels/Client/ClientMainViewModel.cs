@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using VMusic.Commands;
-using VMusic.Models;
 using VMusic.Repository;
 using VMusic.Views.Client;
 
@@ -21,6 +14,7 @@ namespace VMusic.ViewModels.Client
     {
 
         private bool isPlayed = false;
+        private bool isEnded = false;
         private MediaPlayer player;
         private double progress = 0;
         private double duration;
@@ -38,6 +32,7 @@ namespace VMusic.ViewModels.Client
         {
             songRepository = new SongRepository();
             player = new MediaPlayer();
+            player.MediaEnded += endAudioCallback;
 
             songContent = new SongContent();
             songContent.PropertyChanged += OnSessionSongPropertyChanged;
@@ -166,18 +161,28 @@ namespace VMusic.ViewModels.Client
                 this.CurrentSong = songContent.CurrentSong;
                 if (this.CurrentSong != null)
                 {
-                    PlaySong(this.CurrentSong.Source);
+                    PlaySong(CurrentSong.Source);
                 }
             }
         }
 
         private void tickCallback(object sender, EventArgs e)
         {
+            if (isEnded && songContent.Next())
+            {
+                PlaySong(CurrentSong.Source);
+            }
             if (player.Source != null && player.NaturalDuration.HasTimeSpan)
             {
                 Duration = player.NaturalDuration.TimeSpan.TotalSeconds;
                 Progress = player.Position.TotalSeconds;
             }
+        }
+
+        private void endAudioCallback(object sender, EventArgs e)
+        {
+            isPlayed = false;
+            isEnded = true;
         }
 
 
@@ -186,6 +191,7 @@ namespace VMusic.ViewModels.Client
             player.Open(new Uri(path, UriKind.Absolute));
             player.Play();
             isPlayed = true;
+            isEnded = false;
         }
     }
 }

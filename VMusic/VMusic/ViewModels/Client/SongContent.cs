@@ -35,6 +35,21 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool Next()
+        {
+            int i = CurrentPlaylist.IndexOf(CurrentSong);
+            ++i;
+            if (i < CurrentPlaylist.Count)
+            {
+                CurrentSong = CurrentPlaylist[i];
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
