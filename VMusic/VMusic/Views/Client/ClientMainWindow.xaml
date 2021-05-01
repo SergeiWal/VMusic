@@ -231,7 +231,8 @@
                     HorizontalAlignment="Left"
                     Height="32"
                     Width="32"
-                    Margin="10 5">
+                    Margin="10 5"
+                    Command="{Binding LikeSong}">
                 <materialDesign:PackIcon Kind="Heart" Foreground="DeepPink"
                                          Width="32" Height="32"/>
             </Button>

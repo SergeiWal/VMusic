@@ -118,7 +118,14 @@ namespace VMusic.ViewModels.Client
             {
                 return likeSong??(likeSong  =new Command((obj) =>
                 {
-
+                    if (CurrentSong != null)
+                    {
+                        ++CurrentSong.Rating;
+                        var song = songRepository.GetById(CurrentSong.Id);
+                        songRepository.RatingUpdate(song);
+                        songRepository.Save();
+                        MessageBox.Show("like");
+                    }
                 }));
             }
         }

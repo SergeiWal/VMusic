@@ -43,6 +43,11 @@ namespace VMusic.Repository
             throw new NotImplementedException();
         }
 
+        public void RatingUpdate(Song obj)
+        {
+            obj.Rating++;
+        }
+
         public void Delete(int id)
         {
             Song song = db.Songs.Find(id);
