@@ -104,6 +104,9 @@ namespace VMusic.ViewModels.Client
         private Command switchToHomePage;
         private Command stopAndPlay;
         private Command likeSong;
+        private Command nextSong;
+        private Command prevSong;
+        private Command volumeOnOff;
 
         public Command SwitchToHomePage
         {
@@ -112,6 +115,20 @@ namespace VMusic.ViewModels.Client
                 return switchToHomePage??(switchToHomePage = new Command((obj) =>
                 {
                     CurrentPage = homePage;
+                }));
+            }
+        }
+
+        public Command PrevSong
+        {
+            get
+            {
+                return prevSong ?? (prevSong = new Command((obj) =>
+                {
+                    if (songContent.Prev())
+                    {
+                        PlaySong(CurrentSong.Source);
+                    }
                 }));
             }
         }
@@ -136,6 +153,20 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public Command NextSong
+        {
+            get
+            {
+                return nextSong ?? (nextSong = new Command((obj) =>
+                {
+                    if (songContent.Next())
+                    {
+                        PlaySong(CurrentSong.Source);
+                    }
+                }));
+            }
+        }
+
         public Command LikeSong
         {
             get
@@ -148,6 +179,24 @@ namespace VMusic.ViewModels.Client
                         var song = songRepository.GetById(CurrentSong.Id);
                         songRepository.RatingUpdate(song);
                         songRepository.Save();
+                    }
+                }));
+            }
+        }
+
+        public Command VolumeOnOff
+        {
+            get
+            {
+                return volumeOnOff ?? (volumeOnOff = new Command((obj) =>
+                {
+                    if (player.Volume > 0)
+                    {
+                        Volume = 0;
+                    }
+                    else
+                    {
+                        Volume = 0.5;
                     }
                 }));
             }

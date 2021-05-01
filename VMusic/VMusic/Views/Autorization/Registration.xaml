@@ -10,7 +10,8 @@
         AllowsTransparency ="True"
         Background="Transparent"
         MouseDown="Window_MouseDown"
-        Title="Registration" Height="520" Width="340">
+        Title="Registration" Height="520" Width="340"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"></RowDefinition>

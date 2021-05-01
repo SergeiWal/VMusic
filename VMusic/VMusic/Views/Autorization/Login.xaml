@@ -11,7 +11,8 @@
         Background="Transparent"
         MouseDown="Window_MouseDown"
         Height="420" Width="340"
-        Title="Login">
+        Title="Login"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"></RowDefinition>

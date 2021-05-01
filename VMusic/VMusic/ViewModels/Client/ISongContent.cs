@@ -14,5 +14,6 @@ namespace VMusic.ViewModels.Client
         SongViewModel CurrentSong { get; set; }
         ObservableCollection<SongViewModel> CurrentPlaylist { get; set; }
         bool Next();
+        bool Prev();
     }
 }

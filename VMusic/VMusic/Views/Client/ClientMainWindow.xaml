@@ -13,7 +13,8 @@
         Title="ClientMainWindow" 
         Height="600" Width="1024"
         MinHeight="600" MinWidth="1024"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource BackgroundColor}">
 
         <Grid.ColumnDefinitions>
@@ -243,7 +244,8 @@
                 <WrapPanel HorizontalAlignment="Center">
                     <Button Style="{StaticResource AppControlButton}"
                             Width="32" Height="32"
-                            Margin="2 2">
+                            Margin="2 2"
+                            Command="{Binding PrevSong}">
                         <materialDesign:PackIcon Kind="PreviousTitle"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
@@ -258,7 +260,8 @@
                     </Button>
                     <Button Style="{StaticResource AppControlButton}"
                             Width="32" Height="32"
-                            Margin="2 2">
+                            Margin="2 2"
+                            Command="{Binding NextSong}">
                         <materialDesign:PackIcon Kind="NextTitle"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
@@ -283,7 +286,8 @@
                 </Button>
                 <Button Style="{StaticResource AppControlButton}"
                             Width="32" Height="32"
-                            Margin="2 2">
+                            Margin="2 2"
+                            Command="{Binding VolumeOnOff}">
                     <materialDesign:PackIcon Kind="VolumeHigh"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
