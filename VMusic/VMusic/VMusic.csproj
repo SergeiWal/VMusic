@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BaseWindowViewModel.cs" />
     <Compile Include="ViewModels\Client\ClientMainViewModel.cs" />
+    <Compile Include="ViewModels\Client\CreatePlaylistViewModel.cs" />
     <Compile Include="ViewModels\Client\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Client\ISongContent.cs" />
     <Compile Include="ViewModels\Client\SongContent.cs" />

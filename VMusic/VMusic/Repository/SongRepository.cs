@@ -33,6 +33,11 @@ namespace VMusic.Repository
             return db.Songs.Find(id);
         }
 
+        public IEnumerable<Song> GetByName(string name)
+        {
+            return db.Songs.Where(s => s.Name.Contains(name));
+        }
+
         public void Create(Song obj)
         {
             db.Songs.Add(obj);

@@ -47,3 +47,5 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CreatePlaylistPage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CreatePlaylistPage.baml

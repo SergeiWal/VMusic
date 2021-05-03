@@ -22,6 +22,9 @@ namespace VMusic.ViewModels.Client
 
         private HomePage homePage;
         private HomePageViewModel homePageViewModel;
+        private CreatePlaylistPage createPlaylistPage;
+        private CreatePlaylistViewModel createPlaylistViewModel;
+        
 
         private Page currentPage;
         private SongViewModel currentSong;
@@ -40,6 +43,9 @@ namespace VMusic.ViewModels.Client
             homePage = new HomePage();
             homePageViewModel = new HomePageViewModel(songContent);
             homePage.DataContext = homePageViewModel;
+            createPlaylistPage = new CreatePlaylistPage();
+            createPlaylistViewModel = new CreatePlaylistViewModel();
+            createPlaylistPage.DataContext = createPlaylistViewModel;
 
             CurrentPage = homePage;
 
@@ -102,6 +108,7 @@ namespace VMusic.ViewModels.Client
 
 
         private Command switchToHomePage;
+        private Command switchToCreatePlaylistPage;
         private Command stopAndPlay;
         private Command likeSong;
         private Command nextSong;
@@ -115,6 +122,17 @@ namespace VMusic.ViewModels.Client
                 return switchToHomePage??(switchToHomePage = new Command((obj) =>
                 {
                     CurrentPage = homePage;
+                }));
+            }
+        }
+
+        public Command SwitchToCreatePlaylistPage
+        {
+            get
+            {
+                return switchToCreatePlaylistPage ?? (switchToCreatePlaylistPage = new Command((obj) =>
+                {
+                    CurrentPage = createPlaylistPage;
                 }));
             }
         }

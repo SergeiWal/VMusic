@@ -28,7 +28,8 @@
 
         <Image Grid.Column="0" Grid.Row="0"
                HorizontalAlignment="Center"
-               VerticalAlignment="Center">
+               VerticalAlignment="Center"
+               Source="{Binding PlaylistImage}">
         </Image>
 
         <materialDesign:PackIcon Kind="Music"
@@ -44,20 +45,21 @@
                     Margin="0 0 0 10">
             <StackPanel Margin="0 10">
                 <TextBlock HorizontalAlignment="Left">Название</TextBlock>
-                <TextBox x:Name="Name" Text="" ></TextBox>
+                <TextBox x:Name="Name" HorizontalAlignment="Left" Text="{Binding PlaylistName, Mode=TwoWay }"></TextBox>
                 <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
             </StackPanel>
 
             <Button Style="{StaticResource EnterButton}"
                     HorizontalAlignment="Left"
                     Margin="0 10"
-                    Height="48">
+                    Height="48"
+                    Command="{Binding AddImage}">
                 <TextBlock>Изображание</TextBlock>
             </Button>
             <Button Style="{StaticResource EnterButton}"
                 HorizontalAlignment="Left"
-                Grid.Column="1" Grid.Row="1"
-                Height="48">
+                Height="48"
+                Command="{Binding SavePlaylist}">
                 <TextBlock>Сохранить</TextBlock>
             </Button>
         </StackPanel>
@@ -65,11 +67,12 @@
         <WrapPanel Margin="10 20"
                     Grid.Column="0" Grid.Row="1"
                     VerticalAlignment="Bottom">
-            <Button Style="{StaticResource AppControlButton}">
+            <Button Style="{StaticResource AppControlButton}"
+                    Command="{Binding FindSong}">
                 <materialDesign:PackIcon Kind="Search" Foreground="DeepPink" Width="18" Height="18"/>
             </Button>
             <StackPanel>
-                <TextBlock Opacity="0.3">Search</TextBlock>
+                <TextBox Opacity="0.3" Text="{Binding FindSongName, Mode=TwoWay}"></TextBox>
                 <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
             </StackPanel>
         </WrapPanel>
@@ -90,8 +93,7 @@
             <ListView Name="SongCollection" 
                       Background="Transparent" 
                       BorderThickness="0"
-                      ItemsSource="{Binding Songs}"
-                      SelectedItem="{Binding SelectedSong}">
+                      ItemsSource="{Binding SongLocalList}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
@@ -99,7 +101,8 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate >
-                        <Button BorderThickness="0" Background="Transparent">
+                        <Button HorizontalAlignment="Stretch" BorderThickness="0"
+                                Background="Transparent">
                             <Border  BorderThickness="0"
                                  Height="60"
                                  HorizontalAlignment="Stretch"
