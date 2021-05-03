@@ -1,0 +1,166 @@
+﻿<Page x:Class="VMusic.Views.Client.CreatePlaylistPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VMusic.Views.Client"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreatePlaylistPage">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        
+        <Border CornerRadius="20" Grid.RowSpan="3"
+                Grid.ColumnSpan="5"
+                Background="#FF131317">
+        </Border>
+
+        <Image Grid.Column="0" Grid.Row="0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center">
+        </Image>
+
+        <materialDesign:PackIcon Kind="Music"
+            Grid.Row="0" Grid.Column="0" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="DeepPink"
+            Height="100" Width="100"/>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Grid.RowSpan="2"
+                    Margin="0 0 0 10">
+            <StackPanel Margin="0 10">
+                <TextBlock HorizontalAlignment="Left">Название</TextBlock>
+                <TextBox x:Name="Name" Text="" ></TextBox>
+                <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <Button Style="{StaticResource EnterButton}"
+                    HorizontalAlignment="Left"
+                    Margin="0 10"
+                    Height="48">
+                <TextBlock>Изображание</TextBlock>
+            </Button>
+            <Button Style="{StaticResource EnterButton}"
+                HorizontalAlignment="Left"
+                Grid.Column="1" Grid.Row="1"
+                Height="48">
+                <TextBlock>Сохранить</TextBlock>
+            </Button>
+        </StackPanel>
+
+        <WrapPanel Margin="10 20"
+                    Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Bottom">
+            <Button Style="{StaticResource AppControlButton}">
+                <materialDesign:PackIcon Kind="Search" Foreground="DeepPink" Width="18" Height="18"/>
+            </Button>
+            <StackPanel>
+                <TextBlock Opacity="0.3">Search</TextBlock>
+                <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </WrapPanel>
+
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                Background="DeepPink"
+                Height="2"
+                VerticalAlignment="Bottom"/>
+
+
+
+
+        <ScrollViewer  Grid.Row="2" Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Background="Transparent"
+                       VerticalScrollBarVisibility="Auto"
+                       HorizontalScrollBarVisibility="Disabled">
+            <ListView Name="SongCollection" 
+                      Background="Transparent" 
+                      BorderThickness="0"
+                      ItemsSource="{Binding Songs}"
+                      SelectedItem="{Binding SelectedSong}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <Button BorderThickness="0" Background="Transparent">
+                            <Border  BorderThickness="0"
+                                 Height="60"
+                                 HorizontalAlignment="Stretch"
+                                 Background="Transparent"
+                                 BorderBrush="Transparent">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="1.4*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Name="Id" 
+                                           Text="{Binding Id}" FontSize="18"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                                    </TextBlock>
+                                    <WrapPanel Grid.Column="1">
+                                        <Grid>
+                                            <Image Name="MusicImage"
+                                               Width="36" Height="36"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 Margin="5 5"
+                                               Source="{Binding Image}"/>
+                                        </Grid>
+                                        <StackPanel>
+                                            <TextBlock  Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
+                                            <TextBlock Name="Author" Text="{Binding Author}" FontSize="18" Margin="5 5"></TextBlock>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="0" Grid.Column="2">
+                                        <TextBlock Name="Album"
+                                    Text="{Binding Album}" FontSize="18" Margin="5 5"></TextBlock>
+                                    </WrapPanel>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="3" 
+                               Name="Genre"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding Genre}"
+                               FontSize="18" Margin="5 5">
+                                    </TextBlock>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="4" 
+                                           Name="Rating"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Rating}"
+                                           FontSize="18" Margin="5 5">
+                                    </TextBlock>
+
+                                </Grid>
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
