@@ -74,6 +74,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\GenreConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Hasher\PasswordHasher.cs" />
     <Compile Include="Models\MusicGenre.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\Song.cs" />

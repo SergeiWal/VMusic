@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using VMusic.Commands;
 using VMusic.Views.Autorization;
+using  VMusic.Hasher;
+using VMusic.Models;
+using VMusic.Repository;
+
 
 namespace VMusic.ViewModels.Autorization
 {
     class RegistrationViewModel : BaseWindowViewModel
     {
+        private UserRepository userRepository;
 
         private string name;
         private string login;
@@ -21,6 +26,7 @@ namespace VMusic.ViewModels.Autorization
 
         public RegistrationViewModel(Window owner): base(owner)
         {
+            userRepository = new UserRepository();
         }
 
 
@@ -48,7 +54,7 @@ namespace VMusic.ViewModels.Autorization
             get => password;
             set
             {
-                password = value;
+                password = PasswordHasher.GetHash(value);
                 OnPropertyChanged("Password");
             }
         }
@@ -57,7 +63,7 @@ namespace VMusic.ViewModels.Autorization
             get => repeatPassword;
             set
             {
-                repeatPassword = value;
+                repeatPassword = PasswordHasher.GetHash(value);
                 OnPropertyChanged("RepeatPassword");
             }
         }
@@ -71,7 +77,9 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return registrationCommand ?? (registrationCommand = new Command((obj) => {
-                   SwitchTo(new Login(), owner);
+                    //Registration();
+                    //SwitchTo(new Login(), owner);
+                    MessageBox.Show(Password);
                 }));
             }
         }
@@ -95,6 +103,63 @@ namespace VMusic.ViewModels.Autorization
                     SwitchTo(new LoginAsAdmin(), owner);
                 }));
             }
+        }
+
+
+        private void Registration()
+        {
+            if (IsFieldNotEmpty())
+            {
+                if (IsRepeatPasswordEquals())
+                {
+                    if (DuplicateCheck())
+                    {
+                        User user = new User()
+                        {
+                            Name = this.Name,
+                            Login = this.Login,
+                            Password = this.Password,
+                            IsAdmin = false,
+                            IsBlocked = false
+                        };
+                        userRepository.Create(user);
+                        userRepository.Save();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользаватель с таким именем или логином уже существует!!!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Пароли не совпадают!!!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Заполнены не все поля!!!");
+            }
+        }
+
+        private bool IsFieldNotEmpty()
+        {
+            return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password)
+                   && !string.IsNullOrEmpty(RepeatPassword);
+        }
+
+        private bool IsRepeatPasswordEquals()
+        {
+            return Password == RepeatPassword;
+        }
+
+        private bool DuplicateCheck()
+        {
+            IEnumerable<User> users = userRepository.GetAllObject().Where(s => s.Name == Name || s.Login == Login);
+            if (users.Count() > 0)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
