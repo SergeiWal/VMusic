@@ -101,9 +101,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate >
-                        <Button HorizontalAlignment="Stretch" BorderThickness="0"
-                                Background="Transparent">
-                            <Border  BorderThickness="0"
+                        <Border  BorderThickness="0"
                                  Height="60"
                                  HorizontalAlignment="Stretch"
                                  Background="Transparent"
@@ -159,7 +157,6 @@
 
                                 </Grid>
                             </Border>
-                        </Button>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -10,7 +10,7 @@
         AllowsTransparency ="True"
         Background="Transparent"
         MouseDown="Window_MouseDown"
-        Title="Registration" Height="520" Width="340"
+        Title="Registration" Height="535.2" Width="340"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -34,6 +34,7 @@
                     VerticalAlignment="Top"
                     Margin="0 15" >
             <TextBlock FontSize="32" Margin="0 15" HorizontalAlignment="Center">VMUSIC</TextBlock>
+            <TextBlock FontSize="12"  HorizontalAlignment="Center" Text="{Binding InfoMessage}"></TextBlock>
             <StackPanel Margin="0 10" >
                 <TextBlock>Имя</TextBlock>
                 <TextBox x:Name="NameBox" Text="{Binding Name, Mode=TwoWay}"></TextBox>

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using VMusic.Commands;
 using VMusic.Views.Autorization;
-using  VMusic.Hasher;
+using VMusic.Hasher;
 using VMusic.Models;
 using VMusic.Repository;
 
@@ -17,12 +13,20 @@ namespace VMusic.ViewModels.Autorization
 {
     class RegistrationViewModel : BaseWindowViewModel
     {
+
+        private const string DUPLICATE_USER_DATA = "Пользаватель с таким именем или логином уже существует!!!";
+        private const string PASSWORDS_NOT_EQUEL = "Пароли не совпадают!!!";
+        private const string FIELDS_EMPTY = "Заполнены не все поля!!!";
+
+
         private UserRepository userRepository;
 
         private string name;
         private string login;
         private string password;
         private string repeatPassword;
+
+        private string infoMessage = "";
 
         public RegistrationViewModel(Window owner): base(owner)
         {
@@ -68,6 +72,16 @@ namespace VMusic.ViewModels.Autorization
             }
         }
 
+        public string InfoMessage
+        {
+            get => infoMessage;
+            set
+            {
+                infoMessage = value;
+                OnPropertyChanged("InfoMessage");
+            }
+        }
+
         private Command registrationCommand;
         private Command switchToLoginCommand;
         private Command switchToLoginAsAdminCommand;
@@ -77,9 +91,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return registrationCommand ?? (registrationCommand = new Command((obj) => {
-                    //Registration();
-                    //SwitchTo(new Login(), owner);
-                    MessageBox.Show(Password);
+                    Registration();
                 }));
             }
         }
@@ -124,20 +136,21 @@ namespace VMusic.ViewModels.Autorization
                         };
                         userRepository.Create(user);
                         userRepository.Save();
+                        SwitchTo(new Login(), owner);
                     }
                     else
                     {
-                        MessageBox.Show("Пользаватель с таким именем или логином уже существует!!!");
+                        InfoMessage = DUPLICATE_USER_DATA;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Пароли не совпадают!!!");
+                    InfoMessage = PASSWORDS_NOT_EQUEL;
                 }
             }
             else
             {
-                MessageBox.Show("Заполнены не все поля!!!");
+                InfoMessage = FIELDS_EMPTY;
             }
         }
 
