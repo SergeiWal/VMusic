@@ -46,12 +46,12 @@
             </StackPanel>
             <StackPanel Margin="0 10">
                 <TextBlock>Пароль</TextBlock>
-                <PasswordBox x:Name="PasswordBox" Password="{Binding Password, Mode=TwoWay}" ></PasswordBox>
+                <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_OnPasswordChanged" ></PasswordBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <StackPanel Margin="0 10">
                 <TextBlock>Повторите пароль</TextBlock>
-                <PasswordBox x:Name="RepeatPasswordBox" Password="{Binding RepeatPassword, Mode=TwoWay}"></PasswordBox>
+                <PasswordBox x:Name="RepeatPasswordBox" PasswordChanged="RepeatPasswordBox_OnPasswordChanged"></PasswordBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
