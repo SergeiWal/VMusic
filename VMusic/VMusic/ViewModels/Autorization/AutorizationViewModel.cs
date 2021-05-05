@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VMusic.Commands;
+using VMusic.Hasher;
+using VMusic.Repository;
 using VMusic.Views.Admin;
 using VMusic.Views.Autorization;
 using VMusic.Views.Client;
@@ -17,11 +20,15 @@ namespace VMusic.ViewModels.Autorization
 {
     class AutorizationViewModel : BaseWindowViewModel
     {
+        private UserRepository userRepository;
+        private string infoMessage = "";
+
         private string login;
         private string password;
 
         public AutorizationViewModel(Window owner): base(owner)
         {
+            userRepository = new UserRepository();
         }
 
         public string Login
@@ -44,6 +51,16 @@ namespace VMusic.ViewModels.Autorization
             }
         }
 
+        public string InfoMessage
+        {
+            get => infoMessage;
+            set
+            {
+                infoMessage = value;
+                OnPropertyChanged("InfoMessage");
+            }
+        }
+
         private Command loginCommand;
         private Command loginAsAdminCommand;
         private Command switchToLoginCommand;
@@ -57,7 +74,7 @@ namespace VMusic.ViewModels.Autorization
             {
                 return switchToLoginCommand ?? (switchToLoginCommand = new Command((obj) =>
                 {
-                   SwitchTo(new Login(), owner);
+                    SwitchTo(new Login(), owner);
                 }));
             }
         }
@@ -86,8 +103,11 @@ namespace VMusic.ViewModels.Autorization
         {
             get 
             {
-                return loginCommand ?? ( loginCommand = new Command((obj)=> {
-                    SwitchTo(new ClientMainWindow(), owner);
+                return loginCommand ?? ( loginCommand = new Command((obj)=>
+                {
+                    var passBox = obj as PasswordBox;
+                    Password = passBox.Password;
+                    LoginFunc();
                 }));
             }
         }
@@ -99,6 +119,39 @@ namespace VMusic.ViewModels.Autorization
                    SwitchTo(new AdminMainWindow(), owner);
                 }));
             }
+        }
+
+        private void LoginFunc()
+        {
+            if (IsFieldsNotEmpty())
+            {
+                string passwordHash = PasswordHasher.GetHash(Password);
+                var obj = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                if (obj != null)
+                {
+                    if (!obj.IsBlocked)
+                    {
+                        SwitchTo(new ClientMainWindow(), owner);
+                    }
+                    else
+                    {
+                        InfoMessage = "Пользователь заблокирован!!!";
+                    }
+                }
+                else
+                {
+                    InfoMessage = "Данные не верны!!!";
+                }
+            }
+            else
+            {
+                InfoMessage = "Поля не заполнены!!!";
+            }
+        }
+
+        private bool IsFieldsNotEmpty()
+        {
+            return !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(Login);
         }
 
     }
