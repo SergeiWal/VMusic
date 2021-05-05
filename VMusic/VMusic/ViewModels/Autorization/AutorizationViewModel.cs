@@ -116,7 +116,9 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return loginAsAdminCommand ?? (loginAsAdminCommand = new Command((obj) => {
-                   SwitchTo(new AdminMainWindow(), owner);
+                    var passBox = obj as PasswordBox;
+                    Password = passBox.Password;
+                    LoginAsAdminFunc();
                 }));
             }
         }
@@ -137,6 +139,27 @@ namespace VMusic.ViewModels.Autorization
                     {
                         InfoMessage = "Пользователь заблокирован!!!";
                     }
+                }
+                else
+                {
+                    InfoMessage = "Данные не верны!!!";
+                }
+            }
+            else
+            {
+                InfoMessage = "Поля не заполнены!!!";
+            }
+        }
+
+        private void LoginAsAdminFunc()
+        {
+            if (IsFieldsNotEmpty())
+            {
+                string passwordHash = PasswordHasher.GetHash(Password);
+                var obj = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                if (obj != null && obj.IsAdmin)
+                {
+                    SwitchTo(new AdminMainWindow(), owner);
                 }
                 else
                 {
