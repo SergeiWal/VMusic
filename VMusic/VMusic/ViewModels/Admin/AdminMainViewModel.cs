@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using VMusic.Commands;
+using VMusic.Models;
 using VMusic.Repository;
 using VMusic.Views.Admin;
 
@@ -14,6 +15,7 @@ namespace VMusic.ViewModels.Admin
 {
     class AdminMainViewModel: BaseWindowViewModel
     {
+        private User admin;
         private SongRepository songRepository;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
@@ -23,8 +25,9 @@ namespace VMusic.ViewModels.Admin
         private TopMusicPage topMusicList;
         private Page currentPage; 
 
-        public AdminMainViewModel(Window owner) : base(owner)
+        public AdminMainViewModel(User admin, Window owner) : base(owner)
         {
+            this.admin = admin;
             songRepository = new SongRepository();
             LocalSongList = new ObservableCollection<SongViewModel>(songRepository.GetAllObject()
                 .Select(b => new SongViewModel(b)));

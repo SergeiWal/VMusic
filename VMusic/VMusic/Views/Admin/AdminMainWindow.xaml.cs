@@ -23,7 +23,6 @@ namespace VMusic.Views.Admin
         public AdminMainWindow()
         {
             InitializeComponent();
-            DataContext = new AdminMainViewModel(this);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using VMusic.Commands;
 using VMusic.Hasher;
+using VMusic.Models;
 using VMusic.Repository;
+using VMusic.ViewModels.Admin;
+using VMusic.ViewModels.Client;
 using VMusic.Views.Admin;
 using VMusic.Views.Autorization;
 using VMusic.Views.Client;
@@ -128,12 +123,12 @@ namespace VMusic.ViewModels.Autorization
             if (IsFieldsNotEmpty())
             {
                 string passwordHash = PasswordHasher.GetHash(Password);
-                var obj = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
-                if (obj != null)
+                var user = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                if (user != null)
                 {
-                    if (!obj.IsBlocked)
+                    if (!user.IsBlocked)
                     {
-                        SwitchTo(new ClientMainWindow(), owner);
+                        SwitchTo(GetClientMainWindow(user), owner);
                     }
                     else
                     {
@@ -156,10 +151,10 @@ namespace VMusic.ViewModels.Autorization
             if (IsFieldsNotEmpty())
             {
                 string passwordHash = PasswordHasher.GetHash(Password);
-                var obj = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
-                if (obj != null && obj.IsAdmin)
+                var admin = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                if (admin != null && admin.IsAdmin)
                 {
-                    SwitchTo(new AdminMainWindow(), owner);
+                    SwitchTo(GetAdminMainWindow(admin), owner);
                 }
                 else
                 {
@@ -175,6 +170,23 @@ namespace VMusic.ViewModels.Autorization
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(Login);
+        }
+
+        //factory methods for window
+        private  ClientMainWindow GetClientMainWindow(User user)
+        {
+            ClientMainWindow clientMainWindow = new ClientMainWindow();
+            ClientMainViewModel clientMainViewModel = new ClientMainViewModel(user, clientMainWindow);
+            clientMainWindow.DataContext = clientMainViewModel;
+            return clientMainWindow;
+        }
+
+        private AdminMainWindow GetAdminMainWindow(User admin)
+        {
+            AdminMainWindow adminWindow = new AdminMainWindow();
+            AdminMainViewModel adminMainViewModel = new AdminMainViewModel(admin, adminWindow);
+            adminWindow.DataContext = adminMainViewModel;
+            return adminWindow;
         }
 
     }

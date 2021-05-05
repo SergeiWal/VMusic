@@ -23,7 +23,6 @@ namespace VMusic.Views.Client
         public ClientMainWindow()
         {
             InitializeComponent();
-            DataContext = new ClientMainViewModel(this);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

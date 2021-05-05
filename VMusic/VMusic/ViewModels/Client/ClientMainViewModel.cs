@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using VMusic.Commands;
+using VMusic.Models;
 using VMusic.Repository;
 using VMusic.Views.Client;
 
@@ -12,7 +13,7 @@ namespace VMusic.ViewModels.Client
 {
     class ClientMainViewModel: BaseWindowViewModel
     {
-
+        private User user;
         private bool isPlayed = false;
         private bool isEnded = false;
         private MediaPlayer player;
@@ -31,8 +32,9 @@ namespace VMusic.ViewModels.Client
         private SongContent songContent;
         private SongRepository songRepository;
 
-        public ClientMainViewModel(Window owner) : base(owner)
+        public ClientMainViewModel(User user, Window owner) : base(owner)
         {
+            this.user = user;
             songRepository = new SongRepository();
             player = new MediaPlayer();
             player.MediaEnded += endAudioCallback;
