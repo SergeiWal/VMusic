@@ -80,6 +80,7 @@
     <Compile Include="Models\Song.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VMusicContext.cs" />
+    <Compile Include="Models\VMusicContextInitializer.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PlaylistRepository.cs" />
     <Compile Include="Repository\SongRepository.cs" />
