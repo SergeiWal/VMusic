@@ -90,6 +90,7 @@
     <Compile Include="ViewModels\Admin\AdminMainViewModel.cs" />
     <Compile Include="ViewModels\Admin\MusicPageViewModel.cs" />
     <Compile Include="ViewModels\Admin\TopMusicPageViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UserPageViewModel.cs" />
     <Compile Include="ViewModels\Autorization\AutorizationViewModel.cs" />
     <Compile Include="ViewModels\Autorization\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

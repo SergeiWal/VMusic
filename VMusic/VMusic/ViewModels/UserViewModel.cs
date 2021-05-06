@@ -9,6 +9,11 @@ namespace VMusic.ViewModels
 {
     class UserViewModel: BaseViewModel
     {
+        private const string ADMIN_ROLE = "Admin";
+        private const string USER_ROLE = "User";
+        private const string ACTIVITY_USER = "Активен";
+        private const string BLOCKED_USER = "Заблокирован";
+
         private User user;
 
         public UserViewModel(User user)
@@ -51,23 +56,71 @@ namespace VMusic.ViewModels
             }
         }
 
-        public bool IsAdmin
+        public string IsAdmin
         {
-            get => user.IsAdmin;
+            get => BoolRoleToString(user.IsAdmin);
             set
             {
-                user.IsAdmin = value;
+                user.IsAdmin = StrRoleToBool(value);
                 OnPropertyChanged("IsAdmin");
             }
         }
 
-        public bool IsBlocked
+        public string IsBlocked
         {
-            get => user.IsBlocked;
+            get => BoolStatusToStr(user.IsBlocked);
             set
             {
-                user.IsBlocked = value;
+                user.IsBlocked = StrStatusToBool(value);
                 OnPropertyChanged("IsBlocked");
+            }
+        }
+
+        public static  string BoolRoleToString(bool value)
+        {
+            if (value)
+            {
+                return ADMIN_ROLE;
+            }
+            else
+            {
+                return USER_ROLE;
+            }
+        }
+
+        public static bool StrRoleToBool(string str)
+        {
+            if (str == ADMIN_ROLE)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static string BoolStatusToStr(bool value)
+        {
+            if (value)
+            {
+                return BLOCKED_USER;
+            }
+            else
+            {
+                return ACTIVITY_USER;
+            }
+        }
+
+        public static bool StrStatusToBool(string str)
+        {
+            if (str == BLOCKED_USER)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

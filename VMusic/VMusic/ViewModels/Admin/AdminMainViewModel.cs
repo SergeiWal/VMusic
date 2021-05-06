@@ -18,6 +18,7 @@ namespace VMusic.ViewModels.Admin
         private User admin;
         private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
+        public ObservableCollection<UserViewModel> UserLocalCollection { get; set; }
 
         private UserPage userPage;
         private AddMusicPage addMusicPage;
@@ -29,10 +30,16 @@ namespace VMusic.ViewModels.Admin
         {
             this.admin = admin;
             dbWorker = new UnitOfWork();
+
+
             LocalSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
                 .Select(b => new SongViewModel(b)));
+            UserLocalCollection =
+                new ObservableCollection<UserViewModel>(dbWorker.Users.GetAllObject().Where(u=>!u.IsAdmin)
+                    .Select(u => new UserViewModel(u)));
 
             userPage = new UserPage();
+            userPage.DataContext = new UserPageViewModel(admin, UserLocalCollection);
 
             addMusicPage = new AddMusicPage();
             addMusicPage.DataContext = new AddMusicViewModel(LocalSongList);
