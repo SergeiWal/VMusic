@@ -10,19 +10,13 @@ namespace VMusic.Repository
     class PlaylistRepository: IRepository<Playlist>
     {
         private VMusicContext db;
-        private bool disposed = false;
 
-        public PlaylistRepository()
+        public PlaylistRepository(VMusicContext db)
         {
-            db = new VMusicContext();
+            this.db = db;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
+       
         public IEnumerable<Playlist> GetAllObject()
         {
             return db.Playlists;
@@ -67,16 +61,5 @@ namespace VMusic.Repository
             db.SaveChanges();
         }
 
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    db.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
     }
 }

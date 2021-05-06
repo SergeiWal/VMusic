@@ -15,15 +15,13 @@ namespace VMusic.ViewModels.Admin
         public static int TOP_LIST_SIZE = 10;
         public static string TOP_LIST_NAME = "BestMusic";
 
-        private SongRepository songRepository;
-        private PlaylistRepository playlistRepository;
+        private UnitOfWork dbWorker;
         private Playlist topSongPlaylist;
         public ObservableCollection<SongViewModel> TopSongList { get; set; }
 
         public TopMusicPageViewModel()
         {
-            songRepository = new SongRepository();
-            playlistRepository = new PlaylistRepository();
+            dbWorker = new UnitOfWork();
 
             TopSongList = new ObservableCollection<SongViewModel>();
             FillTopSongList();
@@ -46,17 +44,17 @@ namespace VMusic.ViewModels.Admin
             {
                 return updateTopPlaylist ?? (updateTopPlaylist = new Command((obj) =>
                 {
-                    var playlist = playlistRepository.GetByPredicate((b) => b.Name == TOP_LIST_NAME && b.UserId == null);
+                    var playlist = dbWorker.Playlist.GetByPredicate((b) => b.Name == TOP_LIST_NAME && b.UserId == null);
                     topSongPlaylist.Songs = new List<Song>(TopSongList.Select(b => b.song));
                     if (playlist == null)
                     {
-                        playlistRepository.Create(topSongPlaylist);
-                        playlistRepository.Save();
+                        dbWorker.Playlist.Create(topSongPlaylist);
+                        dbWorker.Save();
                     }
                     else
                     {
-                        playlistRepository.Update(playlist, topSongPlaylist);
-                        playlistRepository.Save();
+                        dbWorker.Playlist.Update(playlist, topSongPlaylist);
+                        dbWorker.Save();
                     }
                 }));
             }
@@ -65,7 +63,7 @@ namespace VMusic.ViewModels.Admin
 
         private void FillTopSongList()
         {
-            var songs = new ObservableCollection<SongViewModel>(songRepository.GetAllObject().OrderBy(n => n.Rating)
+            var songs = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().OrderBy(n => n.Rating)
                 .Select(s => new SongViewModel(s)));
             for (int i = 0; i < TOP_LIST_SIZE && i<songs.Count; ++i)
             {

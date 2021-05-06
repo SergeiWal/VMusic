@@ -14,14 +14,14 @@ namespace VMusic.ViewModels.Admin
 {
     class MusicPageViewModel: BaseViewModel
     {
-        private SongRepository repository;
+        private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> Songs { get; set; }
 
         private SongViewModel selectedSong = null;
 
         public MusicPageViewModel(ObservableCollection<SongViewModel> songs)
         {
-            repository = new SongRepository();
+            dbWorker = new UnitOfWork();
             Songs = songs;
         }
 
@@ -47,8 +47,8 @@ namespace VMusic.ViewModels.Admin
                     if (song != null)
                     {
                         SelectedSong = null;
-                        repository.Delete(song.Id);
-                        repository.Save();
+                        dbWorker.Songs.Delete(song.Id);
+                        dbWorker.Save();
                         Songs.Remove(song);
                     }
                 }));

@@ -18,13 +18,13 @@ namespace VMusic.ViewModels.Client
     {
         private string findSongName = "";
         private Playlist playlist;
-        private SongRepository songRepository;
+        private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
         public CreatePlaylistViewModel()
         {
             SongLocalList = new ObservableCollection<SongViewModel>();
-            songRepository = new SongRepository();
+            dbWorker = new UnitOfWork();
             playlist = new Playlist();
         }
 
@@ -99,7 +99,7 @@ namespace VMusic.ViewModels.Client
                 {
                     if (!string.IsNullOrEmpty(FindSongName))
                     {
-                        var songs = songRepository.GetByName(FindSongName)
+                        var songs = dbWorker.Songs.GetByName(FindSongName)
                             .Select(s => new SongViewModel(s));
                         SongLocalList.Clear();
 

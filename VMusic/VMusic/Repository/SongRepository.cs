@@ -10,17 +10,10 @@ namespace VMusic.Repository
     class SongRepository: IRepository<Song>
     {
         private VMusicContext db;
-        private bool disposed = false;
 
-        public SongRepository()
+        public SongRepository(VMusicContext db)
         {
-            db = new VMusicContext();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            this.db = db;
         }
 
         public IEnumerable<Song> GetAllObject()
@@ -67,16 +60,5 @@ namespace VMusic.Repository
             db.SaveChanges();
         }
 
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    db.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
     }
 }

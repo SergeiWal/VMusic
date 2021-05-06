@@ -19,7 +19,7 @@ namespace VMusic.ViewModels.Autorization
         private const string FIELDS_EMPTY = "Заполнены не все поля!!!";
 
 
-        private UserRepository userRepository;
+        private UnitOfWork dbWorker;
 
         private string name;
         private string login;
@@ -30,7 +30,7 @@ namespace VMusic.ViewModels.Autorization
 
         public RegistrationViewModel(Window owner): base(owner)
         {
-            userRepository = new UserRepository();
+            dbWorker = new UnitOfWork();
         }
 
 
@@ -134,8 +134,8 @@ namespace VMusic.ViewModels.Autorization
                             IsAdmin = false,
                             IsBlocked = false
                         };
-                        userRepository.Create(user);
-                        userRepository.Save();
+                        dbWorker.Users.Create(user);
+                        dbWorker.Save();
                         SwitchTo(new Login(), owner);
                     }
                     else
@@ -167,7 +167,7 @@ namespace VMusic.ViewModels.Autorization
 
         private bool DuplicateCheck()
         {
-            IEnumerable<User> users = userRepository.GetAllObject().Where(s => s.Name == Name || s.Login == Login);
+            IEnumerable<User> users = dbWorker.Users.GetAllObject().Where(s => s.Name == Name || s.Login == Login);
             if (users.Count() > 0)
             {
                 return false;

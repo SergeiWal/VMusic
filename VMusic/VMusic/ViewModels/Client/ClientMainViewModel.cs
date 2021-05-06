@@ -30,12 +30,12 @@ namespace VMusic.ViewModels.Client
         private Page currentPage;
         private SongViewModel currentSong;
         private SongContent songContent;
-        private SongRepository songRepository;
+        private UnitOfWork dbWorker;
 
         public ClientMainViewModel(User user, Window owner) : base(owner)
         {
             this.user = user;
-            songRepository = new SongRepository();
+            dbWorker = new UnitOfWork();
             player = new MediaPlayer();
             player.MediaEnded += endAudioCallback;
 
@@ -196,9 +196,9 @@ namespace VMusic.ViewModels.Client
                     if (CurrentSong != null)
                     {
                         ++CurrentSong.Rating;
-                        var song = songRepository.GetById(CurrentSong.Id);
-                        songRepository.RatingUpdate(song);
-                        songRepository.Save();
+                        var song = dbWorker.Songs.GetById(CurrentSong.Id);
+                        dbWorker.Songs.RatingUpdate(song);
+                        dbWorker.Save();
                     }
                 }));
             }

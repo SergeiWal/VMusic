@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VMusic.Repository
 {
-    interface IRepository<T>: IDisposable
+    interface IRepository<T>
         where T:class
     {
         IEnumerable<T> GetAllObject();

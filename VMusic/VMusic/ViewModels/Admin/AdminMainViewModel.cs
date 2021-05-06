@@ -16,7 +16,7 @@ namespace VMusic.ViewModels.Admin
     class AdminMainViewModel: BaseWindowViewModel
     {
         private User admin;
-        private SongRepository songRepository;
+        private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
         private UserPage userPage;
@@ -28,8 +28,8 @@ namespace VMusic.ViewModels.Admin
         public AdminMainViewModel(User admin, Window owner) : base(owner)
         {
             this.admin = admin;
-            songRepository = new SongRepository();
-            LocalSongList = new ObservableCollection<SongViewModel>(songRepository.GetAllObject()
+            dbWorker = new UnitOfWork();
+            LocalSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
                 .Select(b => new SongViewModel(b)));
 
             userPage = new UserPage();

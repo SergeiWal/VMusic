@@ -12,16 +12,16 @@ namespace VMusic.ViewModels.Client
     class HomePageViewModel: BaseViewModel
     {
         private SongContent songContent;
-        private SongViewModel currentSong; 
-        private SongRepository songRepository;
+        private SongViewModel currentSong;
+        private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
         public HomePageViewModel(SongContent songContent)
         {
-            songRepository = new SongRepository();
+            dbWorker = new UnitOfWork();
             this.songContent = songContent;
             LocalSongList =
-                new ObservableCollection<SongViewModel>(songRepository.GetAllObject()
+                new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
                     .Select(o => new SongViewModel(o)));
         }
 

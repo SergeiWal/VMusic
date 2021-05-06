@@ -27,13 +27,13 @@ namespace VMusic.ViewModels.Admin
         private TextBlock genre; 
         private string resultString = "";
 
-        private SongRepository repository;
+        private UnitOfWork dbWorker;
         private string path;
         private byte[] img;
 
         public AddMusicViewModel(ObservableCollection<SongViewModel> localSongList)
         {
-            repository = new SongRepository();
+            dbWorker = new UnitOfWork();
             LocalSongList = localSongList;
         }
 
@@ -116,8 +116,8 @@ namespace VMusic.ViewModels.Admin
 
                             if (!IsRepeat(new SongViewModel(song)))
                             {
-                                repository.Create(song);
-                                repository.Save();
+                                dbWorker.Songs.Create(song);
+                                dbWorker.Save();
                                 AddSongToLocalCollection(song);
                                 ResultString = "Добавлено успешно!!!";
                                 ClearField();
@@ -185,7 +185,7 @@ namespace VMusic.ViewModels.Admin
 
         private void AddSongToLocalCollection(Song song)
         {
-            var song_db = repository.GetById(song.Id);
+            var song_db = dbWorker.Songs.GetById(song.Id);
             LocalSongList.Add(new SongViewModel(song_db));
         }
 

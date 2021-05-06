@@ -15,7 +15,7 @@ namespace VMusic.ViewModels.Autorization
 {
     class AutorizationViewModel : BaseWindowViewModel
     {
-        private UserRepository userRepository;
+        private UnitOfWork dbWorker;
         private string infoMessage = "";
 
         private string login;
@@ -23,7 +23,7 @@ namespace VMusic.ViewModels.Autorization
 
         public AutorizationViewModel(Window owner): base(owner)
         {
-            userRepository = new UserRepository();
+            dbWorker = new UnitOfWork();
         }
 
         public string Login
@@ -123,7 +123,7 @@ namespace VMusic.ViewModels.Autorization
             if (IsFieldsNotEmpty())
             {
                 string passwordHash = PasswordHasher.GetHash(Password);
-                var user = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                var user = dbWorker.Users.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
                 if (user != null)
                 {
                     if (!user.IsBlocked)
@@ -151,7 +151,7 @@ namespace VMusic.ViewModels.Autorization
             if (IsFieldsNotEmpty())
             {
                 string passwordHash = PasswordHasher.GetHash(Password);
-                var admin = userRepository.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
+                var admin = dbWorker.Users.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
                 if (admin != null && admin.IsAdmin)
                 {
                     SwitchTo(GetAdminMainWindow(admin), owner);
