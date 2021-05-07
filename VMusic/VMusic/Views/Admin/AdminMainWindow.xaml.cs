@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VMusic.ViewModels;
 using VMusic.ViewModels.Admin;
 
 namespace VMusic.Views.Admin
@@ -23,6 +24,28 @@ namespace VMusic.Views.Admin
         public AdminMainWindow()
         {
             InitializeComponent();
+            Loaded += AdminMainWindowWindow_Loaded;
+        }
+
+        private void AdminMainWindowWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IWindowController vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+                
+                vm.SizeChange += () =>
+                {
+                    this.WindowState = this.WindowState != WindowState.Maximized ? WindowState.Maximized : WindowState.Normal;
+                };
+
+                vm.Collapse += () =>
+                {
+                    this.WindowState = WindowState.Minimized;
+                };
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

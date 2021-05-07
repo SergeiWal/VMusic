@@ -26,7 +26,7 @@ namespace VMusic.ViewModels.Admin
         private TopMusicPage topMusicList;
         private Page currentPage; 
 
-        public AdminMainViewModel(User admin, Window owner) : base(owner)
+        public AdminMainViewModel(User admin)
         {
             this.admin = admin;
             dbWorker = new UnitOfWork();

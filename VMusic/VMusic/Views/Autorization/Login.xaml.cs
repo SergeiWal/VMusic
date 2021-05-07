@@ -12,6 +12,7 @@ using VMusic.ViewModels.Autorization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VMusic.ViewModels;
 
 namespace VMusic.Views.Autorization
 {
@@ -23,7 +24,19 @@ namespace VMusic.Views.Autorization
         public Login()
         {
             InitializeComponent();
-            DataContext = new AutorizationViewModel(this);
+            Loaded += LoginWindow_Loaded;
+            DataContext = new AutorizationViewModel();
+        }
+
+        private void LoginWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IWindowController vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -28,7 +28,7 @@ namespace VMusic.ViewModels.Autorization
 
         private string infoMessage = "";
 
-        public RegistrationViewModel(Window owner): base(owner)
+        public RegistrationViewModel()
         {
             dbWorker = new UnitOfWork();
         }
@@ -102,7 +102,7 @@ namespace VMusic.ViewModels.Autorization
             {
                 return switchToLoginCommand ?? (switchToLoginCommand = new Command((obj) =>
                 {
-                    SwitchTo(new Login(), owner);
+                    SwitchTo(new Login());
                 }));
             }
         }
@@ -112,7 +112,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return switchToLoginAsAdminCommand ?? (switchToLoginAsAdminCommand = new Command((obj) => {
-                    SwitchTo(new LoginAsAdmin(), owner);
+                    SwitchTo(new LoginAsAdmin());
                 }));
             }
         }
@@ -136,7 +136,7 @@ namespace VMusic.ViewModels.Autorization
                         };
                         dbWorker.Users.Create(user);
                         dbWorker.Save();
-                        SwitchTo(new Login(), owner);
+                        SwitchTo(new Login());
                     }
                     else
                     {

@@ -11,21 +11,19 @@ using VMusic.Commands;
 
 namespace VMusic.ViewModels
 {
-    class BaseWindowViewModel: BaseViewModel
+    class BaseWindowViewModel: BaseViewModel, IWindowController
     {
 
-        protected Window owner;
 
-        public BaseWindowViewModel(Window owner)
-        {
-            this.owner = owner;
-        }
+        public Action Close { get; set; }
+        public Action SizeChange { get; set; }
+        public Action Collapse { get; set; }
 
 
-        protected void SwitchTo(Window window, Window owner)
+        protected void SwitchTo(Window window)
         {
             window.Show();
-            owner.Close();
+            Close?.Invoke();
         }
 
         private Command exitCommand;
@@ -37,7 +35,7 @@ namespace VMusic.ViewModels
             get
             {
                 return exitCommand ?? (exitCommand = new Command((obj) => {
-                    owner.Close();
+                    Close?.Invoke();
                 }));
             }
         }
@@ -48,7 +46,7 @@ namespace VMusic.ViewModels
             {
                 return  windowSizeChangeCommand ?? (windowSizeChangeCommand = new Command((obj) =>
                     {
-                        owner.WindowState = owner.WindowState != WindowState.Maximized ? WindowState.Maximized : WindowState.Normal;
+                        SizeChange?.Invoke();
                     }
                 ));
             }
@@ -60,7 +58,7 @@ namespace VMusic.ViewModels
             {
                 return collapseWindow ?? (collapseWindow = new Command((obj) =>
                     {
-                        owner.WindowState = WindowState.Minimized;
+                        Collapse?.Invoke();
                     }
                 ));
             }

@@ -21,7 +21,7 @@ namespace VMusic.ViewModels.Autorization
         private string login;
         private string password;
 
-        public AutorizationViewModel(Window owner): base(owner)
+        public AutorizationViewModel()
         {
             dbWorker = new UnitOfWork();
         }
@@ -69,7 +69,7 @@ namespace VMusic.ViewModels.Autorization
             {
                 return switchToLoginCommand ?? (switchToLoginCommand = new Command((obj) =>
                 {
-                    SwitchTo(new Login(), owner);
+                    SwitchTo(new Login());
                 }));
             }
         }
@@ -79,7 +79,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return switchToLoginAsAdminCommand ?? (switchToLoginAsAdminCommand = new Command((obj) => {
-                    SwitchTo(new LoginAsAdmin(), owner);
+                    SwitchTo(new LoginAsAdmin());
                 }));
             }
         }
@@ -89,7 +89,7 @@ namespace VMusic.ViewModels.Autorization
             get
             {
                 return switchToRegistrationCommand ?? (switchToRegistrationCommand = new Command((obj) => {
-                    SwitchTo(new Registration(), owner);
+                    SwitchTo(new Registration());
                 }));
             }
         }
@@ -128,7 +128,7 @@ namespace VMusic.ViewModels.Autorization
                 {
                     if (!user.IsBlocked)
                     {
-                        SwitchTo(GetClientMainWindow(user), owner);
+                        SwitchTo(GetClientMainWindow(user));
                     }
                     else
                     {
@@ -154,7 +154,7 @@ namespace VMusic.ViewModels.Autorization
                 var admin = dbWorker.Users.GetAllObject().FirstOrDefault(s => s.Login == Login && s.Password == passwordHash);
                 if (admin != null && admin.IsAdmin)
                 {
-                    SwitchTo(GetAdminMainWindow(admin), owner);
+                    SwitchTo(GetAdminMainWindow(admin));
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace VMusic.ViewModels.Autorization
         private  ClientMainWindow GetClientMainWindow(User user)
         {
             ClientMainWindow clientMainWindow = new ClientMainWindow();
-            ClientMainViewModel clientMainViewModel = new ClientMainViewModel(user, clientMainWindow);
+            ClientMainViewModel clientMainViewModel = new ClientMainViewModel(user);
             clientMainWindow.DataContext = clientMainViewModel;
             return clientMainWindow;
         }
@@ -184,7 +184,7 @@ namespace VMusic.ViewModels.Autorization
         private AdminMainWindow GetAdminMainWindow(User admin)
         {
             AdminMainWindow adminWindow = new AdminMainWindow();
-            AdminMainViewModel adminMainViewModel = new AdminMainViewModel(admin, adminWindow);
+            AdminMainViewModel adminMainViewModel = new AdminMainViewModel(admin);
             adminWindow.DataContext = adminMainViewModel;
             return adminWindow;
         }

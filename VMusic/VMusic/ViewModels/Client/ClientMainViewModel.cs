@@ -34,7 +34,7 @@ namespace VMusic.ViewModels.Client
         private SongContent songContent;
         private UnitOfWork dbWorker;
 
-        public ClientMainViewModel(User user, Window owner) : base(owner)
+        public ClientMainViewModel(User user)
         {
             this.user = user;
             dbWorker = new UnitOfWork();
