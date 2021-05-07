@@ -100,6 +100,7 @@
     <Compile Include="ViewModels\Client\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Client\ISongContent.cs" />
     <Compile Include="ViewModels\Client\SongContent.cs" />
+    <Compile Include="ViewModels\Client\TopSongListViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
