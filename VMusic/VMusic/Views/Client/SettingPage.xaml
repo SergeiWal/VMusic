@@ -30,7 +30,7 @@
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
                    Margin="10 0">
-            <TextBlock Text="Username" FontSize="24" />
+            <TextBlock Text="{Binding User.Name}" FontSize="24" />
             <materialDesign:PackIcon Kind="User" Foreground="DeepPink" Width="32" Height="32"></materialDesign:PackIcon>
         </WrapPanel>
 
@@ -42,26 +42,27 @@
 
             <StackPanel Margin="0 10">
                 <TextBlock>Новый пароль</TextBlock>
-                <PasswordBox></PasswordBox>
+                <PasswordBox Name="NewPasswordBox" PasswordChanged="NewPasswordBox_OnPasswordChanged"></PasswordBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
             <StackPanel Margin="0 10">
                 <TextBlock>Повторите пароль</TextBlock>
-                <PasswordBox></PasswordBox>
+                <PasswordBox Name="RepeatPasswordBox" PasswordChanged="RepeatPasswordBox_OnPasswordChanged"></PasswordBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
 
             <StackPanel Margin="0 10">
                 <TextBlock>Текущий пароль</TextBlock>
-                <PasswordBox></PasswordBox>
+                <PasswordBox Name="OldPasswordBox" PasswordChanged="OldPasswordBox_OnPasswordChanged"></PasswordBox>
                 <Border Style="{StaticResource Underline}"/>
             </StackPanel>
             <Button
                 Margin="0 10"
                 Style="{StaticResource EnterButton}"
                 Width="140"
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Left"
+                Command="{Binding ChangePasswordCommand}">
                 <TextBlock Text="Сменить пароль"></TextBlock>
             </Button>
         </StackPanel>

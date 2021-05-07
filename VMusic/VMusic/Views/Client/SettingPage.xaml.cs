@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VMusic.ViewModels.Client;
 
 namespace VMusic.Views.Client
 {
@@ -23,6 +24,30 @@ namespace VMusic.Views.Client
         public SettingPage()
         {
             InitializeComponent();
+        }
+
+        private void NewPasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                ((SettingViewModel)this.DataContext).NewPassword = NewPasswordBox.Password;
+            }
+        }
+
+        private void RepeatPasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                ((SettingViewModel)this.DataContext).RepeatPassword = RepeatPasswordBox.Password;
+            }
+        }
+
+        private void OldPasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                ((SettingViewModel)this.DataContext).OldPassword = OldPasswordBox.Password;
+            }
         }
     }
 }

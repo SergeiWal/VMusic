@@ -51,6 +51,7 @@ namespace VMusic.ViewModels.Client
             createPlaylistViewModel = new CreatePlaylistViewModel();
             createPlaylistPage.DataContext = createPlaylistViewModel;
             settingPage = new SettingPage();
+            settingPage.DataContext = new SettingViewModel(user);
             topMusicPage = new HomePage();
             topMusicPage.DataContext = new TopSongListViewModel(songContent);
 
