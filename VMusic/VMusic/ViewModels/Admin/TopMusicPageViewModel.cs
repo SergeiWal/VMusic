@@ -49,14 +49,28 @@ namespace VMusic.ViewModels.Admin
                     if (playlist == null)
                     {
                         dbWorker.Playlist.Create(topSongPlaylist);
+                        AddSongsToPlaylist();
                         dbWorker.Save();
                     }
                     else
                     {
-                        dbWorker.Playlist.Update(playlist, topSongPlaylist);
+                        AddSongsToPlaylist();
                         dbWorker.Save();
                     }
                 }));
+            }
+        }
+
+        private void AddSongsToPlaylist()
+        {
+            var playlist = dbWorker.Playlist.GetAllObject().FirstOrDefault(p=>p.Name==TOP_LIST_NAME);
+            if (playlist != null)
+            {
+                foreach (var song in TopSongList)
+                {
+                    playlist.Songs.Add(song.song);
+                }
+                dbWorker.Save();
             }
         }
 
