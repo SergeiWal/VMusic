@@ -12,16 +12,19 @@ namespace VMusic.ViewModels.Client
 {
     class TopSongListViewModel: BaseViewModel
     {
+        private SongContent songContent;
         private UnitOfWork dbWorker;
         private Playlist topPlaylist;
         private SongViewModel currentSong;
         public ObservableCollection<SongViewModel> LocalSongList { get; set;}
 
-        public TopSongListViewModel()
+        public TopSongListViewModel(SongContent songContent)
         {
+            this.songContent = songContent;
             dbWorker = new UnitOfWork();
             topPlaylist = dbWorker.Playlist.GetByPredicate(p => p.Name == TopMusicPageViewModel.TOP_LIST_NAME);
-            LocalSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().Select(s=>new SongViewModel(s)));
+            LocalSongList = new ObservableCollection<SongViewModel>(topPlaylist.Songs.OrderByDescending(s=>s.Rating).
+                Select(s=>new SongViewModel(s)));
         }
 
         public SongViewModel CurrentSong
@@ -30,6 +33,8 @@ namespace VMusic.ViewModels.Client
             set
             {
                 currentSong = value;
+                songContent.CurrentPlaylist = LocalSongList;
+                songContent.CurrentSong = value;
                 OnPropertyChanged("CurrentSong");
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace VMusic.Repository
 
         public Playlist GetByPredicate(Func<Playlist, bool> predicate)
         {
-            return  db.Playlists.FirstOrDefault(predicate);
+            return  db.Playlists.Include(p=>p.Songs).FirstOrDefault(predicate);
         }
 
         public void Create(Playlist obj)
@@ -45,6 +46,16 @@ namespace VMusic.Repository
             dest.Image = newObj.Image;
             dest.Name = newObj.Name;
             dest.UserId = newObj.UserId;
+        }
+
+        public void ClearSongs(int id)
+        {
+            var playlist = db.Playlists.Include(p => p.Songs).FirstOrDefault(p => p.Id == id);
+            if (playlist != null) 
+            {
+                playlist.Songs.Clear();
+            }
+
         }
 
         public void Delete(int id)

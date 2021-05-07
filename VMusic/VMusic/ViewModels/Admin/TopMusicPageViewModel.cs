@@ -23,7 +23,7 @@ namespace VMusic.ViewModels.Admin
         {
             dbWorker = new UnitOfWork();
 
-            TopSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().OrderBy(n => n.Rating)
+            TopSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().OrderByDescending(n => n.Rating)
                 .Select(s => new SongViewModel(s)).Take(TOP_LIST_SIZE));
 
             topSongPlaylist = new Playlist()
@@ -61,11 +61,14 @@ namespace VMusic.ViewModels.Admin
             }
         }
 
+
         private void AddSongsToPlaylist()
         {
             var playlist = dbWorker.Playlist.GetAllObject().FirstOrDefault(p=>p.Name==TOP_LIST_NAME);
+
             if (playlist != null)
             {
+                dbWorker.Playlist.ClearSongs(playlist.Id);
                 foreach (var song in TopSongList)
                 {
                     playlist.Songs.Add(song.song);
