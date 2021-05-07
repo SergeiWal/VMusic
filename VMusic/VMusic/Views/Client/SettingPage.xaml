@@ -81,7 +81,8 @@
             </Button>
             <Button
                 Margin="0 10"
-                Style="{StaticResource EnterButton}">
+                Style="{StaticResource EnterButton}"
+                Command="{Binding ExitCommand}">
                 <TextBlock Text="Выйти"></TextBlock>
             </Button>
             <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}"></TextBlock>

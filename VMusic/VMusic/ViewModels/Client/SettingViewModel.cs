@@ -29,6 +29,8 @@ namespace VMusic.ViewModels.Client
 
         public UserViewModel User { get; set; }
 
+        private bool isExit = false;
+
         public SettingViewModel(User user)
         {
             dbWorker = new UnitOfWork();
@@ -46,8 +48,19 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool IsExit
+        {
+            get => isExit;
+            set
+            {
+                isExit = value;
+                OnPropertyChanged("IsExit");
+            }
+        }
+
         private Command changePasswordCommand;
         private Command deleteUserCommand;
+        private Command exitCommand;
 
         public Command ChangePasswordCommand
         {
@@ -89,6 +102,17 @@ namespace VMusic.ViewModels.Client
                 return deleteUserCommand ??(deleteUserCommand = new Command((obj) =>
                 {
                     DeleteUser();
+                }));
+            }
+        }
+
+        public Command ExitCommand
+        {
+            get
+            {
+                return exitCommand ?? (exitCommand = new Command((obj) =>
+                {
+                    IsExit = isExit != true;
                 }));
             }
         }

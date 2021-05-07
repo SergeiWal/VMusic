@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using VMusic.Commands;
 using VMusic.Models;
 using VMusic.Repository;
+using VMusic.Views.Autorization;
 using VMusic.Views.Client;
 
 namespace VMusic.ViewModels.Client
@@ -26,6 +27,7 @@ namespace VMusic.ViewModels.Client
         private CreatePlaylistPage createPlaylistPage;
         private CreatePlaylistViewModel createPlaylistViewModel;
         private SettingPage settingPage;
+        private SettingViewModel settingViewModel;
         private HomePage topMusicPage;
         
 
@@ -51,7 +53,9 @@ namespace VMusic.ViewModels.Client
             createPlaylistViewModel = new CreatePlaylistViewModel();
             createPlaylistPage.DataContext = createPlaylistViewModel;
             settingPage = new SettingPage();
-            settingPage.DataContext = new SettingViewModel(user);
+            settingViewModel = new SettingViewModel(user);
+            settingViewModel.PropertyChanged += OnSettingPropertyChanged;
+            settingPage.DataContext = settingViewModel ;
             topMusicPage = new HomePage();
             topMusicPage.DataContext = new TopSongListViewModel(songContent);
 
@@ -262,6 +266,16 @@ namespace VMusic.ViewModels.Client
                 {
                     PlaySong(CurrentSong.Source);
                 }
+            }
+        }
+
+        private void OnSettingPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsExit")
+            {
+                Login login = new Login();
+                Close?.Invoke();
+                login.Show();
             }
         }
 
