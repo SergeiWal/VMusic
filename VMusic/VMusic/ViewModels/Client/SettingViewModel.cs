@@ -17,6 +17,8 @@ namespace VMusic.ViewModels.Client
         private const string OLD_PASS_FAILED = "Текущий пароль не верен ...";
         private const string PASS_NOT_EQUAL = "Пароли не совпадают ...";
         private const string FIELDS_EMPTY = "Заполнены не все поля ...";
+        private const string USER_IS_ADMIN = "Невозможно удалить аккаунт админа ...";
+        private const string DELETE_USER_SUCCES = "Ваш аккаунт удалён ...";
 
         private UnitOfWork dbWorker;
 
@@ -45,6 +47,7 @@ namespace VMusic.ViewModels.Client
         }
 
         private Command changePasswordCommand;
+        private Command deleteUserCommand;
 
         public Command ChangePasswordCommand
         {
@@ -79,6 +82,17 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public Command DeleteUserCommand
+        {
+            get
+            {
+                return deleteUserCommand ??(deleteUserCommand = new Command((obj) =>
+                {
+                    DeleteUser();
+                }));
+            }
+        }
+
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(OldPassword) && !string.IsNullOrEmpty(NewPassword) &&
@@ -102,6 +116,24 @@ namespace VMusic.ViewModels.Client
             {
                 user.Password = PasswordHasher.GetHash(NewPassword);
                 dbWorker.Save();
+            }
+        }
+
+        private void DeleteUser()
+        {
+            var user = dbWorker.Users.GetById(User.Id);
+            if (user != null)
+            {
+                if (!user.IsAdmin)
+                {
+                    dbWorker.Users.Delete(user.Id);
+                    dbWorker.Save();
+                    ResultString = DELETE_USER_SUCCES;
+                }
+                else
+                {
+                    ResultString = USER_IS_ADMIN;
+                }
             }
         }
     }
