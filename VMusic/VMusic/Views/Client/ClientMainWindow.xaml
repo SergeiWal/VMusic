@@ -137,7 +137,8 @@
                     </Button>
                     <Button Background="Transparent"
                             BorderThickness="0"
-                            Margin="10 10">
+                            Margin="10 10"
+                            Command="{Binding SwitchToPlaylistsPage}">
                         <Grid Width="200"
                             Height="32">
                             <StackPanel Orientation="Horizontal">

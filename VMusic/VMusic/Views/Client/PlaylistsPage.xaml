@@ -29,42 +29,42 @@
                    VerticalAlignment="Center"
                    Margin="10 0"/>
 
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Auto">
-            <ListView  BorderThickness="0"
+        <ListBox Grid.Row="1"  
+                 BorderThickness="0"
                  Background="Transparent"
-                 >
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                 ItemsSource="{Binding Playlists}"
+                 SelectedItem="{Binding SelectedPlaylist, Mode=TwoWay}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Button 
-                    Width="150" Height="180"
-                    Margin="10 10"
-                    Background="Transparent" BorderThickness="0">
-                            <Grid Height="180" Width="150">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2.5*"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    
+                        <Grid Height="180" Width="150" Margin="10 10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2.5*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                                <Border Grid.RowSpan="2"
+                            <Border Grid.RowSpan="2"
                                 CornerRadius="20"
                                 Background="#FF19181F"/>
 
-                                <Image Grid.Row="0"
+                            <Image Grid.Row="0"
                                Panel.ZIndex="1"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               Margin="15 15"
+                               Margin="25 15"
                                Width="120"
-                               Height="100"/>
+                               Height="100"
+                               Source="{Binding Image}"/>
 
-                                <materialDesign:PackIcon Kind="Image"
+                            <materialDesign:PackIcon Kind="Image"
                                                  Foreground="DeepPink"
                                                  Grid.Row="0"
                                                  HorizontalAlignment="Center"
@@ -72,20 +72,19 @@
                                                  Width="100"
                                                  Height="100"/>
 
-                                <Border Background="DeepPink" Height="2" VerticalAlignment="Bottom"/>
+                            <Border Background="DeepPink" Height="2" VerticalAlignment="Bottom"/>
 
-                                <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                    FontSize="16"
-                                   Text="Name"
+                                   Text="{Binding Name}"
                                    Margin="10 5"
                                    TextWrapping="Wrap"/>
-                            </Grid>
-                        </Button>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                
-            </ListView>
-        </ScrollViewer>
-        
+                        </Grid>
+                    
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+
     </Grid>
 </Page>
