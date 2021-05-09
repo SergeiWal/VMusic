@@ -30,6 +30,9 @@ namespace VMusic.ViewModels.Client
         private SettingViewModel settingViewModel;
         private HomePage topMusicPage;
         private PlaylistsPage playlistsPage;
+        private PlaylistsPageViewModel playlistsPageViewModel;
+        private SinglePlaylistPage singlePlaylistPage;
+        private SinglePlaylistViewModel singlePlaylistViewModel;
         
 
         private Page currentPage;
@@ -60,7 +63,10 @@ namespace VMusic.ViewModels.Client
             topMusicPage = new HomePage();
             topMusicPage.DataContext = new TopSongListViewModel(songContent);
             playlistsPage = new PlaylistsPage();
-            playlistsPage.DataContext = new PlaylistsPageViewModel(user);
+            playlistsPageViewModel = new PlaylistsPageViewModel(user);
+            playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
+            playlistsPage.DataContext = playlistsPageViewModel;
+            singlePlaylistPage = new SinglePlaylistPage();
 
             CurrentPage = homePage;
 
@@ -291,6 +297,15 @@ namespace VMusic.ViewModels.Client
                 Login login = new Login();
                 Close?.Invoke();
                 login.Show();
+            }
+        }
+
+        private void OnPlaylistPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedPlaylist")
+            {
+                singlePlaylistPage.DataContext = new SinglePlaylistViewModel(playlistsPageViewModel.SelectedPlaylist, songContent, user);
+                CurrentPage = singlePlaylistPage;
             }
         }
 

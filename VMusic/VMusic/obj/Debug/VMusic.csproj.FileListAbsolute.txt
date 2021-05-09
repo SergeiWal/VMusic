@@ -53,3 +53,5 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\SettingPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\SettingPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\PlaylistsPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\PlaylistsPage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\SinglePlaylistPage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\SinglePlaylistPage.baml
