@@ -285,7 +285,8 @@
                 <Border Style="{StaticResource VerticalLine}"/>
                 <Button Style="{StaticResource AppControlButton}"
                             Width="32" Height="32"
-                            Margin="7 2">
+                            Margin="7 2"
+                            Command="{Binding SwitchToCurrentSongList}">
                     <materialDesign:PackIcon Kind="QueueMusic"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
