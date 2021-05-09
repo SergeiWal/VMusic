@@ -23,17 +23,12 @@ namespace VMusic.ViewModels.Client
         private DispatcherTimer timer;
 
         private HomePage homePage;
-        private HomePageViewModel homePageViewModel;
         private CreatePlaylistPage createPlaylistPage;
-        private CreatePlaylistViewModel createPlaylistViewModel;
         private SettingPage settingPage;
-        private SettingViewModel settingViewModel;
         private HomePage topMusicPage;
         private PlaylistsPage playlistsPage;
-        private PlaylistsPageViewModel playlistsPageViewModel;
         private SinglePlaylistPage singlePlaylistPage;
-        private SinglePlaylistViewModel singlePlaylistViewModel;
-        
+
 
         private Page currentPage;
         private SongViewModel currentSong;
@@ -50,24 +45,7 @@ namespace VMusic.ViewModels.Client
             songContent = new SongContent();
             songContent.PropertyChanged += OnSessionSongPropertyChanged;
 
-            homePage = new HomePage();
-            homePageViewModel = new HomePageViewModel(songContent);
-            homePage.DataContext = homePageViewModel;
-            createPlaylistPage = new CreatePlaylistPage();
-            createPlaylistViewModel = new CreatePlaylistViewModel(this.user);
-            createPlaylistPage.DataContext = createPlaylistViewModel;
-            settingPage = new SettingPage();
-            settingViewModel = new SettingViewModel(user);
-            settingViewModel.PropertyChanged += OnSettingPropertyChanged;
-            settingPage.DataContext = settingViewModel ;
-            topMusicPage = new HomePage();
-            topMusicPage.DataContext = new TopSongListViewModel(songContent);
-            playlistsPage = new PlaylistsPage();
-            playlistsPageViewModel = new PlaylistsPageViewModel(user);
-            playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
-            playlistsPage.DataContext = playlistsPageViewModel;
-            singlePlaylistPage = new SinglePlaylistPage();
-
+            PagesInit();
             CurrentPage = homePage;
 
             timer = new DispatcherTimer();
@@ -304,7 +282,8 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "SelectedPlaylist")
             {
-                singlePlaylistPage.DataContext = new SinglePlaylistViewModel(playlistsPageViewModel.SelectedPlaylist, songContent, user);
+                var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
+                singlePlaylistPage.DataContext = new SinglePlaylistViewModel(playlistsViewModel.SelectedPlaylist, songContent, user);
                 CurrentPage = singlePlaylistPage;
             }
         }
@@ -322,10 +301,63 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+
         private void endAudioCallback(object sender, EventArgs e)
         {
             isPlayed = false;
             isEnded = true;
+        }
+
+        private void PagesInit()
+        {
+
+            homePage = CreateHomePage(songContent);
+            createPlaylistPage = CreateAddPlaylistPage(this.user);
+            settingPage = CreateSettingPage(this.user);
+            topMusicPage = CreateTopMusicPage(songContent);
+            playlistsPage = CreatePlaylistsPage(this.user);
+            singlePlaylistPage = new SinglePlaylistPage();
+
+        }
+
+
+        private HomePage CreateHomePage(SongContent songContent)
+        {
+            HomePage homePage = new HomePage();
+            homePage.DataContext = new HomePageViewModel(songContent);
+            return homePage;
+        }
+
+        private CreatePlaylistPage CreateAddPlaylistPage(User user)
+        {
+            CreatePlaylistPage createPlaylistPage = new CreatePlaylistPage();
+            createPlaylistPage.DataContext = new CreatePlaylistViewModel(user);
+            return createPlaylistPage;
+        }
+
+        private SettingPage CreateSettingPage(User user)
+        {
+            SettingPage settingPage = new SettingPage();
+            SettingViewModel settingViewModel = new SettingViewModel(user);
+            settingViewModel.PropertyChanged += OnSettingPropertyChanged;
+            settingPage.DataContext = new SettingViewModel(user);
+            return settingPage;
+        }
+
+        private HomePage CreateTopMusicPage(SongContent songContent)
+        {
+            HomePage topMusicPage = new HomePage();
+            topMusicPage.DataContext = new TopSongListViewModel(songContent);
+            return topMusicPage;
+        }
+
+        private PlaylistsPage CreatePlaylistsPage(User user)
+        {
+            PlaylistsPage playlistsPage = new PlaylistsPage();
+            PlaylistsPageViewModel playlistsPageViewModel = new PlaylistsPageViewModel(user);
+            playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
+            playlistsPage.DataContext = playlistsPageViewModel;
+            return playlistsPage;
         }
 
 
