@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,6 +15,9 @@ namespace VMusic.ViewModels.Client
 {
     class ClientMainViewModel: BaseWindowViewModel
     {
+
+        public static string LIKE_SONG_LIST_NAME = "Избраное";
+
         private User user;
         private bool isPlayed = false;
         private bool isEnded = false;
@@ -29,8 +33,9 @@ namespace VMusic.ViewModels.Client
         private PlaylistsPage playlistsPage;
         private SinglePlaylistPage singlePlaylistPage;
         private HomePage currentSongListPage;
+        private HomePage findSongPage;
 
-
+        private string findSongString = "";
         private Page currentPage;
         private SongViewModel currentSong;
         private SongContent songContent;
@@ -53,6 +58,16 @@ namespace VMusic.ViewModels.Client
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += tickCallback;
             timer.Start();
+        }
+
+        public string FindSongString
+        {
+            get => findSongString;
+            set
+            {
+                findSongString = value;
+                OnPropertyChanged("FindSongString");
+            }
         }
 
         public Page CurrentPage
@@ -118,6 +133,7 @@ namespace VMusic.ViewModels.Client
         private Command nextSong;
         private Command prevSong;
         private Command volumeOnOff;
+        private Command findSong;
 
         public Command SwitchToHomePage
         {
@@ -190,6 +206,21 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public Command FindSong
+        {
+            get
+            {
+                return findSong ?? (findSong = new Command((obj) =>
+                {
+                    if (!string.IsNullOrEmpty(FindSongString))
+                    {
+                        findSongPage.DataContext = new FindSongViewModel(FindSongString, songContent);
+                        CurrentPage = findSongPage;
+                    }
+                }));
+            }
+        }
+
         public Command PrevSong
         {
             get
@@ -242,14 +273,11 @@ namespace VMusic.ViewModels.Client
         {
             get
             {
-                return likeSong??(likeSong  =new Command((obj) =>
+                return likeSong ?? (likeSong = new Command((obj) =>
                 {
                     if (CurrentSong != null)
                     {
-                        ++CurrentSong.Rating;
-                        var song = dbWorker.Songs.GetById(CurrentSong.Id);
-                        dbWorker.Songs.RatingUpdate(song);
-                        dbWorker.Save();
+                       
                     }
                 }));
             }
@@ -328,13 +356,13 @@ namespace VMusic.ViewModels.Client
 
         private void PagesInit()
         {
-
             homePage = CreateHomePage(songContent);
             createPlaylistPage = CreateAddPlaylistPage(this.user);
             settingPage = CreateSettingPage(this.user);
             topMusicPage = CreateTopMusicPage(songContent);
             playlistsPage = CreatePlaylistsPage(this.user);
             singlePlaylistPage = new SinglePlaylistPage();
+            findSongPage = new HomePage();
             currentSongListPage = new HomePage();
         }
 
@@ -378,6 +406,38 @@ namespace VMusic.ViewModels.Client
             return playlistsPage;
         }
 
+        private bool CheckLikeSongRepeat(Playlist playlist)
+        {
+            return false;
+        }
+
+
+        private void CreateLikeSongList()
+        {
+            
+        }
+
+        private bool AddLikeSongInList()
+        {
+            return false;
+        }
+
+        private void SongRatingUp()
+        {
+            ++CurrentSong.Rating;
+            var song = dbWorker.Songs.GetById(CurrentSong.Id);
+            dbWorker.Songs.RatingUpdate(song);
+            dbWorker.Save();
+        }
+
+        private void PlaylistsUpdate(Playlist playlist)
+        {
+            var obj = playlistsPage.DataContext as PlaylistsPageViewModel;
+            if (obj != null)
+            {
+                obj.PlaylistsDataUpdate(playlist);
+            }
+        }
 
         private void PlaySong(string path)
         {

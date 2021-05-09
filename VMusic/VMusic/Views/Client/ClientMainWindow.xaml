@@ -50,15 +50,19 @@
             </Border>
 
 
-            <WrapPanel Grid.Column="1"
-                       VerticalAlignment="Center"
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                       VerticalAlignment="Top"
                        HorizontalAlignment="Left"
-                       Margin="10">
-                <Button Style="{StaticResource AppControlButton}">
-                    <materialDesign:PackIcon Kind="User" Foreground="DeepPink"/>
+                       Margin="5"
+                        Height="32">
+                <Button Style="{StaticResource AppControlButton}"
+                        Command="{Binding FindSong}">
+                    <materialDesign:PackIcon Kind="Search" Foreground="DeepPink"/>
                 </Button>
-                <TextBlock Text="name" Margin="3 2"/>
-            </WrapPanel>
+                <TextBox Text="{Binding FindSongString, Mode=TwoWay}" FontSize="12"
+                         Height="18" Width="120" Margin="0 0 5 2"/>
+            </StackPanel>
 
             <WrapPanel Grid.Column="2"
                        VerticalAlignment="Center"

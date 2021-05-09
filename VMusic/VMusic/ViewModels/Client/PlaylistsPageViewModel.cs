@@ -22,6 +22,7 @@ namespace VMusic.ViewModels.Client
             dbWorker = new UnitOfWork();
             currentUser = user;
             Playlists = new ObservableCollection<PlaylistViewModel>(dbWorker.Playlist.GetAllObject()
+                .Where(p=>p.UserId == user.Id)
                 .Select(p=>new PlaylistViewModel(p)));
         }
 
@@ -35,5 +36,9 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public void PlaylistsDataUpdate(Playlist playlist)
+        {
+            Playlists.Add(new PlaylistViewModel(playlist));
+        }
     }
 }

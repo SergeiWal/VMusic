@@ -79,7 +79,7 @@ namespace VMusic.ViewModels.Client
 
         private void CollectionInitialized()
         {
-            var obj = dbWorker.Playlist.GetByPredicate(p=>p.Id==Playlist.Id);
+            var obj = dbWorker.Playlist.GetByPredicate(p => p.Id == Playlist.Id);
             SongLocalList = new ObservableCollection<SongViewModel>(obj.Songs.Select(s => new SongViewModel(s)));
         }
 
