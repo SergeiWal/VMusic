@@ -23,12 +23,15 @@
         
         <Border CornerRadius="20" Grid.RowSpan="3"
                 Grid.ColumnSpan="5"
-                Background="#FF131317">
+                Background="#FF131317"
+                >
         </Border>
 
         <Image Grid.Column="0" Grid.Row="0"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Margin="20 20"
+               Panel.ZIndex="1"
                Source="{Binding PlaylistImage}">
         </Image>
 
@@ -62,6 +65,8 @@
                 Command="{Binding SavePlaylist}">
                 <TextBlock>Сохранить</TextBlock>
             </Button>
+            <TextBlock FontSize="12" Margin="2 2" 
+                       Text="{Binding InfoMessage}"/>
         </StackPanel>
 
         <WrapPanel Margin="10 20"
@@ -72,16 +77,19 @@
                 <materialDesign:PackIcon Kind="Search" Foreground="DeepPink" Width="18" Height="18"/>
             </Button>
             <StackPanel>
-                <TextBox Opacity="0.3" Text="{Binding FindSongName, Mode=TwoWay}"></TextBox>
+                <TextBox  Text="{Binding FindSongName, Mode=TwoWay}"></TextBox>
                 <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
             </StackPanel>
+            <Button Style="{StaticResource AppControlButton}"
+                    Command="{Binding AddSong}">
+                <materialDesign:PackIcon Kind="Add" Foreground="DeepPink" Width="18" Height="18"/>
+            </Button>
         </WrapPanel>
 
         <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                 Background="DeepPink"
                 Height="2"
                 VerticalAlignment="Bottom"/>
-
 
 
 
@@ -93,7 +101,8 @@
             <ListView Name="SongCollection" 
                       Background="Transparent" 
                       BorderThickness="0"
-                      ItemsSource="{Binding SongLocalList}">
+                      ItemsSource="{Binding SongLocalList}"
+                      SelectedItem="{Binding SelectedSong, Mode=TwoWay}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>

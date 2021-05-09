@@ -50,7 +50,7 @@ namespace VMusic.ViewModels.Client
             homePageViewModel = new HomePageViewModel(songContent);
             homePage.DataContext = homePageViewModel;
             createPlaylistPage = new CreatePlaylistPage();
-            createPlaylistViewModel = new CreatePlaylistViewModel();
+            createPlaylistViewModel = new CreatePlaylistViewModel(this.user);
             createPlaylistPage.DataContext = createPlaylistViewModel;
             settingPage = new SettingPage();
             settingViewModel = new SettingViewModel(user);
