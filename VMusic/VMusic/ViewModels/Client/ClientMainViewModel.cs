@@ -32,6 +32,7 @@ namespace VMusic.ViewModels.Client
         private HomePage topMusicPage;
         private PlaylistsPage playlistsPage;
         private SinglePlaylistPage singlePlaylistPage;
+        private UpdatePlaylistPage updatePlaylistPage;
         private HomePage currentSongListPage;
         private HomePage findSongPage;
 
@@ -185,6 +186,7 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToPlaylistsPage ?? (switchToPlaylistsPage = new Command((obj) =>
                 {
+                    playlistsPage.DataContext = CreatePlaylistsPageViewModel(this.user);
                     CurrentPage = playlistsPage;
                 }));
             }
@@ -338,8 +340,31 @@ namespace VMusic.ViewModels.Client
             if (e.PropertyName == "SelectedPlaylist")
             {
                 var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
-                singlePlaylistPage.DataContext = new SinglePlaylistViewModel(playlistsViewModel.SelectedPlaylist, songContent, user);
+                SinglePlaylistViewModel singlePlaylistViewModel =
+                    new SinglePlaylistViewModel(playlistsViewModel.SelectedPlaylist, songContent, user);
+                singlePlaylistViewModel.PropertyChanged += OnPlaylistUpdatePropertyChanged;
+                singlePlaylistPage.DataContext = singlePlaylistViewModel ;
                 CurrentPage = singlePlaylistPage;
+            }
+        }
+
+        private void OnPlaylistUpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsUpdate")
+            {
+                var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
+                UpdatePlaylistViewModel updatePlaylistViewModel = new UpdatePlaylistViewModel(playlistsViewModel);
+                updatePlaylistViewModel.PropertyChanged += OnPlaylistDeletePropertyChanged;
+                updatePlaylistPage.DataContext = updatePlaylistViewModel;
+                CurrentPage = updatePlaylistPage;
+            }
+        }
+
+        private void OnPlaylistDeletePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsFinish")
+            {
+               SwitchToPlaylistsPage.Execute(new object());
             }
         }
 
@@ -366,13 +391,14 @@ namespace VMusic.ViewModels.Client
         private void PagesInit()
         {
             homePage = CreateHomePage(songContent);
-            playlistsPage = CreatePlaylistsPage(this.user);
+            playlistsPage = new PlaylistsPage();
             createPlaylistPage = CreateAddPlaylistPage(this.user, (PlaylistsPageViewModel)this.playlistsPage.DataContext);
             settingPage = CreateSettingPage(this.user);
             topMusicPage = CreateTopMusicPage(songContent);
             singlePlaylistPage = new SinglePlaylistPage();
             findSongPage = new HomePage();
             currentSongListPage = new HomePage();
+            updatePlaylistPage = new UpdatePlaylistPage();
         }
 
 
@@ -406,13 +432,11 @@ namespace VMusic.ViewModels.Client
             return topMusicPage;
         }
 
-        private PlaylistsPage CreatePlaylistsPage(User user)
+        private PlaylistsPageViewModel CreatePlaylistsPageViewModel(User user)
         {
-            PlaylistsPage playlistsPage = new PlaylistsPage();
             PlaylistsPageViewModel playlistsPageViewModel = new PlaylistsPageViewModel(user);
             playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
-            playlistsPage.DataContext = playlistsPageViewModel;
-            return playlistsPage;
+            return playlistsPageViewModel;
         }
 
         private bool IsHasLikeSongList()

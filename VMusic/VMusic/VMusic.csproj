@@ -106,6 +106,7 @@
     <Compile Include="ViewModels\Client\SinglePlaylistViewModel.cs" />
     <Compile Include="ViewModels\Client\SongContent.cs" />
     <Compile Include="ViewModels\Client\TopSongListViewModel.cs" />
+    <Compile Include="ViewModels\Client\UpdatePlaylistViewModel.cs" />
     <Compile Include="ViewModels\IWindowController.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />

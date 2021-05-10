@@ -37,7 +37,6 @@ namespace VMusic.ViewModels.Client
             }
         }
 
-        
         public void PlaylistsDataUpdate(Playlist playlist)
         {
             Playlists.Add(new PlaylistViewModel(playlist));

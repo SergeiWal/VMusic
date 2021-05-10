@@ -16,6 +16,7 @@ namespace VMusic.ViewModels.Client
         private SongContent songContent;
         private UnitOfWork dbWorker;
         private SongViewModel selectedSong;
+        private bool isUpdate = false;
 
         public PlaylistViewModel Playlist { get; set; }
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
@@ -61,7 +62,18 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool IsUpdate
+        {
+            get => isUpdate;
+            set
+            {
+                isUpdate = value;
+                OnPropertyChanged("IsUpdate");
+            }
+        }
+
         private Command play;
+        private Command update;
 
         public Command Play
         {
@@ -77,10 +89,24 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public Command Update
+        {
+            get
+            {
+                return update ?? (update = new Command((obj) =>
+                {
+                    IsUpdate = IsUpdate != true;
+                }));
+            }
+        }
+
         private void CollectionInitialized()
         {
             var obj = dbWorker.Playlist.GetByPredicate(p => p.Id == Playlist.Id);
-            SongLocalList = new ObservableCollection<SongViewModel>(obj.Songs.Select(s => new SongViewModel(s)));
+            if (obj != null)
+            {
+                SongLocalList = new ObservableCollection<SongViewModel>(obj.Songs.Select(s => new SongViewModel(s)));
+            }
         }
 
     }

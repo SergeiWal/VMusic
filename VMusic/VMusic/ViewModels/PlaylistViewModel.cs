@@ -11,7 +11,7 @@ namespace VMusic.ViewModels
 {
     class PlaylistViewModel: BaseViewModel
     {
-        private Playlist playlist;
+        public Playlist playlist;
 
         public PlaylistViewModel(Playlist playlist)
         {

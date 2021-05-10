@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using VMusic.Commands;
@@ -9,14 +13,18 @@ using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
 {
-    class CreatePlaylistViewModel: BaseViewModel
+    class UpdatePlaylistViewModel: BaseViewModel
     {
         private const string FIELDS_NOT_EMPTY = "Заполнены не все данные ...";
-        private const string CREATE_PLAYLIST_SUCCESS = "Плэйлист сохранён ...";
+        private const string UPDATE_PLAYLIST_SUCCESS = "Плэйлист изменён ...";
         private const string NOT_SELECT_SONG = "Выбирите трек ...";
         private const string ADD_SONG_SUCCESS = "Трек добавлен ...";
         private const string SONG_REPEAT = "Трек был уже добавлен ...";
-        private const string PLAYLIST_REPEAT = "Плэйлист с таким именем существует ...";
+        private const string SONG_DELETE = "Трек удалён из плэйлиста ...";
+        private const string SONG_NOT_FOUND_IN_PLAYLIST = "Плэйлист не содержит данный трек ...";
+        private const string PLAYLIST_IS_REMOVE = "Плэйлист удалён ...";
+
+        private bool isFinish = false;
 
         private string findSongName = "";
         private string infoMessage = "";
@@ -26,15 +34,12 @@ namespace VMusic.ViewModels.Client
         private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
-        public CreatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel, User user)
+        public UpdatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel)
         {
-            this.playlistsPageViewModel = playlistsPageViewModel;
-            SongLocalList = new ObservableCollection<SongViewModel>();
             dbWorker = new UnitOfWork();
-            playlist = new Playlist()
-            {
-                UserId = user.Id
-            };
+            this.playlist = dbWorker.Playlist.GetByPredicate(p=>p.Id == playlistsPageViewModel.SelectedPlaylist.Id);
+            this.playlistsPageViewModel = playlistsPageViewModel;
+            SongLocalList = new ObservableCollection<SongViewModel>(playlist.Songs.Select(s=>new SongViewModel(s)));
         }
 
         public string PlaylistName
@@ -87,16 +92,29 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool IsFinish
+        {
+            get => isFinish;
+            set
+            {
+                isFinish= value;
+                OnPropertyChanged("IsFinish");
+            }
+        }
+
         private Command addImage;
         private Command savePlaylist;
         private Command findSong;
         private Command addSong;
+        private Command deleteSong;
+        private Command viewCurrentSongs;
+        private Command deletePlaylist;
 
         public Command AddImage
         {
             get
             {
-                return  addImage ?? (addImage = new Command((obj) =>
+                return addImage ?? (addImage = new Command((obj) =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
@@ -118,12 +136,43 @@ namespace VMusic.ViewModels.Client
                 {
                     if (IsFieldsNotEmpty())
                     {
-                        AddPlaylist();
-                        ClearFields();
+                        UpdatePlaylist();
+                        IsFinish = IsFinish != true;
                     }
                     else
                     {
                         InfoMessage = FIELDS_NOT_EMPTY;
+                    }
+                }));
+            }
+        }
+
+        public Command DeletePlaylist
+        {
+            get
+            {
+                return deletePlaylist ??(deletePlaylist = new Command((obj) =>
+                {
+                    dbWorker.Playlist.Delete(playlist.Id);
+                    dbWorker.Save();
+                    IsFinish = IsFinish != true;
+                }));
+            }
+        }
+
+        public Command DeleteSong
+        {
+            get
+            {
+                return deleteSong ?? (deleteSong = new Command((obj) =>
+                {
+                    if (SelectedSong != null)
+                    {
+                        DeleteSongFromPlaylist(SelectedSong.song);
+                    }
+                    else
+                    {
+                        InfoMessage = NOT_SELECT_SONG;
                     }
                 }));
             }
@@ -138,13 +187,13 @@ namespace VMusic.ViewModels.Client
                     if (!string.IsNullOrEmpty(FindSongName))
                     {
                         var songs = dbWorker.Songs.GetAllObject()
-                            .Where(s=>s.Name.Contains(FindSongName) || s.Author.Contains(FindSongName) || s.Album.Contains(FindSongName))
+                            .Where(s => s.Name.Contains(FindSongName) || s.Author.Contains(FindSongName) || s.Album.Contains(FindSongName))
                             .Select(s => new SongViewModel(s));
                         SongLocalList.Clear();
 
                         foreach (var c in songs)
                         {
-                            SongLocalList.Add(c);   
+                            SongLocalList.Add(c);
                         }
                     }
                 }));
@@ -155,7 +204,7 @@ namespace VMusic.ViewModels.Client
         {
             get
             {
-                return addSong ??(addSong = new Command((obj) =>
+                return addSong ?? (addSong = new Command((obj) =>
                 {
                     if (SelectedSong != null)
                     {
@@ -164,6 +213,23 @@ namespace VMusic.ViewModels.Client
                     else
                     {
                         InfoMessage = NOT_SELECT_SONG;
+                    }
+                }));
+            }
+        }
+
+        public Command ViewCurrentSongs
+        {
+            get
+            {
+                return viewCurrentSongs ?? (viewCurrentSongs = new Command((obj) =>
+                {
+                    var songs = playlist.Songs.Select(s => new SongViewModel(s)); ;
+                    SongLocalList.Clear();
+
+                    foreach (var c in songs)
+                    {
+                        SongLocalList.Add(c);
                     }
                 }));
             }
@@ -182,32 +248,47 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        private void DeleteSongFromPlaylist(Song song)
+        {
+            if (!IsSongNotRepeat(song))
+            {
+                var plist = dbWorker.Playlist.GetByPredicate(p => p.Id == playlist.Id);
+                plist.Songs.Remove(song);
+                SongLocalList.Remove(SelectedSong);
+                InfoMessage = SONG_DELETE;
+            }
+            else
+            {
+                InfoMessage = SONG_NOT_FOUND_IN_PLAYLIST;
+            }
+        }
+
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(PlaylistName) && PlaylistImage != null;
         }
 
-        private void AddPlaylist()
+        private void UpdatePlaylist()
         {
-            if (IsPlaylistNotRepeat())
+            var plist = dbWorker.Playlist.GetByPredicate(p => p.Id == playlist.Id);
+            plist.Name = playlist.Name;
+            plist.Image = playlist.Image;
+            plist.Songs = playlist.Songs;
+            dbWorker.Save();
+            InfoMessage = UPDATE_PLAYLIST_SUCCESS;
+        }
+
+        private void UpdateLocalPlaylistCollection()
+        {
+            var localPlaylist = playlistsPageViewModel.Playlists.FirstOrDefault(p => p.Id == playlist.Id);
+            if (localPlaylist != null)
             {
-                dbWorker.Playlist.Create(playlist);
-                dbWorker.Save();
-                InfoMessage = CREATE_PLAYLIST_SUCCESS;
-            }
-            else
-            {
-                InfoMessage = PLAYLIST_REPEAT;
+                localPlaylist.Name = playlist.Name;
+                localPlaylist.Image = ImageConverter.GetImageByByteArray(playlist.Image);
+                localPlaylist.playlist.Songs = playlist.Songs;
             }
         }
 
-        private bool IsPlaylistNotRepeat()
-        {
-            var obj = dbWorker.Playlist.GetAllObject()
-                .FirstOrDefault(p => p.Name == playlist.Name && p.UserId == playlist.UserId);
-
-            return obj == null;
-        }
 
         private bool IsSongNotRepeat(Song song)
         {
@@ -215,13 +296,6 @@ namespace VMusic.ViewModels.Client
                 s.Name == song.Name && s.Author == song.Author && s.Album == song.Album);
             return obj == null;
         }
-
-        private void ClearFields()
-        {
-            SelectedSong = null;
-            FindSongName = "";
-            PlaylistName = "";
-            SongLocalList.Clear();
-        }
     }
-}
+} 
+

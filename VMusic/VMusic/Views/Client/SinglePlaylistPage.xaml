@@ -67,7 +67,8 @@
                     HorizontalAlignment="Left"
                     Margin="10 10"
                     Height="48"
-                    Width="130">
+                    Width="130"
+                    Command="{Binding Update}">
                     <TextBlock>Редактировать</TextBlock>
                 </Button>
             </StackPanel>

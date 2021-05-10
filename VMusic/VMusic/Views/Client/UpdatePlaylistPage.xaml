@@ -53,7 +53,7 @@
                 <Border Style="{StaticResource Underline}" HorizontalAlignment="Left"/>
             </StackPanel>
 
-            <WrapPanel Margin="0 20">
+            <WrapPanel Margin="0 5">
                 <Button Style="{StaticResource EnterButton}"
                         HorizontalAlignment="Left"
                         Margin="5 10"
@@ -72,7 +72,7 @@
                         HorizontalAlignment="Left"
                         Margin="5 10"
                         Height="48"
-                        Command="{Binding SavePlaylist}">
+                        Command="{Binding DeletePlaylist}">
                     <TextBlock>Удалить</TextBlock>
                 </Button>
             </WrapPanel>
@@ -96,11 +96,11 @@
                 <materialDesign:PackIcon Kind="Add" Foreground="DeepPink" Width="18" Height="18"/>
             </Button>
             <Button Style="{StaticResource AppControlButton}"
-                    Command="{Binding AddSong}">
+                    Command="{Binding DeleteSong}">
                 <materialDesign:PackIcon Kind="Delete" Foreground="DeepPink" Width="18" Height="18"/>
             </Button>
             <Button Style="{StaticResource AppControlButton}"
-                    Command="{Binding AddSong}">
+                    Command="{Binding ViewCurrentSongs}">
                 <materialDesign:PackIcon Kind="PlaylistMusic" Foreground="DeepPink" Width="18" Height="18"/>
             </Button>
         </WrapPanel>
