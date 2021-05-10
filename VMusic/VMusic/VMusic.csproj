@@ -152,6 +152,9 @@
     <Compile Include="Views\Client\SinglePlaylistPage.xaml.cs">
       <DependentUpon>SinglePlaylistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Client\UpdatePlaylistPage.xaml.cs">
+      <DependentUpon>UpdatePlaylistPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -224,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Client\SinglePlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\UpdatePlaylistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

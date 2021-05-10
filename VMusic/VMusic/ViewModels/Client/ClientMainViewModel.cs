@@ -324,6 +324,10 @@ namespace VMusic.ViewModels.Client
             if (e.PropertyName == "IsExit")
             {
                 Login login = new Login();
+                if (isPlayed)
+                {
+                    player.Stop();
+                }
                 Close?.Invoke();
                 login.Show();
             }
@@ -391,7 +395,7 @@ namespace VMusic.ViewModels.Client
             SettingPage settingPage = new SettingPage();
             SettingViewModel settingViewModel = new SettingViewModel(user);
             settingViewModel.PropertyChanged += OnSettingPropertyChanged;
-            settingPage.DataContext = new SettingViewModel(user);
+            settingPage.DataContext = settingViewModel;
             return settingPage;
         }
 
