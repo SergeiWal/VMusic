@@ -22,23 +22,20 @@ namespace VMusic.ViewModels.Client
         private const string SONG_REPEAT = "Трек был уже добавлен ...";
         private const string SONG_DELETE = "Трек удалён из плэйлиста ...";
         private const string SONG_NOT_FOUND_IN_PLAYLIST = "Плэйлист не содержит данный трек ...";
-        private const string PLAYLIST_IS_REMOVE = "Плэйлист удалён ...";
 
         private bool isFinish = false;
 
         private string findSongName = "";
         private string infoMessage = "";
         private SongViewModel selectedSong;
-        private PlaylistsPageViewModel playlistsPageViewModel;
         private Playlist playlist;
         private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
-        public UpdatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel)
+        public UpdatePlaylistViewModel(PlaylistViewModel selectedPlaylist)
         {
             dbWorker = new UnitOfWork();
-            this.playlist = dbWorker.Playlist.GetByPredicate(p=>p.Id == playlistsPageViewModel.SelectedPlaylist.Id);
-            this.playlistsPageViewModel = playlistsPageViewModel;
+            this.playlist = dbWorker.Playlist.GetByPredicate(p=>p.Id == selectedPlaylist.Id);
             SongLocalList = new ObservableCollection<SongViewModel>(playlist.Songs.Select(s=>new SongViewModel(s)));
         }
 
@@ -277,18 +274,6 @@ namespace VMusic.ViewModels.Client
             dbWorker.Save();
             InfoMessage = UPDATE_PLAYLIST_SUCCESS;
         }
-
-        private void UpdateLocalPlaylistCollection()
-        {
-            var localPlaylist = playlistsPageViewModel.Playlists.FirstOrDefault(p => p.Id == playlist.Id);
-            if (localPlaylist != null)
-            {
-                localPlaylist.Name = playlist.Name;
-                localPlaylist.Image = ImageConverter.GetImageByByteArray(playlist.Image);
-                localPlaylist.playlist.Songs = playlist.Songs;
-            }
-        }
-
 
         private bool IsSongNotRepeat(Song song)
         {

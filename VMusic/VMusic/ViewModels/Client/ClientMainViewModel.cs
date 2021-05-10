@@ -353,7 +353,7 @@ namespace VMusic.ViewModels.Client
             if (e.PropertyName == "IsUpdate")
             {
                 var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
-                UpdatePlaylistViewModel updatePlaylistViewModel = new UpdatePlaylistViewModel(playlistsViewModel);
+                UpdatePlaylistViewModel updatePlaylistViewModel = new UpdatePlaylistViewModel(playlistsViewModel.SelectedPlaylist);
                 updatePlaylistViewModel.PropertyChanged += OnPlaylistCreateOrDeletePropertyChanged;
                 updatePlaylistPage.DataContext = updatePlaylistViewModel;
                 CurrentPage = updatePlaylistPage;
