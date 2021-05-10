@@ -18,6 +18,9 @@ namespace VMusic.ViewModels.Client
         private const string SONG_REPEAT = "Трек был уже добавлен ...";
         private const string PLAYLIST_REPEAT = "Плэйлист с таким именем существует ...";
 
+
+        private bool isFinish = false;
+
         private string findSongName = "";
         private string infoMessage = "";
         private SongViewModel selectedSong;
@@ -87,6 +90,16 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool IsFinish
+        {
+            get => isFinish;
+            set
+            {
+                isFinish = value;
+                OnPropertyChanged("IsFinish");
+            }
+        }
+
         private Command addImage;
         private Command savePlaylist;
         private Command findSong;
@@ -119,7 +132,6 @@ namespace VMusic.ViewModels.Client
                     if (IsFieldsNotEmpty())
                     {
                         AddPlaylist();
-                        ClearFields();
                     }
                     else
                     {
@@ -194,6 +206,7 @@ namespace VMusic.ViewModels.Client
                 dbWorker.Playlist.Create(playlist);
                 dbWorker.Save();
                 InfoMessage = CREATE_PLAYLIST_SUCCESS;
+                IsFinish = IsFinish != true;
             }
             else
             {
@@ -214,14 +227,6 @@ namespace VMusic.ViewModels.Client
             var obj = playlist.Songs.FirstOrDefault(s =>
                 s.Name == song.Name && s.Author == song.Author && s.Album == song.Album);
             return obj == null;
-        }
-
-        private void ClearFields()
-        {
-            SelectedSong = null;
-            FindSongName = "";
-            PlaylistName = "";
-            SongLocalList.Clear();
         }
     }
 }

@@ -354,13 +354,13 @@ namespace VMusic.ViewModels.Client
             {
                 var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
                 UpdatePlaylistViewModel updatePlaylistViewModel = new UpdatePlaylistViewModel(playlistsViewModel);
-                updatePlaylistViewModel.PropertyChanged += OnPlaylistDeletePropertyChanged;
+                updatePlaylistViewModel.PropertyChanged += OnPlaylistCreateOrDeletePropertyChanged;
                 updatePlaylistPage.DataContext = updatePlaylistViewModel;
                 CurrentPage = updatePlaylistPage;
             }
         }
 
-        private void OnPlaylistDeletePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnPlaylistCreateOrDeletePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsFinish")
             {
@@ -412,7 +412,9 @@ namespace VMusic.ViewModels.Client
         private CreatePlaylistPage CreateAddPlaylistPage(User user, PlaylistsPageViewModel playlistsPageViewModel)
         {
             CreatePlaylistPage createPlaylistPage = new CreatePlaylistPage();
-            createPlaylistPage.DataContext = new CreatePlaylistViewModel(playlistsPageViewModel, user);
+            CreatePlaylistViewModel createPlaylistViewModel = new CreatePlaylistViewModel(playlistsPageViewModel, user);
+            createPlaylistViewModel.PropertyChanged += OnPlaylistCreateOrDeletePropertyChanged;
+            createPlaylistPage.DataContext = createPlaylistViewModel;
             return createPlaylistPage;
         }
 
