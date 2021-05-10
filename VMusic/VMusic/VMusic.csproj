@@ -90,6 +90,7 @@
     <Compile Include="ViewModels\Admin\AdminMainViewModel.cs" />
     <Compile Include="ViewModels\Admin\MusicPageViewModel.cs" />
     <Compile Include="ViewModels\Admin\TopMusicPageViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UpdateMusicViewModel.cs" />
     <Compile Include="ViewModels\Admin\UserPageViewModel.cs" />
     <Compile Include="ViewModels\Autorization\AutorizationViewModel.cs" />
     <Compile Include="ViewModels\Autorization\RegistrationViewModel.cs" />
@@ -122,6 +123,9 @@
     </Compile>
     <Compile Include="Views\Admin\TopMusicPage.xaml.cs">
       <DependentUpon>TopMusicPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\UpdateMusicPage.xaml.cs">
+      <DependentUpon>UpdateMusicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
@@ -188,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\TopMusicPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\UpdateMusicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

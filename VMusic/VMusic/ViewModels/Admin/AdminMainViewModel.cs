@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using VMusic.Commands;
 using VMusic.Models;
 using VMusic.Repository;
+using VMusic.ViewModels.Client;
 using VMusic.Views.Admin;
 
 namespace VMusic.ViewModels.Admin
@@ -24,6 +26,7 @@ namespace VMusic.ViewModels.Admin
         private AddMusicPage addMusicPage;
         private MusicPage musicPage;
         private TopMusicPage topMusicList;
+        private UpdateMusicPage updateMusicPage;
         private Page currentPage; 
 
         public AdminMainViewModel(User admin)
@@ -45,10 +48,14 @@ namespace VMusic.ViewModels.Admin
             addMusicPage.DataContext = new AddMusicViewModel(LocalSongList);
             
             musicPage = new MusicPage();
-            musicPage.DataContext = new MusicPageViewModel(LocalSongList);
+            MusicPageViewModel musicPageViewModel = new MusicPageViewModel(LocalSongList);
+            musicPageViewModel.PropertyChanged += OnSongUpdatePropertyChanged;
+            musicPage.DataContext = musicPageViewModel;
 
             topMusicList = new TopMusicPage();
             topMusicList.DataContext = new TopMusicPageViewModel();
+
+            updateMusicPage = new UpdateMusicPage();
 
             CurrentPage = musicPage;
         }
@@ -67,6 +74,7 @@ namespace VMusic.ViewModels.Admin
         private Command switchToMusicList;
         private Command switchToUserList;
         private Command switchToTopMusicList;
+        private Command switchToUpdateMusic;
 
         public Command SwitchToMusicList
         {
@@ -110,6 +118,37 @@ namespace VMusic.ViewModels.Admin
                 {
                     CurrentPage = userPage;
                 }));
+            }
+        }
+
+        public Command SwitchToUpdateMusic
+        {
+            get
+            {
+                return switchToUpdateMusic ?? (switchToUpdateMusic = new Command((obj) =>
+                {
+                    CurrentPage = updateMusicPage;
+                }));
+            }
+        }
+
+        private void OnSongUpdatePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsUpdate")
+            {
+                MusicPageViewModel musicPageViewModel = (MusicPageViewModel)musicPage.DataContext;
+                UpdateMusicViewModel updateMusicViewModel = new UpdateMusicViewModel(musicPageViewModel.SelectedSong, LocalSongList);
+                updateMusicViewModel.PropertyChanged += OnSongUpdateFinishPropertyChanged;
+                updateMusicPage.DataContext = updateMusicViewModel;
+                SwitchToUpdateMusic.Execute(new object());
+            }
+        }
+
+        private void OnSongUpdateFinishPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsFinish")
+            {
+                SwitchToMusicList.Execute(new object());
             }
         }
 

@@ -19,6 +19,8 @@ namespace VMusic.ViewModels.Admin
 
         private SongViewModel selectedSong = null;
 
+        private bool isUpdate = false;
+
         public MusicPageViewModel(ObservableCollection<SongViewModel> songs)
         {
             dbWorker = new UnitOfWork();
@@ -35,7 +37,18 @@ namespace VMusic.ViewModels.Admin
             }
         }
 
+        public bool IsUpdate
+        {
+            get => isUpdate;
+            set
+            {
+                isUpdate = value;
+                OnPropertyChanged("IsUpdate");
+            }
+        }
+
         private Command deleteSong;
+        private Command updateSong;
 
         public Command DeleteSong
         {
@@ -50,6 +63,20 @@ namespace VMusic.ViewModels.Admin
                         dbWorker.Songs.Delete(song.Id);
                         dbWorker.Save();
                         Songs.Remove(song);
+                    }
+                }));
+            }
+        }
+
+        public Command UpdateSong
+        {
+            get
+            {
+                return updateSong ?? (updateSong  =new Command((obj) =>
+                {
+                    if (SelectedSong != null)
+                    {
+                        IsUpdate = IsUpdate != true;
                     }
                 }));
             }

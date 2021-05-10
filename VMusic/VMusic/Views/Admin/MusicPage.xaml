@@ -33,6 +33,7 @@
                 Style="{StaticResource AppControlButton}"
                 HorizontalAlignment="Left"
                 Width="200"
+                Command="{Binding UpdateSong}"
             >
             <Button.Content>
                 <TextBlock
