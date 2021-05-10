@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VMusic.Commands;
 using VMusic.Models;
 using VMusic.Repository;
 
@@ -36,6 +37,7 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        
         public void PlaylistsDataUpdate(Playlist playlist)
         {
             Playlists.Add(new PlaylistViewModel(playlist));

@@ -277,7 +277,12 @@ namespace VMusic.ViewModels.Client
                 {
                     if (CurrentSong != null)
                     {
+                        if (!IsHasLikeSongList())
+                        {
+                            CreateLikeSongList();
+                        }
                        
+                        AddLikeSongInList();
                     }
                 }));
             }
@@ -406,20 +411,35 @@ namespace VMusic.ViewModels.Client
             return playlistsPage;
         }
 
-        private bool CheckLikeSongRepeat(Playlist playlist)
+        private bool IsHasLikeSongList()
         {
-            return false;
+            var plist = dbWorker.Playlist.GetByPredicate(p=>p.UserId ==user.Id && p.Name == LIKE_SONG_LIST_NAME);
+            return plist != null;
         }
-
 
         private void CreateLikeSongList()
         {
-            
+            Playlist playlist = new Playlist()
+            {
+                Name = LIKE_SONG_LIST_NAME,
+                UserId = user.Id
+            };
+            dbWorker.Playlist.Create(playlist);
+            dbWorker.Save();
+            PlaylistsUpdate(playlist);
         }
 
-        private bool AddLikeSongInList()
+        private void AddLikeSongInList()
         {
-            return false;
+            var playlist = dbWorker.Playlist.GetByPredicate(p => p.UserId == user.Id && p.Name == LIKE_SONG_LIST_NAME);
+            var song = dbWorker.Songs.GetById(CurrentSong.Id);
+            var songFromList = playlist.Songs.FirstOrDefault(s => s.Id == CurrentSong.Id);
+            if (song != songFromList)
+            {
+                playlist.Songs.Add(song);
+                dbWorker.Save();
+                SongRatingUp();
+            }
         }
 
         private void SongRatingUp()
