@@ -229,10 +229,8 @@ namespace VMusic.ViewModels.Client
             {
                 return prevSong ?? (prevSong = new Command((obj) =>
                 {
-                    if (songContent.Prev())
-                    {
-                        PlaySong(CurrentSong.Source);
-                    }
+                    songContent.Prev();
+                    PlaySong(CurrentSong.Source);
                 }));
             }
         }
@@ -263,10 +261,9 @@ namespace VMusic.ViewModels.Client
             {
                 return nextSong ?? (nextSong = new Command((obj) =>
                 {
-                    if (songContent.Next())
-                    {
-                        PlaySong(CurrentSong.Source);
-                    }
+                    songContent.Next();
+                    PlaySong(CurrentSong.Source);
+                    
                 }));
             }
         }
@@ -370,8 +367,9 @@ namespace VMusic.ViewModels.Client
 
         private void tickCallback(object sender, EventArgs e)
         {
-            if (isEnded && songContent.Next())
+            if (isEnded)
             {
+                songContent.Next();
                 PlaySong(CurrentSong.Source);
             }
             if (player.Source != null && player.NaturalDuration.HasTimeSpan)

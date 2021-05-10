@@ -31,33 +31,31 @@ namespace VMusic.ViewModels.Client
             }
         }
 
-        public bool Next()
+        public void Next()
         {
             int i = CurrentPlaylist.IndexOf(CurrentSong);
             ++i;
             if (i < CurrentPlaylist.Count)
             {
                 CurrentSong = CurrentPlaylist[i];
-                return true;
             }
             else
             {
-                return false;
+                CurrentSong = CurrentPlaylist[0];
             }
         }
 
-        public bool Prev()
+        public void Prev()
         {
             int i = CurrentPlaylist.IndexOf(CurrentSong);
             --i;
             if (i >= 0)
             {
                 CurrentSong = CurrentPlaylist[i];
-                return true;
             }
             else
             {
-                return false;
+                CurrentSong = CurrentPlaylist[CurrentPlaylist.Count - 1];
             }
         }
 
