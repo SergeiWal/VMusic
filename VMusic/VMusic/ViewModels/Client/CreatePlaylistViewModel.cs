@@ -21,12 +21,14 @@ namespace VMusic.ViewModels.Client
         private string findSongName = "";
         private string infoMessage = "";
         private SongViewModel selectedSong;
+        private PlaylistsPageViewModel playlistsPageViewModel;
         private Playlist playlist;
         private UnitOfWork dbWorker;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
-        public CreatePlaylistViewModel(User user)
+        public CreatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel, User user)
         {
+            this.playlistsPageViewModel = playlistsPageViewModel;
             SongLocalList = new ObservableCollection<SongViewModel>();
             dbWorker = new UnitOfWork();
             playlist = new Playlist()
@@ -117,6 +119,15 @@ namespace VMusic.ViewModels.Client
                     if (IsFieldsNotEmpty())
                     {
                         AddPlaylist();
+                        playlistsPageViewModel.PlaylistsDataUpdate(new Playlist()
+                        {
+                            Id = playlist.Id,
+                            Name = playlist.Name,
+                            Image = playlist.Image,
+                            Songs = playlist.Songs,
+                            UserId = playlist.UserId
+                        });
+                        ClearFields();
                     }
                     else
                     {
@@ -190,7 +201,6 @@ namespace VMusic.ViewModels.Client
             {
                 dbWorker.Playlist.Create(playlist);
                 dbWorker.Save();
-                ClearFields();
                 InfoMessage = CREATE_PLAYLIST_SUCCESS;
             }
             else

@@ -362,10 +362,10 @@ namespace VMusic.ViewModels.Client
         private void PagesInit()
         {
             homePage = CreateHomePage(songContent);
-            createPlaylistPage = CreateAddPlaylistPage(this.user);
+            playlistsPage = CreatePlaylistsPage(this.user);
+            createPlaylistPage = CreateAddPlaylistPage(this.user, (PlaylistsPageViewModel)this.playlistsPage.DataContext);
             settingPage = CreateSettingPage(this.user);
             topMusicPage = CreateTopMusicPage(songContent);
-            playlistsPage = CreatePlaylistsPage(this.user);
             singlePlaylistPage = new SinglePlaylistPage();
             findSongPage = new HomePage();
             currentSongListPage = new HomePage();
@@ -379,10 +379,10 @@ namespace VMusic.ViewModels.Client
             return homePage;
         }
 
-        private CreatePlaylistPage CreateAddPlaylistPage(User user)
+        private CreatePlaylistPage CreateAddPlaylistPage(User user, PlaylistsPageViewModel playlistsPageViewModel)
         {
             CreatePlaylistPage createPlaylistPage = new CreatePlaylistPage();
-            createPlaylistPage.DataContext = new CreatePlaylistViewModel(user);
+            createPlaylistPage.DataContext = new CreatePlaylistViewModel(playlistsPageViewModel, user);
             return createPlaylistPage;
         }
 
