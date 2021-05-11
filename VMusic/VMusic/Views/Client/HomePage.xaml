@@ -101,14 +101,14 @@
                 Panel.ZIndex="1"
                 />
 
-        <ScrollViewer  Grid.Row="2" Grid.Column="0"
-                       Grid.ColumnSpan="5"
-                       Background="Transparent"
-                       VerticalScrollBarVisibility="Auto"
-                       HorizontalScrollBarVisibility="Disabled">
+        
             <ListView Name="SongCollection" 
+                      Grid.Row="2" Grid.Column="0"
+                      Grid.ColumnSpan="5"
                       Background="Transparent" 
                       BorderThickness="0"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding LocalSongList}"
                       SelectedItem="{Binding CurrentSong}">
                 <ListView.ItemContainerStyle>
@@ -177,7 +177,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </ScrollViewer>
-
+       
     </Grid>
 </Page>

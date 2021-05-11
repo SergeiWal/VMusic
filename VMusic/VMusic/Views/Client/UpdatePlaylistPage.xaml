@@ -112,83 +112,82 @@
 
 
 
-        <ScrollViewer  Grid.Row="2" Grid.Column="0"
+
+        <ListView Name="SongCollection" 
+                      Grid.Row="2" Grid.Column="0"
                        Grid.ColumnSpan="2"
-                       Background="Transparent"
-                       VerticalScrollBarVisibility="Auto"
-                       HorizontalScrollBarVisibility="Disabled">
-            <ListView Name="SongCollection" 
                       Background="Transparent" 
                       BorderThickness="0"
                       ItemsSource="{Binding SongLocalList}"
-                      SelectedItem="{Binding SelectedSong, Mode=TwoWay}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate >
-                        <Border  BorderThickness="0"
+                      SelectedItem="{Binding SelectedSong, Mode=TwoWay}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <Border  BorderThickness="0"
                                  Height="60"
                                  HorizontalAlignment="Stretch"
                                  Background="Transparent"
                                  BorderBrush="Transparent">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="1.5*"/>
-                                    <ColumnDefinition Width="1.4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="30"/>
-                                </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="1.4*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
 
-                                <TextBlock Name="Id" 
+                            <TextBlock Name="Id" 
                                            Text="{Binding Id}" FontSize="18"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                                </TextBlock>
-                                <WrapPanel Grid.Column="1">
-                                    <Grid>
-                                        <Image Name="MusicImage"
+                            </TextBlock>
+                            <WrapPanel Grid.Column="1">
+                                <Grid>
+                                    <Image Name="MusicImage"
                                                Width="36" Height="36"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
                                                  Margin="5 5"
                                                Source="{Binding Image}"/>
-                                    </Grid>
-                                    <StackPanel>
-                                        <TextBlock  Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
-                                        <TextBlock Name="Author" Text="{Binding Author}" FontSize="18" Margin="5 5"></TextBlock>
-                                    </StackPanel>
-                                </WrapPanel>
-                                <WrapPanel Grid.Row="0" Grid.Column="2">
-                                    <TextBlock Name="Album"
+                                </Grid>
+                                <StackPanel>
+                                    <TextBlock  Text="{Binding Name}" FontSize="18" Margin="5 5"></TextBlock>
+                                    <TextBlock Name="Author" Text="{Binding Author}" FontSize="18" Margin="5 5"></TextBlock>
+                                </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="0" Grid.Column="2">
+                                <TextBlock Name="Album"
                                     Text="{Binding Album}" FontSize="18" Margin="5 5"></TextBlock>
-                                </WrapPanel>
+                            </WrapPanel>
 
-                                <TextBlock Grid.Row="0" Grid.Column="3" 
+                            <TextBlock Grid.Row="0" Grid.Column="3" 
                                Name="Genre"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Text="{Binding Genre}"
                                FontSize="18" Margin="5 5">
-                                </TextBlock>
+                            </TextBlock>
 
-                                <TextBlock Grid.Row="0" Grid.Column="4" 
+                            <TextBlock Grid.Row="0" Grid.Column="4" 
                                            Name="Rating"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
                                            Text="{Binding Rating}"
                                            FontSize="18" Margin="5 5">
-                                </TextBlock>
+                            </TextBlock>
 
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 </Page>

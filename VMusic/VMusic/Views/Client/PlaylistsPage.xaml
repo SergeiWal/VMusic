@@ -35,6 +35,7 @@
                  ItemsSource="{Binding Playlists}"
                  SelectedItem="{Binding SelectedPlaylist, Mode=TwoWay}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
             >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -64,7 +65,7 @@
                                Height="100"
                                Source="{Binding Image}"/>
 
-                            <materialDesign:PackIcon Kind="Image"
+                            <materialDesign:PackIcon Kind="MusicBox"
                                                  Foreground="DeepPink"
                                                  Grid.Row="0"
                                                  HorizontalAlignment="Center"

@@ -221,6 +221,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Image  Grid.Column="0"
+                        Panel.ZIndex="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Width="48"
