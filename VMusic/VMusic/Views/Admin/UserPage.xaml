@@ -137,74 +137,72 @@
                 Opacity="0.2"
                 Panel.ZIndex="1"
                 />
-        
 
-        <ScrollViewer  Grid.Row="2" Grid.Column="0"
-                       Grid.ColumnSpan="5"
-                       Background="Transparent"
-                       Margin="0 5 5 10"
-                       VerticalScrollBarVisibility="Auto"
-                       HorizontalScrollBarVisibility="Disabled">
-            <ListView Background="Transparent" 
-                      BorderThickness="0"
-                      ItemsSource="{Binding Users}"
-                      SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border  BorderThickness="0"
+
+        <ListView Grid.Row="2" Grid.Column="0"
+                  Grid.ColumnSpan="5"
+                  Margin="0 5 5 10"
+                  Background="Transparent" 
+                  BorderThickness="0"
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border  BorderThickness="0"
                                  Height="60"
                                  Background="Transparent"
                                  BorderBrush="Transparent">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                <TextBlock Name="Id" 
+                            <TextBlock Name="Id" 
                                            Text="{Binding Id}" FontSize="18"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                                </TextBlock>
-                                <TextBlock  Name="Name" Grid.Column="1"
+                            </TextBlock>
+                            <TextBlock  Name="Name" Grid.Column="1"
                                 Text="{Binding Name}" FontSize="18"
                                 Margin="10 0"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                                </TextBlock>
-                                <TextBlock  Name="State" Grid.Column="2"
+                            </TextBlock>
+                            <TextBlock  Name="State" Grid.Column="2"
                                 Text="{Binding IsBlocked}" FontSize="18"
                                 Margin="10 0"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                                </TextBlock>
+                            </TextBlock>
 
-                                <TextBlock Grid.Row="0" Grid.Column="3" 
+                            <TextBlock Grid.Row="0" Grid.Column="3" 
                                            Name="Role"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Text="{Binding IsAdmin}"
                                            FontSize="18" Margin="10 0">
-                                </TextBlock>
+                            </TextBlock>
 
-                                <Border Grid.ColumnSpan="5" 
+                            <Border Grid.ColumnSpan="5" 
                             Background="#FFBDBDBD" Height="2"
                             VerticalAlignment="Bottom"
                             Opacity="0.2"
                             Panel.ZIndex="1"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
-       
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </Page>
