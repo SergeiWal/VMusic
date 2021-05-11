@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using VMusic.ViewModels;
 using VMusic.ViewModels.Client;
 
@@ -53,6 +54,38 @@ namespace VMusic.Views.Client
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
+            }
+        }
+
+        private void PlayStopButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            PackIcon icon = PlayStopButton.Content as PackIcon;
+            if (icon != null)
+            {
+                if (icon.Kind == PackIconKind.Stop)
+                {
+                    icon.Kind = PackIconKind.Play;
+                }
+                else
+                {
+                    icon.Kind = PackIconKind.Stop;
+                }
+            }
+        }
+
+        private void VolumeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            PackIcon icon = VolumeButton.Content as PackIcon;
+            if (icon != null)
+            {
+                if (icon.Kind == PackIconKind.VolumeHigh)
+                {
+                    icon.Kind = PackIconKind.VolumeLow;
+                }
+                else
+                {
+                    icon.Kind = PackIconKind.VolumeHigh;
+                }
             }
         }
     }
