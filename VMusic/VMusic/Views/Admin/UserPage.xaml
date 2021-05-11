@@ -29,9 +29,10 @@
         </Border>
 
         <WrapPanel Grid.ColumnSpan="4"
-                   HorizontalAlignment="Center">
-            <Button Style="{StaticResource AppControlButton}"
-                    HorizontalAlignment="Left"
+                   HorizontalAlignment="Left"
+                   Margin="25 0">
+            <Button Style="{StaticResource ClientControlButton}"
+                    Margin="10 10"
                     Width="230"
                     Command="{Binding BlockUnblock}"
                     CommandParameter="{Binding SelectedUser}"
@@ -45,9 +46,9 @@
                 </Button.Content>
             </Button>
 
-            <Button Style="{StaticResource AppControlButton}"
-                    HorizontalAlignment="Right"
-                    Width="225"
+            <Button Style="{StaticResource ClientControlButton}"
+                    Margin="10 10"
+                    Width="80"
                     Command="{Binding RemoveUser}"
                     CommandParameter="{Binding SelectedUser}"
             >
@@ -60,9 +61,10 @@
                 </Button.Content>
             </Button>
 
-            <Button Style="{StaticResource AppControlButton}"
-                    HorizontalAlignment="Right"
-                    Width="225"
+            <Button Style="{StaticResource ClientControlButton}"
+                    HorizontalAlignment="Left"
+                    Margin="10 10"
+                    Width="200"
                     Command="{Binding TransferAdminStatus}"
                     CommandParameter="{Binding SelectedUser}"
             >

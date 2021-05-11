@@ -85,7 +85,7 @@
                     VerticalAlignment="Bottom">
             <Button Style="{StaticResource AppControlButton}"
                     Command="{Binding FindSong}">
-                <materialDesign:PackIcon Kind="Search" Foreground="DeepPink" Width="18" Height="18"/>
+                <materialDesign:PackIcon Kind="Search" Foreground="DeepPink" Width="20" Height="20"/>
             </Button>
             <StackPanel>
                 <TextBox  Text="{Binding FindSongName, Mode=TwoWay}"></TextBox>
@@ -93,15 +93,15 @@
             </StackPanel>
             <Button Style="{StaticResource AppControlButton}"
                     Command="{Binding AddSong}">
-                <materialDesign:PackIcon Kind="Add" Foreground="DeepPink" Width="18" Height="18"/>
+                <materialDesign:PackIcon Kind="Add" Foreground="DeepPink" Width="20" Height="20"/>
             </Button>
             <Button Style="{StaticResource AppControlButton}"
                     Command="{Binding DeleteSong}">
-                <materialDesign:PackIcon Kind="Delete" Foreground="DeepPink" Width="18" Height="18"/>
+                <materialDesign:PackIcon Kind="Delete" Foreground="DeepPink" Width="20" Height="20"/>
             </Button>
             <Button Style="{StaticResource AppControlButton}"
                     Command="{Binding ViewCurrentSongs}">
-                <materialDesign:PackIcon Kind="PlaylistMusic" Foreground="DeepPink" Width="18" Height="18"/>
+                <materialDesign:PackIcon Kind="PlaylistMusic" Foreground="DeepPink" Width="20" Height="20"/>
             </Button>
         </WrapPanel>
 

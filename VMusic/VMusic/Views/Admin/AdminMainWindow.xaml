@@ -48,15 +48,14 @@
                 <Border Style="{StaticResource Underline}"/>
                 <StackPanel VerticalAlignment="Top"
                         HorizontalAlignment="Left">
-                    <Button Background="Transparent"
-                            BorderThickness="0"
-                            Margin="10 10"
+                    <Button Margin="10 10"
+                            Style="{StaticResource ClientControlButton}"
                             Command="{Binding SwitchToMusicList}">
                         <Grid Width="160"
                             Height="32">
                             <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource AppControlButton}"
-                                    Width="32" Height="32">
+                                <Button Style="{StaticResource ClientControlButton}"
+                                        Width="32" Height="32">
                                     <materialDesign:PackIcon Kind="Music" Foreground="DeepPink"
                                                          Width="32" Height="32" />
                                 </Button>
@@ -67,16 +66,15 @@
                             </StackPanel>
                         </Grid>
                     </Button>
-                    <Button Background="Transparent"
-                            BorderThickness="0"
+                    <Button Style="{StaticResource ClientControlButton}"
                             Margin="10 10"
                             Command="{Binding SwitchToTopMusicList}"
-                            >
+                    >
                         <Grid Width="160"
                             Height="32">
                             <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource AppControlButton}"
-                                    Width="32" Height="32">
+                                <Button Style="{StaticResource ClientControlButton}"
+                                        Width="32" Height="32">
                                     <materialDesign:PackIcon Kind="Star" Foreground="DeepPink"
                                                          Width="32" Height="32" />
                                 </Button>
@@ -87,14 +85,13 @@
                             </StackPanel>
                         </Grid>
                     </Button>
-                    <Button Background="Transparent"
-                            BorderThickness="0"
+                    <Button Style="{StaticResource ClientControlButton}"
                             Margin="10 10"
                             Command="{Binding SwitchToAddMusic}">
                         <Grid Width="160"
                             Height="32">
                             <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource AppControlButton}"
+                                <Button Style="{StaticResource ClientControlButton}"
                                     Width="32" Height="32">
                                     <materialDesign:PackIcon Kind="Add" Foreground="DeepPink"
                                                          Width="32" Height="32" />
@@ -106,14 +103,13 @@
                             </StackPanel>
                         </Grid>
                     </Button>
-                    <Button Background="Transparent"
-                            BorderThickness="0"
+                    <Button Style="{StaticResource ClientControlButton}"
                             Margin="10 10"
                             Command="{Binding SwitchToUserList}">
                         <Grid Width="160"
                             Height="32">
                             <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource AppControlButton}"
+                                <Button Style="{StaticResource ClientControlButton}"
                                     Width="32" Height="32">
                                     <materialDesign:PackIcon Kind="User" Foreground="DeepPink"
                                                          Width="32" Height="32" />
@@ -151,15 +147,18 @@
                        Margin="10">
                 <Button Style="{StaticResource AppControlButton}"
                         Command="{Binding CollapseWindow}">
-                    <materialDesign:PackIcon Kind="Minus" Foreground="{StaticResource ElementColor}"/>
+                    <materialDesign:PackIcon Kind="Minus" Foreground="{StaticResource ElementColor}"
+                                             Width="20" Height="20"/>
                 </Button>
                 <Button Style="{StaticResource AppControlButton}"
                         Command="{Binding WindowSizeChangeCommand}">
-                    <materialDesign:PackIcon Kind="FullscreenExit" Foreground="{StaticResource ElementColor}"/>
+                    <materialDesign:PackIcon Kind="FullscreenExit" Foreground="{StaticResource ElementColor}"
+                                             Width="20" Height="20"/>
                 </Button>
                 <Button Style="{StaticResource AppControlButton}"
                         Command="{Binding ExitCommand}">
-                    <materialDesign:PackIcon Kind="PresenceExit" Foreground="{StaticResource ElementColor}"/>
+                    <materialDesign:PackIcon Kind="PresenceExit" Foreground="{StaticResource ElementColor}"
+                                             Width="20" Height="20"/>
                 </Button>
             </WrapPanel>
 

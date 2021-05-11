@@ -30,8 +30,9 @@
         </Border>
 
         <Button Grid.Column="1"
-                Style="{StaticResource AppControlButton}"
+                Style="{StaticResource ClientControlButton}"
                 HorizontalAlignment="Left"
+                Margin="20 10"
                 Width="200"
                 Command="{Binding UpdateTopPlaylist}"
             >
