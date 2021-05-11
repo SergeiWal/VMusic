@@ -229,8 +229,11 @@ namespace VMusic.ViewModels.Client
             {
                 return prevSong ?? (prevSong = new Command((obj) =>
                 {
-                    songContent.Prev();
-                    PlaySong(CurrentSong.Source);
+                    if (CurrentSong != null)
+                    {
+                        songContent.Prev();
+                        PlaySong(CurrentSong.Source);
+                    }
                 }));
             }
         }
@@ -261,8 +264,11 @@ namespace VMusic.ViewModels.Client
             {
                 return nextSong ?? (nextSong = new Command((obj) =>
                 {
-                    songContent.Next();
-                    PlaySong(CurrentSong.Source);
+                    if (CurrentSong != null)
+                    {
+                        songContent.Next();
+                        PlaySong(CurrentSong.Source);
+                    }
                     
                 }));
             }
