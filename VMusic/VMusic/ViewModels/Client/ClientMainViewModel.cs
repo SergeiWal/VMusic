@@ -493,6 +493,6 @@ namespace VMusic.ViewModels.Client
             player.Play();
             isPlayed = true;
             isEnded = false;
-        }
+        }   
     }
 }

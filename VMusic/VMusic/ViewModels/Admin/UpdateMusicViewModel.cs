@@ -168,7 +168,15 @@ namespace VMusic.ViewModels.Admin
 
                     if (openFileDialog.ShowDialog() == true)
                     {
-                        img = System.IO.File.ReadAllBytes(openFileDialog.FileName);
+                        byte[] imgBuf = System.IO.File.ReadAllBytes(openFileDialog.FileName);
+                        if ((imgBuf.Length / 1024) < 1024)
+                        {
+                            img = imgBuf;
+                        }
+                        else
+                        {
+                            ResultString = "Превышен допустимый размер изображения !!!";
+                        }
                     }
                 }));
             }

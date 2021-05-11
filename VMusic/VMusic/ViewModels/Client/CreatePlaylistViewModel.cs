@@ -117,7 +117,16 @@ namespace VMusic.ViewModels.Client
 
                     if (openFileDialog.ShowDialog() == true)
                     {
-                        PlaylistImage = ImageConverter.GetImageByByteArray(System.IO.File.ReadAllBytes(openFileDialog.FileName));
+                        byte[] imgBuf = System.IO.File.ReadAllBytes(openFileDialog.FileName);
+                        if ((imgBuf.Length / 1024) < 1024)
+                        {
+                            PlaylistImage = ImageConverter.GetImageByByteArray(imgBuf);
+                        }
+                        else
+                        {
+                            InfoMessage = "Превышен допустимый размер изображения ...";
+                        }
+                       
                     }
                 }));
             }
