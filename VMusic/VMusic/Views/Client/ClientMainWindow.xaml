@@ -267,9 +267,8 @@
                             Style="{StaticResource ClientControlButton}"
                             Width="32" Height="32"
                             Margin="2 2"
-                            Click="PlayStopButton_OnClick"
                             Command="{Binding StopAndPlay}">
-                        <materialDesign:PackIcon Kind="Stop"
+                        <materialDesign:PackIcon Kind="{Binding PlayStopButton}"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
                     </Button>
@@ -304,9 +303,8 @@
                             Style="{StaticResource ClientControlButton}"
                             Width="32" Height="32"
                             Margin="2 2"
-                            Click="VolumeButton_OnClick"
                             Command="{Binding VolumeOnOff}">
-                    <materialDesign:PackIcon Kind="VolumeHigh"
+                    <materialDesign:PackIcon Kind="{Binding VolumeButton}"
                                                  Foreground="DeepPink"
                                                  Width="32" Height="32"/>
                 </Button>

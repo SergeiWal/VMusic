@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
 using VMusic.Commands;
 using VMusic.Models;
 using VMusic.Repository;
@@ -21,7 +22,15 @@ namespace VMusic.ViewModels.Client
         private User user;
         private bool isPlayed = false;
         private bool isEnded = false;
+        private string findSongString = "";
+
+        private PackIconKind playStopButton = PackIconKind.Play;
+        private PackIconKind volumeButton = PackIconKind.VolumeHigh;
+
         private MediaPlayer player;
+        private SongViewModel currentSong;
+        private SongContent songContent;
+
         private double progress = 0;
         private double duration;
         private DispatcherTimer timer;
@@ -36,10 +45,10 @@ namespace VMusic.ViewModels.Client
         private HomePage currentSongListPage;
         private HomePage findSongPage;
 
-        private string findSongString = "";
+
         private Page currentPage;
-        private SongViewModel currentSong;
-        private SongContent songContent;
+
+       
         private UnitOfWork dbWorker;
 
         public ClientMainViewModel(User user)
@@ -59,6 +68,8 @@ namespace VMusic.ViewModels.Client
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += tickCallback;
             timer.Start();
+
+            this.PropertyChanged += OnIsButtonsPropertyChanged;
         }
 
         public string FindSongString
@@ -121,6 +132,35 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        public bool IsPlayed
+        {
+            get => isPlayed;
+            set
+            {
+                isPlayed = value;
+                OnPropertyChanged("IsPlayed");
+            }
+        }
+
+        public PackIconKind PlayStopButton
+        {
+            get => playStopButton;
+            set
+            {
+                playStopButton = value;
+                OnPropertyChanged("PlayStopButton");
+            }
+        }
+
+        public PackIconKind VolumeButton
+        {
+            get => volumeButton;
+            set
+            {
+                volumeButton = value;
+                OnPropertyChanged("VolumeButton");
+            }
+        }
 
 
         private Command switchToHomePage;
@@ -247,12 +287,12 @@ namespace VMusic.ViewModels.Client
                     if (isPlayed)
                     {
                         player.Pause();
-                        isPlayed = false;
+                        IsPlayed = false;
                     }
                     else if(currentSong != null)
                     {
                         player.Play();
-                        isPlayed = true;
+                        IsPlayed = true;
                     }
                 }));
             }
@@ -371,7 +411,21 @@ namespace VMusic.ViewModels.Client
             }
         }
 
-        private void tickCallback(object sender, EventArgs e)
+
+        private void OnIsButtonsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsPlayed")
+            {
+                PlayStopButton = IsPlayed == true ? PackIconKind.Stop : PackIconKind.Play;
+            }
+            if (e.PropertyName == "Volume")
+            {
+                VolumeButton = Volume == 0? PackIconKind.VolumeLow : PackIconKind.VolumeHigh;
+            }
+        }
+
+
+        private void TickCallback(object sender, EventArgs e)
         {
             if (isEnded)
             {
@@ -388,7 +442,7 @@ namespace VMusic.ViewModels.Client
 
         private void endAudioCallback(object sender, EventArgs e)
         {
-            isPlayed = false;
+            IsPlayed= false;
             isEnded = true;
         }
 
@@ -497,7 +551,7 @@ namespace VMusic.ViewModels.Client
         {
             player.Open(new Uri(path, UriKind.Absolute));
             player.Play();
-            isPlayed = true;
+            IsPlayed = true;
             isEnded = false;
         }   
     }
