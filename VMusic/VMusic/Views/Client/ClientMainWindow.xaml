@@ -1,4 +1,5 @@
 ﻿<Window x:Class="VMusic.Views.Client.ClientMainWindow"
+        Icon="../../Icon/main_icon.png"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -63,8 +64,7 @@
                 </Button>
                 <TextBox Text="{Binding FindSongString, Mode=TwoWay}" FontSize="12"
                          Height="18" Width="120" Margin="0 0 5 2"
-                         Background="#FF19181F"
-                         Opacity="0.3"/>
+                         Background="#FF131317"/>
             </StackPanel>
 
             <WrapPanel Grid.Column="2"

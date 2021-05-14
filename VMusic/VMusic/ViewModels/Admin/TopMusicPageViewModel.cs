@@ -17,6 +17,7 @@ namespace VMusic.ViewModels.Admin
 
         private UnitOfWork dbWorker;
         private Playlist topSongPlaylist;
+        private int itemCount = 0;
         public ObservableCollection<SongViewModel> TopSongList { get; set; }
 
         public TopMusicPageViewModel()
@@ -24,7 +25,7 @@ namespace VMusic.ViewModels.Admin
             dbWorker = new UnitOfWork();
 
             TopSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().OrderByDescending(n => n.Rating)
-                .Select(s => new SongViewModel(s)).Take(TOP_LIST_SIZE));
+                .Select(s => new SongViewModel(s){Index = ++itemCount}).Take(TOP_LIST_SIZE));
 
             topSongPlaylist = new Playlist()
             {
