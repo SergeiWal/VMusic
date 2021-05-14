@@ -30,13 +30,17 @@ namespace VMusic.ViewModels.Client
         private SongViewModel selectedSong;
         private Playlist playlist;
         private UnitOfWork dbWorker;
+        private int itemCount = 0;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
         public UpdatePlaylistViewModel(PlaylistViewModel selectedPlaylist)
         {
             dbWorker = new UnitOfWork();
             this.playlist = dbWorker.Playlist.GetByPredicate(p=>p.Id == selectedPlaylist.Id);
-            SongLocalList = new ObservableCollection<SongViewModel>(playlist.Songs.Select(s=>new SongViewModel(s)));
+            SongLocalList = new ObservableCollection<SongViewModel>(playlist.Songs.Select(s=>new SongViewModel(s)
+            {
+                Index = ++itemCount
+            }));
         }
 
         public string PlaylistName
@@ -191,9 +195,10 @@ namespace VMusic.ViewModels.Client
                 {
                     if (!string.IsNullOrEmpty(FindSongName))
                     {
+                        itemCount = 0;
                         var songs = dbWorker.Songs.GetAllObject()
                             .Where(s => s.Name.Contains(FindSongName) || s.Author.Contains(FindSongName) || s.Album.Contains(FindSongName))
-                            .Select(s => new SongViewModel(s));
+                            .Select(s => new SongViewModel(s){Index = ++itemCount});
                         SongLocalList.Clear();
 
                         foreach (var c in songs)
@@ -229,7 +234,8 @@ namespace VMusic.ViewModels.Client
             {
                 return viewCurrentSongs ?? (viewCurrentSongs = new Command((obj) =>
                 {
-                    var songs = playlist.Songs.Select(s => new SongViewModel(s)); ;
+                    itemCount = 0;
+                    var songs = playlist.Songs.Select(s => new SongViewModel(s){Index = ++itemCount}); ;
                     SongLocalList.Clear();
 
                     foreach (var c in songs)

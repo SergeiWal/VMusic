@@ -16,6 +16,7 @@ namespace VMusic.ViewModels.Client
         private UnitOfWork dbWorker;
         private Playlist topPlaylist;
         private SongViewModel currentSong;
+        private int itemCount = 0;
         public ObservableCollection<SongViewModel> LocalSongList { get; set;}
 
         public TopSongListViewModel(SongContent songContent)
@@ -24,7 +25,7 @@ namespace VMusic.ViewModels.Client
             dbWorker = new UnitOfWork();
             topPlaylist = dbWorker.Playlist.GetByPredicate(p => p.Name == TopMusicPageViewModel.TOP_LIST_NAME);
             LocalSongList = new ObservableCollection<SongViewModel>(topPlaylist.Songs.OrderByDescending(s=>s.Rating).
-                Select(s=>new SongViewModel(s)));
+                Select(s=>new SongViewModel(s){Index = ++itemCount}));
         }
 
         public SongViewModel CurrentSong

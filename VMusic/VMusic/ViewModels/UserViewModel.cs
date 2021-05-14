@@ -14,6 +14,7 @@ namespace VMusic.ViewModels
         private const string ACTIVITY_USER = "Активен";
         private const string BLOCKED_USER = "Заблокирован";
 
+        private int index;
         private User user;
 
         public UserViewModel(User user)
@@ -73,6 +74,16 @@ namespace VMusic.ViewModels
             {
                 user.IsBlocked = StrStatusToBool(value);
                 OnPropertyChanged("IsBlocked");
+            }
+        }
+
+        public int Index
+        {
+            get => index;
+            set
+            {
+                index = value;
+                OnPropertyChanged("Index");
             }
         }
 

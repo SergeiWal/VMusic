@@ -66,7 +66,7 @@ namespace VMusic.ViewModels.Client
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += tickCallback;
+            timer.Tick += TickCallback;
             timer.Start();
 
             this.PropertyChanged += OnIsButtonsPropertyChanged;

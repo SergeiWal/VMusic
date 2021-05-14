@@ -90,8 +90,19 @@ namespace VMusic.ViewModels.Admin
                         dbWorker.Users.Delete(user.Id);
                         dbWorker.Save();
                         Users.Remove(user);
+                        CorrectUserIndexAfterDelete();
                     }
                 }));
+            }
+        }
+
+        private void CorrectUserIndexAfterDelete()
+        {
+            int newCount = 0;
+            for (int i = 0;i<Users.Count;++i)
+            {
+                var user = Users[i];
+                user.Index = ++newCount;
             }
         }
     }

@@ -27,6 +27,7 @@ namespace VMusic.ViewModels.Client
         private PlaylistsPageViewModel playlistsPageViewModel;
         private Playlist playlist;
         private UnitOfWork dbWorker;
+        private int itemCount = 0;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
         public CreatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel, User user)
@@ -158,9 +159,10 @@ namespace VMusic.ViewModels.Client
                 {
                     if (!string.IsNullOrEmpty(FindSongName))
                     {
+                        itemCount = 0;
                         var songs = dbWorker.Songs.GetAllObject()
                             .Where(s=>s.Name.Contains(FindSongName) || s.Author.Contains(FindSongName) || s.Album.Contains(FindSongName))
-                            .Select(s => new SongViewModel(s));
+                            .Select(s => new SongViewModel(s){Index = ++itemCount});
                         SongLocalList.Clear();
 
                         foreach (var c in songs)

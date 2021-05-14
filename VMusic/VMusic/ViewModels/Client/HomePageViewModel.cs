@@ -14,6 +14,7 @@ namespace VMusic.ViewModels.Client
         private SongContent songContent;
         private SongViewModel currentSong;
         private UnitOfWork dbWorker;
+        private int itemCount = 0;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
         public HomePageViewModel(SongContent songContent)
@@ -22,7 +23,7 @@ namespace VMusic.ViewModels.Client
             this.songContent = songContent;
             LocalSongList =
                 new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
-                    .Select(o => new SongViewModel(o)));
+                    .Select(o => new SongViewModel(o){Index = ++itemCount}));
         }
 
         public SongViewModel CurrentSong

@@ -14,6 +14,9 @@ namespace VMusic.ViewModels
 {
     class SongViewModel: BaseViewModel
     {
+
+        private int index;
+
         public Song song;
 
         public SongViewModel(Song song)
@@ -96,6 +99,15 @@ namespace VMusic.ViewModels
             }
         }
 
+        public int Index
+        {
+            get => index;
+            set
+            {
+                index = value;
+                OnPropertyChanged("Index");
+            }
+        }
 
         public override bool Equals(object obj)
         {

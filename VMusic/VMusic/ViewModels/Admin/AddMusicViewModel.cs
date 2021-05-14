@@ -194,7 +194,7 @@ namespace VMusic.ViewModels.Admin
         private void AddSongToLocalCollection(Song song)
         {
             var song_db = dbWorker.Songs.GetById(song.Id);
-            LocalSongList.Add(new SongViewModel(song_db));
+            LocalSongList.Add(new SongViewModel(song_db){Index = LocalSongList.Count + 1});
         }
 
         private bool IsRepeat(SongViewModel song)

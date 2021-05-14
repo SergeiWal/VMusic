@@ -133,7 +133,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Name="Id" 
-                                           Text="{Binding Id}" FontSize="18"
+                                           Text="{Binding Index}" FontSize="18"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
                                 </TextBlock>

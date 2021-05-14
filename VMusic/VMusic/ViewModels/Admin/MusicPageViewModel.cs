@@ -63,6 +63,7 @@ namespace VMusic.ViewModels.Admin
                         dbWorker.Songs.Delete(song.Id);
                         dbWorker.Save();
                         Songs.Remove(song);
+                        IndexCorrectAfterDelete();
                     }
                 }));
             }
@@ -79,6 +80,16 @@ namespace VMusic.ViewModels.Admin
                         IsUpdate = IsUpdate != true;
                     }
                 }));
+            }
+        }
+
+        public void IndexCorrectAfterDelete()
+        {
+            int newIdx = 0;
+            for (int i = 0;i<Songs.Count;++i)
+            {
+                var song = Songs[i];
+                song.Index = ++newIdx;
             }
         }
     }
