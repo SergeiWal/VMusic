@@ -45,8 +45,6 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\UserPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\UserPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\TopMusicPage.baml
-D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.g.cs
-D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CreatePlaylistPage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CreatePlaylistPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\SettingPage.g.cs
@@ -64,3 +62,5 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\GenrePage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\GenrePage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CurrentGenrePage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CurrentGenrePage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\HomePage.baml

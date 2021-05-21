@@ -13,24 +13,102 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.4*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
 
         <Border CornerRadius="20" Grid.RowSpan="3"
                 Grid.ColumnSpan="5"
                 Background="#FF131317"
                 />
 
-        <Border Grid.Row="0" Background="DeepPink"
+        <Border Grid.ColumnSpan="5"
+                Grid.Row="0" Background="DeepPink"
                 Height="2" VerticalAlignment="Bottom"/>
 
-        <TextBlock Text="{Binding Name}" 
+        <TextBlock Grid.ColumnSpan="5"
+                   Text="{Binding Name}" 
                    FontSize="18"
                    VerticalAlignment="Center"
                    Margin="10 0"/>
 
+        <TextBlock Grid.Row="1" Grid.Column="0"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="#" Foreground="DeepPink"
+            ></TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="название" 
+            Foreground="DeepPink"
+            ></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="2"
+            HorizontalAlignment="center" 
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="альбом" 
+            Foreground="DeepPink"
+            ></TextBlock>
+        <materialDesign:PackIcon Kind="Heart" Grid.Row="1" Grid.Column="4"
+                                 Foreground="DeepPink" Width="24" Height="24"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="3"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="жанр" 
+            Foreground="DeepPink"
+            Margin="15 0"
+            ></TextBlock>
+
+
+        <Border Grid.ColumnSpan="5" Grid.Row="1"
+                Background="DeepPink" Height="2"
+                VerticalAlignment="Bottom"
+                Panel.ZIndex="2"/>
+        <Border Grid.Row="1" Grid.RowSpan="3"
+                Grid.Column="0"
+                Background="#FFBDBDBD" Width="2"
+                HorizontalAlignment="Right"
+                Opacity="0.2"
+                Panel.ZIndex="1"/>
+        <Border Grid.Row="1" Grid.RowSpan="3"
+                Grid.Column="1"
+                Background="#FFBDBDBD" Width="2"
+                HorizontalAlignment="Right"
+                Opacity="0.2"
+                Panel.ZIndex="1"
+                />
+        <Border Grid.Row="1" Grid.RowSpan="3"
+                Grid.Column="2"
+                Background="#FFBDBDBD" Width="2"
+                HorizontalAlignment="Right"
+                Opacity="0.2"
+                Panel.ZIndex="1"
+                />
+        <Border Grid.Row="1" Grid.RowSpan="3"
+                Grid.Column="3"
+                Background="#FFBDBDBD" Width="2"
+                HorizontalAlignment="Right"
+                Opacity="0.2"
+                Panel.ZIndex="1"
+                />
+
         <ListView Name="SongCollection" 
-                      Grid.Row="2" Grid.Column="0"
+                      Grid.Row="3" Grid.Column="0"
                       Grid.ColumnSpan="5"
                       Background="Transparent" 
                       BorderThickness="0"
