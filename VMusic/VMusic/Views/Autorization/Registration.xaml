@@ -13,6 +13,9 @@
         MouseDown="Window_MouseDown"
         Title="Registration" Height="535.2" Width="340"
         WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command ="{Binding RegistrationCommand}"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"></RowDefinition>
