@@ -62,3 +62,5 @@ D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Admin\UpdateMusicPage.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Resources\SliderStyles.baml
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\GenrePage.g.cs
 D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\GenrePage.baml
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CurrentGenrePage.g.cs
+D:\GIT\VMusic\VMusic\VMusic\obj\Debug\Views\Client\CurrentGenrePage.baml

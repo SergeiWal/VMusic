@@ -256,6 +256,7 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToGenrePage ?? (switchToGenrePage = new Command((obj) =>
                 {
+                    genrePage.DataContext = CreateGenreViewModel();
                     CurrentPage = genrePage;
                 }));
             }
@@ -437,6 +438,20 @@ namespace VMusic.ViewModels.Client
             }
         }
 
+        private void OnGenrePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedGenre")
+            {
+                GenreViewModel genreViewModel = genrePage.DataContext as GenreViewModel;
+                if (genreViewModel != null)
+                {
+                    CurrentGenrePage currentGenre = new CurrentGenrePage();
+                    currentGenre.DataContext = new CurrentGenreViewModel(genreViewModel.SelectedGenre, songContent);
+                    CurrentPage = currentGenre;
+                }
+            }
+        }
+
 
         private void TickCallback(object sender, EventArgs e)
         {
@@ -511,6 +526,13 @@ namespace VMusic.ViewModels.Client
             PlaylistsPageViewModel playlistsPageViewModel = new PlaylistsPageViewModel(user);
             playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
             return playlistsPageViewModel;
+        }
+
+        private GenreViewModel CreateGenreViewModel()
+        {
+            GenreViewModel genreViewModel = new GenreViewModel();
+            genreViewModel.PropertyChanged += OnGenrePropertyChanged;
+            return genreViewModel;
         }
 
         private bool IsHasLikeSongList()

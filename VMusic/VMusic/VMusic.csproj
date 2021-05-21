@@ -98,8 +98,10 @@
     <Compile Include="ViewModels\BaseWindowViewModel.cs" />
     <Compile Include="ViewModels\Client\ClientMainViewModel.cs" />
     <Compile Include="ViewModels\Client\CreatePlaylistViewModel.cs" />
+    <Compile Include="ViewModels\Client\CurrentGenreViewModel.cs" />
     <Compile Include="ViewModels\Client\CurrentSongListViewModel.cs" />
     <Compile Include="ViewModels\Client\FindSongViewModel.cs" />
+    <Compile Include="ViewModels\Client\GenreViewModel.cs" />
     <Compile Include="ViewModels\Client\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Client\ISongContent.cs" />
     <Compile Include="ViewModels\Client\PlaylistsPageViewModel.cs" />
@@ -144,6 +146,9 @@
     </Compile>
     <Compile Include="Views\Client\CreatePlaylistPage.xaml.cs">
       <DependentUpon>CreatePlaylistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\CurrentGenrePage.xaml.cs">
+      <DependentUpon>CurrentGenrePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Client\GenrePage.xaml.cs">
       <DependentUpon>GenrePage.xaml</DependentUpon>
@@ -227,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Client\CreatePlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\CurrentGenrePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

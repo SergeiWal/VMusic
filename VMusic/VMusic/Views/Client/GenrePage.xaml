@@ -32,8 +32,8 @@
         <ListBox Grid.Row="1"  
                  BorderThickness="0"
                  Background="Transparent"
-                 ItemsSource="{Binding Playlists}"
-                 SelectedItem="{Binding SelectedPlaylist, Mode=TwoWay}"
+                 ItemsSource="{Binding GenreList}"
+                 SelectedItem="{Binding SelectedGenre, Mode=TwoWay}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
             >
@@ -65,7 +65,7 @@
                                Height="100"
                                Source="{Binding Image}"/>
 
-                        <materialDesign:PackIcon Kind="MusicBox"
+                        <materialDesign:PackIcon Kind="MusicNote"
                                                  Foreground="DeepPink"
                                                  Grid.Row="0"
                                                  HorizontalAlignment="Center"
