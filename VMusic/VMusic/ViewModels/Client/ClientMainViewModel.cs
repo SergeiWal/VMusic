@@ -44,6 +44,7 @@ namespace VMusic.ViewModels.Client
         private UpdatePlaylistPage updatePlaylistPage;
         private HomePage currentSongListPage;
         private HomePage findSongPage;
+        private GenrePage genrePage;
 
 
         private Page currentPage;
@@ -169,6 +170,7 @@ namespace VMusic.ViewModels.Client
         private Command switchToTopMusicPage;
         private Command switchToPlaylistsPage;
         private Command switchToCurrentSongList;
+        private Command switchToGenrePage;
         private Command stopAndPlay;
         private Command likeSong;
         private Command nextSong;
@@ -244,6 +246,17 @@ namespace VMusic.ViewModels.Client
                     }
 
                     CurrentPage = currentSongListPage;
+                }));
+            }
+        }
+
+        public Command SwitchToGenrePage
+        {
+            get
+            {
+                return switchToGenrePage ?? (switchToGenrePage = new Command((obj) =>
+                {
+                    CurrentPage = genrePage;
                 }));
             }
         }
@@ -457,6 +470,7 @@ namespace VMusic.ViewModels.Client
             findSongPage = new HomePage();
             currentSongListPage = new HomePage();
             updatePlaylistPage = new UpdatePlaylistPage();
+            genrePage = new GenrePage();
         }
 
 

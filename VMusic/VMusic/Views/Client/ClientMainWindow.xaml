@@ -146,6 +146,24 @@
                     </Button>
                     <Button Style="{StaticResource ClientControlButton}"
                             Margin="10 10"
+                            Command="{Binding SwitchToGenrePage}">
+                        <Grid Width="200"
+                              Height="32">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource ClientControlButton}"
+                                        Width="32" Height="32">
+                                    <materialDesign:PackIcon Kind="MusicNote" Foreground="DeepPink"
+                                                             Width="32" Height="32" />
+                                </Button>
+                                <TextBlock VerticalAlignment="Center" 
+                                           FontSize="18"
+                                           Margin="5 0"
+                                           Text="Жанры"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource ClientControlButton}"
+                            Margin="10 10"
                             Command="{Binding SwitchToPlaylistsPage}">
                         <Grid Width="200"
                             Height="32">
