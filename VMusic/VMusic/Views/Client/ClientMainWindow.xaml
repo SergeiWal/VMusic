@@ -16,6 +16,10 @@
         MinHeight="600" MinWidth="1024"
         MouseDown="Window_MouseDown"
         WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Left"  Command="{Binding PrevSong}"></KeyBinding>
+        <KeyBinding Key="Right" Command="{Binding NextSong}"></KeyBinding>
+    </Window.InputBindings>
     <Grid Background="{StaticResource BackgroundColor}">
 
         <Grid.ColumnDefinitions>
@@ -64,7 +68,8 @@
                 </Button>
                 <TextBox Text="{Binding FindSongString, Mode=TwoWay}" FontSize="12"
                          Height="18" Width="120" Margin="0 0 5 2"
-                         Background="#FF131317"/>
+                         Background="#FF131317">
+                </TextBox>
             </StackPanel>
 
             <WrapPanel Grid.Column="2"
