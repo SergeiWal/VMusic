@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -18,6 +19,9 @@ namespace VMusic.ViewModels.Admin
 {
     class AddMusicViewModel: BaseViewModel
     {
+        private const string FILE_NAME_DELIMITOR = "_";
+        private const string FILE_EXTENSION = ".mp3";
+        private const string FILE_PATH_PREFIX = @"..\..\Songs\";
 
         private ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
@@ -110,17 +114,20 @@ namespace VMusic.ViewModels.Admin
                                 Author = this.Author,
                                 Genre = GenreConverter.StringToGenre(this.Genre.Text),
                                 Image = this.img,
-                                Rating = 0,
-                                Source = this.path
+                                Rating = 0
                             };
 
                             if (!IsRepeat(new SongViewModel(song)))
                             {
-                                dbWorker.Songs.Create(song);
-                                dbWorker.Save();
-                                AddSongToLocalCollection(song);
-                                ResultString = "Добавлено успешно!!!";
-                                ClearField();
+                                string source = CopySongToLocalFileRepository(song);
+                                if ( source != null)
+                                {
+                                    song.Source = source;
+                                    AddSongToDB(song);
+                                    AddSongToLocalCollection(song);
+                                    ResultString = "Добавлено успешно!!!";
+                                    ClearField();
+                                }
                             }
                             else
                             {
@@ -191,15 +198,43 @@ namespace VMusic.ViewModels.Admin
                    !string.IsNullOrEmpty(Genre.Text) && !string.IsNullOrEmpty(path);
         }
 
-        private void AddSongToLocalCollection(Song song)
-        {
-            var song_db = dbWorker.Songs.GetById(song.Id);
-            LocalSongList.Add(new SongViewModel(song_db){Index = LocalSongList.Count + 1});
-        }
-
         private bool IsRepeat(SongViewModel song)
         {
             return LocalSongList.Contains(song);
+        }
+
+
+        private string CopySongToLocalFileRepository(Song song)
+        {
+            string newPath = FILE_PATH_PREFIX + song.Name + FILE_NAME_DELIMITOR + song.Author + FILE_EXTENSION;
+            try
+            {
+                FileInfo fileInfo = new FileInfo(path);
+                if (fileInfo.Exists)
+                {
+                    fileInfo.CopyTo(newPath);
+                }
+
+                return newPath;
+            }
+            catch (IOException)
+            {
+                ResultString = "Не удалось сохранить трек !!!";
+            }
+
+            return null;
+        }
+
+        private void AddSongToDB(Song song)
+        {
+            dbWorker.Songs.Create(song);
+            dbWorker.Save();
+        }
+
+        private void AddSongToLocalCollection(Song song)
+        {
+            var song_db = dbWorker.Songs.GetById(song.Id);
+            LocalSongList.Add(new SongViewModel(song_db) { Index = LocalSongList.Count + 1 });
         }
 
         private void ClearField()

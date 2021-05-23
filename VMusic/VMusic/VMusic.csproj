@@ -295,9 +295,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\exit.png" />
+    <Folder Include="Songs\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\main_icon.png" />

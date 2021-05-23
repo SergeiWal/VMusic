@@ -585,7 +585,7 @@ namespace VMusic.ViewModels.Client
 
         private void PlaySong(string path)
         {
-            player.Open(new Uri(path, UriKind.Absolute));
+            player.Open(new Uri(path, UriKind.Relative));
             player.Play();
             IsPlayed = true;
             isEnded = false;
