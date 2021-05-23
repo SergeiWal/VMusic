@@ -75,10 +75,14 @@
     <Compile Include="Controller\Client\CreatePlaylistController.cs" />
     <Compile Include="Controller\Client\LikeSongsController\LikeSongsController.cs" />
     <Compile Include="Controller\Client\Messagers\CreatePlaylistMessager.cs" />
+    <Compile Include="Controller\Client\Messagers\SettingMessager.cs" />
+    <Compile Include="Controller\Client\Messagers\UpdatePlaylistMessager.cs" />
     <Compile Include="Controller\Client\PagesController\PageDispatcher.cs" />
     <Compile Include="Controller\Client\PagesController\ViewModelCreator.cs" />
     <Compile Include="Controller\Client\Player\IPlayer.cs" />
     <Compile Include="Controller\Client\Player\Player.cs" />
+    <Compile Include="Controller\Client\SettingController.cs" />
+    <Compile Include="Controller\Client\UpdatePlaylistController.cs" />
     <Compile Include="Converters\GenreConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Hasher\PasswordHasher.cs" />
@@ -301,6 +305,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controller\Admin\" />
     <Folder Include="Songs\" />
   </ItemGroup>
   <ItemGroup>

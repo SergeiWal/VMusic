@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using VMusic.Models;
 
 namespace VMusic.Repository
@@ -36,7 +38,7 @@ namespace VMusic.Repository
 
         public void Delete(int id)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Include(u => u.Playlists).FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
                 db.Users.Remove(user);

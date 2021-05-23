@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VMusic.Controller.Client.Player;
 using VMusic.Converters;
+using VMusic.Models;
 using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
@@ -15,17 +13,14 @@ namespace VMusic.ViewModels.Client
         private PlaylistViewModel currentGenre;
         private SongViewModel currentSong;
         private Player player;
-        private UnitOfWork dbWorker;
         private int itemCount = 0;
         public ObservableCollection<SongViewModel> Songs { get; set; }
 
         public CurrentGenreViewModel(PlaylistViewModel currentGenre, Player player)
         {
-            dbWorker = new UnitOfWork();
             this.currentGenre = currentGenre;
             this.player = player;
-            Songs = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
-                .Where(s => s.Genre == GenreConverter.StringToGenre(currentGenre.Name))
+            Songs = new ObservableCollection<SongViewModel>(GetSongs()
                 .Select(s => new SongViewModel(s){Index = ++itemCount}));
         }
 
@@ -45,6 +40,13 @@ namespace VMusic.ViewModels.Client
                 OnPropertyChanged("CurrentSong");
             }
         }
+
+        private IEnumerable<Song> GetSongs()
+        {
+            UnitOfWork dbWorker = new UnitOfWork();
+            return dbWorker.Songs.GetAllObject()
+                .Where(s => s.Genre == GenreConverter.StringToGenre(currentGenre.Name));
+        } 
 
     }
 }

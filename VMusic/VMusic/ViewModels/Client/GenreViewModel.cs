@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VMusic.Models;
 using VMusic.Repository;
 
@@ -11,13 +8,11 @@ namespace VMusic.ViewModels.Client
 {
     class GenreViewModel: BaseViewModel
     {
-        private UnitOfWork dbWorker;
         private PlaylistViewModel selectedGenre;
         public ObservableCollection<PlaylistViewModel> GenreList { get; set; }
 
         public GenreViewModel()
         {
-            dbWorker = new UnitOfWork();
             GenreList = new ObservableCollection<PlaylistViewModel>(GetGenreList().Select(p=>new PlaylistViewModel(p)));
         }
 
@@ -33,7 +28,8 @@ namespace VMusic.ViewModels.Client
 
         private List<Playlist> GetGenreList()
         {
-            var songs = dbWorker.Songs.GetAllObject();
+            
+            var songs = (new UnitOfWork()).Songs.GetAllObject();
             Playlist rock = new Playlist()
             {
                 Name = "Рок"

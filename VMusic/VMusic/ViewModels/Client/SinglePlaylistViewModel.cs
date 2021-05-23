@@ -15,7 +15,6 @@ namespace VMusic.ViewModels.Client
     {
         private User user;
         private Player player;
-        private UnitOfWork dbWorker;
         private SongViewModel selectedSong;
         private bool isUpdate = false;
         private int songItemCount = 0;
@@ -25,7 +24,6 @@ namespace VMusic.ViewModels.Client
 
         public SinglePlaylistViewModel(PlaylistViewModel playlist, Player player, User user)
         {
-            dbWorker = new UnitOfWork();
             this.user = user;
             this.player = player;
             Playlist = playlist;
@@ -104,7 +102,7 @@ namespace VMusic.ViewModels.Client
 
         private void CollectionInitialized()
         {
-            var obj = dbWorker.Playlist.GetByPredicate(p => p.Id == Playlist.Id);
+            var obj = (new UnitOfWork()).Playlist.GetByPredicate(p => p.Id == Playlist.Id);
             if (obj != null)
             {
                 SongLocalList = new ObservableCollection<SongViewModel>(obj.Songs.Select(s => new SongViewModel(s)

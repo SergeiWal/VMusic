@@ -1,28 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VMusic.Commands;
+﻿using VMusic.Commands;
+using VMusic.Controller.Client;
+using VMusic.Controller.Client.Messagers;
 using VMusic.Hasher;
 using VMusic.Models;
-using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
 {
     class SettingViewModel: BaseViewModel
     {
 
-        private const string CHANDE_PASS_SUCCESS = "Пароль изменён успешно ...";
-        private const string OLD_PASS_FAILED = "Текущий пароль не верен ...";
-        private const string PASS_NOT_EQUAL = "Пароли не совпадают ...";
-        private const string FIELDS_EMPTY = "Заполнены не все поля ...";
-        private const string USER_IS_ADMIN = "Невозможно удалить аккаунт админа ...";
-        private const string DELETE_USER_SUCCES = "Ваш аккаунт удалён ...";
+        private SettingController controller;
 
-        private UnitOfWork dbWorker;
-
-        private string resultString = "";
+        private string resultString = string.Empty;
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
         public string RepeatPassword { get; set; }
@@ -33,7 +22,7 @@ namespace VMusic.ViewModels.Client
 
         public SettingViewModel(User user)
         {
-            dbWorker = new UnitOfWork();
+            controller = new SettingController();
             User = new UserViewModel(user);
         }
 
@@ -74,22 +63,22 @@ namespace VMusic.ViewModels.Client
                         {
                             if (IsValidOldPassword())
                             {
-                                ChangePassword();
-                                ResultString = CHANDE_PASS_SUCCESS;
+                                controller.ChangePassword(User.Id, NewPassword);
+                                ResultString = SettingMessager.CHANDE_PASS_SUCCESS;
                             }
                             else
                             {
-                                ResultString = OLD_PASS_FAILED;
+                                ResultString = SettingMessager.OLD_PASS_FAILED;
                             }
                         }
                         else
                         {
-                            ResultString = PASS_NOT_EQUAL;
+                            ResultString = SettingMessager.PASS_NOT_EQUAL;
                         }
                     }
                     else
                     {
-                        ResultString =  FIELDS_EMPTY;
+                        ResultString = SettingMessager.FIELDS_EMPTY;
                     }
                 }));
             }
@@ -101,7 +90,14 @@ namespace VMusic.ViewModels.Client
             {
                 return deleteUserCommand ??(deleteUserCommand = new Command((obj) =>
                 {
-                    DeleteUser();
+                    if (controller.DeleteUser(User.Id))
+                    {
+                        ResultString = SettingMessager.DELETE_USER_SUCCES;
+                    }
+                    else
+                    {
+                        ResultString = SettingMessager.USER_IS_ADMIN;
+                    }
                 }));
             }
         }
@@ -131,34 +127,6 @@ namespace VMusic.ViewModels.Client
         private bool IsValidOldPassword()
         {
             return PasswordHasher.GetHash(OldPassword) == User.Password;
-        }
-
-        private void ChangePassword()
-        {
-            var user = dbWorker.Users.GetById(User.Id);
-            if (user != null)
-            {
-                user.Password = PasswordHasher.GetHash(NewPassword);
-                dbWorker.Save();
-            }
-        }
-
-        private void DeleteUser()
-        {
-            var user = dbWorker.Users.GetById(User.Id);
-            if (user != null)
-            {
-                if (!user.IsAdmin)
-                {
-                    dbWorker.Users.Delete(user.Id);
-                    dbWorker.Save();
-                    ResultString = DELETE_USER_SUCCES;
-                }
-                else
-                {
-                    ResultString = USER_IS_ADMIN;
-                }
-            }
         }
     }
 }

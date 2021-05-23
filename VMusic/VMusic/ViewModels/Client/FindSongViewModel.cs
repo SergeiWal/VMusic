@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VMusic.Controller.Client.Player;
+using VMusic.Models;
 using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
@@ -13,17 +12,14 @@ namespace VMusic.ViewModels.Client
     {
         private Player player;
         private SongViewModel currentSong;
-        private UnitOfWork dbWorker;
         private int itemCount = 0;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
 
         public FindSongViewModel(string findSongString, Player player)
         {
-            dbWorker = new UnitOfWork();
             this.player = player;
-            LocalSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
-                .Where(s=>s.Name.Contains(findSongString) || s.Author.Contains(findSongString) || s.Album.Contains(findSongString))
+            LocalSongList = new ObservableCollection<SongViewModel>(GetSongs(findSongString)
                 .Select(s=>new SongViewModel(s){Index = ++itemCount}));
         }
 
@@ -38,5 +34,13 @@ namespace VMusic.ViewModels.Client
                 OnPropertyChanged("CurrentSong");
             }
         }
+
+        private IEnumerable<Song> GetSongs(string findSongString)
+        {
+            UnitOfWork dbWorker = new UnitOfWork();
+            return dbWorker.Songs.GetAllObject()
+                .Where(s => s.Name.Contains(findSongString) || s.Author.Contains(findSongString) ||
+                            s.Album.Contains(findSongString));
+        } 
     }
 }

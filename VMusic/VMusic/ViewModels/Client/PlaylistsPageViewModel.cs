@@ -12,17 +12,13 @@ namespace VMusic.ViewModels.Client
 {
     class PlaylistsPageViewModel: BaseViewModel
     {
-        private UnitOfWork dbWorker;
         private PlaylistViewModel selectedPlaylist;
-        private User currentUser;
         public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
 
 
         public PlaylistsPageViewModel(User user)
         {
-            dbWorker = new UnitOfWork();
-            currentUser = user;
-            Playlists = new ObservableCollection<PlaylistViewModel>(dbWorker.Playlist.GetAllObject()
+            Playlists = new ObservableCollection<PlaylistViewModel>(GetPlaylist()
                 .Where(p=>p.UserId == user.Id)
                 .Select(p=>new PlaylistViewModel(p)));
         }
@@ -35,6 +31,11 @@ namespace VMusic.ViewModels.Client
                 selectedPlaylist = value;
                 OnPropertyChanged("SelectedPlaylist");
             }
+        }
+
+        private IEnumerable<Playlist> GetPlaylist()
+        {
+            return (new UnitOfWork()).Playlist.GetAllObject();
         }
 
         public void PlaylistsDataUpdate(Playlist playlist)
