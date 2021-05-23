@@ -140,7 +140,6 @@
                                 <ColumnDefinition Width="1.5*"/>
                                 <ColumnDefinition Width="1.4*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Name="Id" 
@@ -174,15 +173,6 @@
                                Text="{Binding Genre}"
                                FontSize="18" Margin="5 5">
                             </TextBlock>
-
-                            <TextBlock Grid.Row="0" Grid.Column="4" 
-                                           Name="Rating"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Rating}"
-                                           FontSize="18" Margin="5 5">
-                            </TextBlock>
-
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -22,7 +22,6 @@
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1.4*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
 
         <Border CornerRadius="20" Grid.RowSpan="3"
@@ -61,18 +60,14 @@
             Text="альбом" 
             Foreground="DeepPink"
             ></TextBlock>
-        <materialDesign:PackIcon Kind="Heart" Grid.Row="1" Grid.Column="4"
-                                 Foreground="DeepPink" Width="24" Height="24"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="1" Grid.Column="3"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-            FontSize="24"
-            Text="жанр" 
-            Foreground="DeepPink"
-            Margin="15 0"
-            ></TextBlock>
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   FontSize="24"
+                   Text="жанр" 
+                   Foreground="DeepPink"
+                   Margin="15 0"
+        ></TextBlock>
 
 
         <Border Grid.ColumnSpan="5" Grid.Row="1"
@@ -99,23 +94,16 @@
                 Opacity="0.2"
                 Panel.ZIndex="1"
                 />
-        <Border Grid.Row="1" Grid.RowSpan="3"
-                Grid.Column="3"
-                Background="#FFBDBDBD" Width="2"
-                HorizontalAlignment="Right"
-                Opacity="0.2"
-                Panel.ZIndex="1"
-                />
 
         <ListView Name="SongCollection" 
-                      Grid.Row="3" Grid.Column="0"
-                      Grid.ColumnSpan="5"
-                      Background="Transparent" 
-                      BorderThickness="0"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ItemsSource="{Binding Songs}"
-                      SelectedItem="{Binding CurrentSong}">
+                  Grid.Row="3" Grid.Column="0"
+                  Grid.ColumnSpan="5"
+                  Background="Transparent" 
+                  BorderThickness="0"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  ItemsSource="{Binding Songs}"
+                  SelectedItem="{Binding CurrentSong}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
@@ -134,7 +122,6 @@
                                 <ColumnDefinition Width="1.5*"/>
                                 <ColumnDefinition Width="1.4*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Name="Id" 
@@ -168,15 +155,6 @@
                                Text="{Binding Genre}"
                                FontSize="18" Margin="5 5">
                             </TextBlock>
-
-                            <TextBlock Grid.Row="0" Grid.Column="4" 
-                                           Name="Rating"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Rating}"
-                                           FontSize="18" Margin="5 5">
-                            </TextBlock>
-
                         </Grid>
                     </Border>
                 </DataTemplate>
