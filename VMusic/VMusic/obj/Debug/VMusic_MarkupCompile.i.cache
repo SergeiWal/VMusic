@@ -12,9 +12,9 @@ DEBUG;TRACE
 D:\GIT\VMusic\VMusic\VMusic\App.xaml
 231313541480
 
-701804861733
+72-1117654859
 18-540247184
 Resources\AutorizationStyles.xaml;Resources\ClientStyles.xaml;Resources\ComboBoxStyles.xaml;Resources\SliderStyles.xaml;Views\Admin\AddMusicPage.xaml;Views\Admin\AdminMainWindow.xaml;Views\Admin\MusicPage.xaml;Views\Admin\TopMusicPage.xaml;Views\Admin\UpdateMusicPage.xaml;Views\Admin\UserPage.xaml;Views\Autorization\Login.xaml;Views\Autorization\LoginAsAdmin.xaml;Views\Autorization\Registration.xaml;Views\Client\ClientMainWindow.xaml;Views\Client\CreatePlaylistPage.xaml;Views\Client\CurrentGenrePage.xaml;Views\Client\GenrePage.xaml;Views\Client\HomePage.xaml;Views\Client\PlaylistsPage.xaml;Views\Client\SettingPage.xaml;Views\Client\SinglePlaylistPage.xaml;Views\Client\UpdatePlaylistPage.xaml;Views\MainWindow.xaml;
 
-True
+False
 

@@ -1,40 +1,31 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media.Imaging;
-using Microsoft.Win32;
 using VMusic.Commands;
+using VMusic.Controller.Client;
+using VMusic.Controller.Client.Messagers;
 using VMusic.Converters;
 using VMusic.Models;
-using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
 {
     class CreatePlaylistViewModel: BaseViewModel
     {
-        private const string FIELDS_NOT_EMPTY = "Заполнены не все данные ...";
-        private const string CREATE_PLAYLIST_SUCCESS = "Плэйлист сохранён ...";
-        private const string NOT_SELECT_SONG = "Выбирите трек ...";
-        private const string ADD_SONG_SUCCESS = "Трек добавлен ...";
-        private const string SONG_REPEAT = "Трек был уже добавлен ...";
-        private const string PLAYLIST_REPEAT = "Плэйлист с таким именем существует ...";
-
-
         private bool isFinish = false;
 
-        private string findSongName = "";
-        private string infoMessage = "";
+        private string findSongName = String.Empty;
+        private string infoMessage = String.Empty;
         private SongViewModel selectedSong;
-        private PlaylistsPageViewModel playlistsPageViewModel;
+        private CreatePlaylistController controller;
         private Playlist playlist;
-        private UnitOfWork dbWorker;
         private int itemCount = 0;
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
-        public CreatePlaylistViewModel(PlaylistsPageViewModel playlistsPageViewModel, User user)
+        public CreatePlaylistViewModel(User user)
         {
-            this.playlistsPageViewModel = playlistsPageViewModel;
             SongLocalList = new ObservableCollection<SongViewModel>();
-            dbWorker = new UnitOfWork();
+            controller = new CreatePlaylistController();
             playlist = new Playlist()
             {
                 UserId = user.Id
@@ -112,22 +103,15 @@ namespace VMusic.ViewModels.Client
             {
                 return  addImage ?? (addImage = new Command((obj) =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
-                    openFileDialog.InitialDirectory = @"D:\";
-
-                    if (openFileDialog.ShowDialog() == true)
+                    var imgBuf = controller.GetImage();
+                    if (imgBuf != null)
                     {
-                        byte[] imgBuf = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-                        if ((imgBuf.Length / 1024) < 1024)
-                        {
-                            PlaylistImage = ImageConverter.GetImageByByteArray(imgBuf);
-                        }
-                        else
-                        {
-                            InfoMessage = "Превышен допустимый размер изображения ...";
-                        }
-                       
+                        PlaylistImage = imgBuf;
+                        InfoMessage = CreatePlaylistMessager.ADD_IMAGE_SUCCESS;
+                    }
+                    else
+                    {
+                        InfoMessage = CreatePlaylistMessager.SIZE_IMAGE_ERROR;
                     }
                 }));
             }
@@ -141,11 +125,19 @@ namespace VMusic.ViewModels.Client
                 {
                     if (IsFieldsNotEmpty())
                     {
-                        AddPlaylist();
+                        if (controller.AddPlaylist(playlist))
+                        {
+                            IsFinish = IsFinish != true;
+                            InfoMessage = CreatePlaylistMessager.CREATE_PLAYLIST_SUCCESS;
+                        }
+                        else
+                        {
+                            InfoMessage = CreatePlaylistMessager.PLAYLIST_REPEAT;
+                        }
                     }
                     else
                     {
-                        InfoMessage = FIELDS_NOT_EMPTY;
+                        InfoMessage = CreatePlaylistMessager.FIELDS_NOT_EMPTY;
                     }
                 }));
             }
@@ -160,8 +152,7 @@ namespace VMusic.ViewModels.Client
                     if (!string.IsNullOrEmpty(FindSongName))
                     {
                         itemCount = 0;
-                        var songs = dbWorker.Songs.GetAllObject()
-                            .Where(s=>s.Name.Contains(FindSongName) || s.Author.Contains(FindSongName) || s.Album.Contains(FindSongName))
+                        var songs = controller.FindSong(FindSongName)
                             .Select(s => new SongViewModel(s){Index = ++itemCount});
                         SongLocalList.Clear();
 
@@ -186,7 +177,7 @@ namespace VMusic.ViewModels.Client
                     }
                     else
                     {
-                        InfoMessage = NOT_SELECT_SONG;
+                        InfoMessage = CreatePlaylistMessager.NOT_SELECT_SONG;
                     }
                 }));
             }
@@ -197,40 +188,17 @@ namespace VMusic.ViewModels.Client
             if (IsSongNotRepeat(song))
             {
                 playlist.Songs.Add(song);
-                InfoMessage = ADD_SONG_SUCCESS;
+                InfoMessage = CreatePlaylistMessager.ADD_SONG_SUCCESS;
             }
             else
             {
-                InfoMessage = SONG_REPEAT;
+                InfoMessage = CreatePlaylistMessager.SONG_REPEAT;
             }
         }
 
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(PlaylistName) && PlaylistImage != null;
-        }
-
-        private void AddPlaylist()
-        {
-            if (IsPlaylistNotRepeat())
-            {
-                dbWorker.Playlist.Create(playlist);
-                dbWorker.Save();
-                InfoMessage = CREATE_PLAYLIST_SUCCESS;
-                IsFinish = IsFinish != true;
-            }
-            else
-            {
-                InfoMessage = PLAYLIST_REPEAT;
-            }
-        }
-
-        private bool IsPlaylistNotRepeat()
-        {
-            var obj = dbWorker.Playlist.GetAllObject()
-                .FirstOrDefault(p => p.Name == playlist.Name && p.UserId == playlist.UserId);
-
-            return obj == null;
         }
 
         private bool IsSongNotRepeat(Song song)

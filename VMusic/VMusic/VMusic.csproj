@@ -72,7 +72,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Controller\Client\CreatePlaylistController.cs" />
     <Compile Include="Controller\Client\LikeSongsController\LikeSongsController.cs" />
+    <Compile Include="Controller\Client\Messagers\CreatePlaylistMessager.cs" />
     <Compile Include="Controller\Client\PagesController\PageDispatcher.cs" />
     <Compile Include="Controller\Client\PagesController\ViewModelCreator.cs" />
     <Compile Include="Controller\Client\Player\IPlayer.cs" />

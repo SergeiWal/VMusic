@@ -17,10 +17,9 @@ namespace VMusic.Controller.Client.PagesController
             return new HomePageViewModel(player);
         }
 
-        public static CreatePlaylistViewModel CreateAddPlaylistPageViewModel(User user,
-            PlaylistsPageViewModel playlistsPageViewModel, PropertyChangedEventHandler callback)
+        public static CreatePlaylistViewModel CreateAddPlaylistPageViewModel(User user, PropertyChangedEventHandler callback)
         {
-            CreatePlaylistViewModel createPlaylistViewModel = new CreatePlaylistViewModel(playlistsPageViewModel, user);
+            CreatePlaylistViewModel createPlaylistViewModel = new CreatePlaylistViewModel(user);
             createPlaylistViewModel.PropertyChanged += callback;
             return createPlaylistViewModel;
         }

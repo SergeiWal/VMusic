@@ -1,19 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using VMusic.Commands;
 using VMusic.Controller.Client.LikeSongsController;
 using VMusic.Controller.Client.PagesController;
 using VMusic.Controller.Client.Player;
 using VMusic.Models;
-using VMusic.Repository;
 using VMusic.Views.Autorization;
-using VMusic.Views.Client;
 
 namespace VMusic.ViewModels.Client
 {
@@ -41,8 +34,8 @@ namespace VMusic.ViewModels.Client
             likeSongs = new LikeSongsController(user);
             pageDispatcher = new PageDispatcher();
             pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(Player);
-            pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user,
-                (PlaylistsPageViewModel)pageDispatcher.PlaylistsPage.DataContext, OnPlaylistCreateOrDeletePropertyChanged);
+            pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user, 
+                OnPlaylistCreateOrDeletePropertyChanged);
             pageDispatcher.SettingPage.DataContext = ViewModelCreator.CreateSettingViewModel(user, OnSettingPropertyChanged);
             pageDispatcher.TopMusicPage.DataContext = ViewModelCreator.CreateTopMusicViewModel(Player);
         }
