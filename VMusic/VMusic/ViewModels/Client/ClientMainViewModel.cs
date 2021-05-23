@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using VMusic.Commands;
+using VMusic.Controller.Client.LikeSongsController;
 using VMusic.Controller.Client.PagesController;
 using VMusic.Controller.Client.Player;
 using VMusic.Models;
@@ -18,9 +19,6 @@ namespace VMusic.ViewModels.Client
 {
     class ClientMainViewModel: BaseWindowViewModel
     {
-
-        public static string LIKE_SONG_LIST_NAME = "Избраное";
-
         private User user;
         private string findSongString = "";
 
@@ -31,18 +29,16 @@ namespace VMusic.ViewModels.Client
         private SongViewModel currentSong;
 
         private PageDispatcher pageDispatcher;
+        private LikeSongsController likeSongs;
        
-        private UnitOfWork dbWorker;
-
         public ClientMainViewModel(User user)
         {
             this.user = user;
-            dbWorker = new UnitOfWork();
             Player = new Player();
             Player.PropertyChanged += OnSessionSongPropertyChanged;
             Player.PropertyChanged += OnIsButtonsPropertyChanged;
 
-
+            likeSongs = new LikeSongsController(user);
             pageDispatcher = new PageDispatcher();
             pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(Player);
             pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user,
@@ -273,12 +269,16 @@ namespace VMusic.ViewModels.Client
                 {
                     if (CurrentSong != null)
                     {
-                        if (!IsHasLikeSongList())
+                        if (!likeSongs.IsHasLikeSongList())
                         {
-                            CreateLikeSongList();
+                            Playlist playlist = likeSongs.CreateLikeSongList();
+                            PlaylistsUpdate(playlist);
                         }
-                       
-                        AddLikeSongInList();
+                        if (likeSongs.AddLikeSongInList(CurrentSong))
+                        {
+                            ++CurrentSong.Rating;
+                        }
+                        
                     }
                 }));
             }
@@ -384,47 +384,7 @@ namespace VMusic.ViewModels.Client
                 }
             }
         }
-
-
-        private bool IsHasLikeSongList()
-        {
-            var plist = dbWorker.Playlist.GetByPredicate(p=>p.UserId ==user.Id && p.Name == LIKE_SONG_LIST_NAME);
-            return plist != null;
-        }
-
-        private void CreateLikeSongList()
-        {
-            Playlist playlist = new Playlist()
-            {
-                Name = LIKE_SONG_LIST_NAME,
-                UserId = user.Id
-            };
-            dbWorker.Playlist.Create(playlist);
-            dbWorker.Save();
-            PlaylistsUpdate(playlist);
-        }
-
-        private void AddLikeSongInList()
-        {
-            var playlist = dbWorker.Playlist.GetByPredicate(p => p.UserId == user.Id && p.Name == LIKE_SONG_LIST_NAME);
-            var song = dbWorker.Songs.GetById(CurrentSong.Id);
-            var songFromList = playlist.Songs.FirstOrDefault(s => s.Id == CurrentSong.Id);
-            if (song != songFromList)
-            {
-                playlist.Songs.Add(song);
-                dbWorker.Save();
-                SongRatingUp();
-            }
-        }
-
-        private void SongRatingUp()
-        {
-            ++CurrentSong.Rating;
-            var song = dbWorker.Songs.GetById(CurrentSong.Id);
-            dbWorker.Songs.RatingUpdate(song);
-            dbWorker.Save();
-        }
-
+        
         private void PlaylistsUpdate(Playlist playlist)
         {
             var obj = pageDispatcher.PlaylistsPage.DataContext as PlaylistsPageViewModel;
