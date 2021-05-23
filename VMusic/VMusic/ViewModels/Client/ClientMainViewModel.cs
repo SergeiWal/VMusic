@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using VMusic.Commands;
+using VMusic.Controller.Client.PagesController;
 using VMusic.Models;
 using VMusic.Repository;
 using VMusic.Views.Autorization;
@@ -35,20 +36,7 @@ namespace VMusic.ViewModels.Client
         private double duration;
         private DispatcherTimer timer;
 
-        private HomePage homePage;
-        private CreatePlaylistPage createPlaylistPage;
-        private SettingPage settingPage;
-        private HomePage topMusicPage;
-        private PlaylistsPage playlistsPage;
-        private SinglePlaylistPage singlePlaylistPage;
-        private UpdatePlaylistPage updatePlaylistPage;
-        private HomePage currentSongListPage;
-        private HomePage findSongPage;
-        private GenrePage genrePage;
-
-
-        private Page currentPage;
-
+        private PageDispatcher pageDispatcher;
        
         private UnitOfWork dbWorker;
 
@@ -62,8 +50,12 @@ namespace VMusic.ViewModels.Client
             songContent = new SongContent();
             songContent.PropertyChanged += OnSessionSongPropertyChanged;
 
-            PagesInit();
-            CurrentPage = homePage;
+            pageDispatcher = new PageDispatcher();
+            pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(songContent);
+            pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user,
+                (PlaylistsPageViewModel)pageDispatcher.PlaylistsPage.DataContext, OnPlaylistCreateOrDeletePropertyChanged);
+            pageDispatcher.SettingPage.DataContext = ViewModelCreator.CreateSettingViewModel(user, OnSettingPropertyChanged);
+            pageDispatcher.TopMusicPage.DataContext = ViewModelCreator.CreateTopMusicViewModel(songContent);
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -85,10 +77,10 @@ namespace VMusic.ViewModels.Client
 
         public Page CurrentPage
         {
-            get => currentPage;
+            get => pageDispatcher.CurrentPage;
             set
             {
-                currentPage = value;
+                pageDispatcher.CurrentPage = value;
                 OnPropertyChanged("CurrentPage");
             }
         }
@@ -184,7 +176,7 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToHomePage??(switchToHomePage = new Command((obj) =>
                 {
-                    CurrentPage = homePage;
+                    CurrentPage = pageDispatcher.HomePage;
                 }));
             }
         }
@@ -195,7 +187,7 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToCreatePlaylistPage ?? (switchToCreatePlaylistPage = new Command((obj) =>
                 {
-                    CurrentPage = createPlaylistPage;
+                    CurrentPage = pageDispatcher.CreatePlaylistPage;
                 }));
             }
         }
@@ -206,7 +198,7 @@ namespace VMusic.ViewModels.Client
             {
                 return  switchToSettingPage ??(switchToSettingPage = new Command((obj) =>
                 {
-                    CurrentPage = settingPage;
+                    CurrentPage = pageDispatcher.SettingPage;
                 }));
             }
         }
@@ -217,7 +209,7 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToTopMusicPage ?? (switchToTopMusicPage = new Command((obj) =>
                 {
-                    CurrentPage = topMusicPage;
+                    CurrentPage = pageDispatcher.TopMusicPage;
                 }));
             }
         }
@@ -228,8 +220,9 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToPlaylistsPage ?? (switchToPlaylistsPage = new Command((obj) =>
                 {
-                    playlistsPage.DataContext = CreatePlaylistsPageViewModel(this.user);
-                    CurrentPage = playlistsPage;
+                    pageDispatcher.PlaylistsPage.DataContext =
+                        ViewModelCreator.CreatePlaylistsPageViewModel(user, OnPlaylistPropertyChanged);
+                    CurrentPage = pageDispatcher.PlaylistsPage;
                 }));
             }
         }
@@ -242,10 +235,10 @@ namespace VMusic.ViewModels.Client
                 {
                     if (songContent.CurrentPlaylist!=null)
                     {
-                        currentSongListPage.DataContext = new CurrentSongListViewModel(songContent);
+                        pageDispatcher.CurrentSongListPage.DataContext = new CurrentSongListViewModel(songContent);
                     }
 
-                    CurrentPage = currentSongListPage;
+                    CurrentPage = pageDispatcher.CurrentSongListPage;
                 }));
             }
         }
@@ -256,8 +249,8 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToGenrePage ?? (switchToGenrePage = new Command((obj) =>
                 {
-                    genrePage.DataContext = CreateGenreViewModel();
-                    CurrentPage = genrePage;
+                    pageDispatcher.GenrePage.DataContext = ViewModelCreator.CreateGenreViewModel(OnGenrePropertyChanged);
+                    CurrentPage = pageDispatcher.GenrePage;
                 }));
             }
         }
@@ -270,8 +263,8 @@ namespace VMusic.ViewModels.Client
                 {
                     if (!string.IsNullOrEmpty(FindSongString))
                     {
-                        findSongPage.DataContext = new FindSongViewModel(FindSongString, songContent);
-                        CurrentPage = findSongPage;
+                        pageDispatcher.FindSongPage.DataContext = new FindSongViewModel(FindSongString, songContent);
+                        CurrentPage = pageDispatcher.FindSongPage;
                     }
                 }));
             }
@@ -396,12 +389,11 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "SelectedPlaylist")
             {
-                var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
-                SinglePlaylistViewModel singlePlaylistViewModel =
-                    new SinglePlaylistViewModel(playlistsViewModel.SelectedPlaylist, songContent, user);
-                singlePlaylistViewModel.PropertyChanged += OnPlaylistUpdatePropertyChanged;
-                singlePlaylistPage.DataContext = singlePlaylistViewModel ;
-                CurrentPage = singlePlaylistPage;
+                var playlistsViewModel = pageDispatcher.PlaylistsPage.DataContext as PlaylistsPageViewModel;
+                pageDispatcher.SinglePlaylistPage.DataContext =
+                    ViewModelCreator.CreateSinglePlaylistViewModel
+                        (playlistsViewModel.SelectedPlaylist,songContent,user, OnPlaylistUpdatePropertyChanged);
+                CurrentPage = pageDispatcher.SinglePlaylistPage;
             }
         }
 
@@ -409,11 +401,10 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "IsUpdate")
             {
-                var playlistsViewModel = playlistsPage.DataContext as PlaylistsPageViewModel;
-                UpdatePlaylistViewModel updatePlaylistViewModel = new UpdatePlaylistViewModel(playlistsViewModel.SelectedPlaylist);
-                updatePlaylistViewModel.PropertyChanged += OnPlaylistCreateOrDeletePropertyChanged;
-                updatePlaylistPage.DataContext = updatePlaylistViewModel;
-                CurrentPage = updatePlaylistPage;
+                var playlistsViewModel = pageDispatcher.PlaylistsPage.DataContext as PlaylistsPageViewModel;
+                pageDispatcher.UpdatePlaylistPage.DataContext = ViewModelCreator.CreateUpdatePlaylistViewModel
+                    (playlistsViewModel.SelectedPlaylist, OnPlaylistCreateOrDeletePropertyChanged);
+                CurrentPage = pageDispatcher.UpdatePlaylistPage;
             }
         }
 
@@ -442,12 +433,10 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "SelectedGenre")
             {
-                GenreViewModel genreViewModel = genrePage.DataContext as GenreViewModel;
+                GenreViewModel genreViewModel = pageDispatcher.GenrePage.DataContext as GenreViewModel;
                 if (genreViewModel != null)
                 {
-                    CurrentGenrePage currentGenre = new CurrentGenrePage();
-                    currentGenre.DataContext = new CurrentGenreViewModel(genreViewModel.SelectedGenre, songContent);
-                    CurrentPage = currentGenre;
+                    CurrentPage = PageDispatcher.CreateCurrentPage(genreViewModel.SelectedGenre, songContent);
                 }
             }
         }
@@ -472,67 +461,6 @@ namespace VMusic.ViewModels.Client
         {
             IsPlayed= false;
             isEnded = true;
-        }
-
-        private void PagesInit()
-        {
-            homePage = CreateHomePage(songContent);
-            playlistsPage = new PlaylistsPage();
-            createPlaylistPage = CreateAddPlaylistPage(this.user, (PlaylistsPageViewModel)this.playlistsPage.DataContext);
-            settingPage = CreateSettingPage(this.user);
-            topMusicPage = CreateTopMusicPage(songContent);
-            singlePlaylistPage = new SinglePlaylistPage();
-            findSongPage = new HomePage();
-            currentSongListPage = new HomePage();
-            updatePlaylistPage = new UpdatePlaylistPage();
-            genrePage = new GenrePage();
-        }
-
-
-        private HomePage CreateHomePage(SongContent songContent)
-        {
-            HomePage homePage = new HomePage();
-            homePage.DataContext = new HomePageViewModel(songContent);
-            return homePage;
-        }
-
-        private CreatePlaylistPage CreateAddPlaylistPage(User user, PlaylistsPageViewModel playlistsPageViewModel)
-        {
-            CreatePlaylistPage createPlaylistPage = new CreatePlaylistPage();
-            CreatePlaylistViewModel createPlaylistViewModel = new CreatePlaylistViewModel(playlistsPageViewModel, user);
-            createPlaylistViewModel.PropertyChanged += OnPlaylistCreateOrDeletePropertyChanged;
-            createPlaylistPage.DataContext = createPlaylistViewModel;
-            return createPlaylistPage;
-        }
-
-        private SettingPage CreateSettingPage(User user)
-        {
-            SettingPage settingPage = new SettingPage();
-            SettingViewModel settingViewModel = new SettingViewModel(user);
-            settingViewModel.PropertyChanged += OnSettingPropertyChanged;
-            settingPage.DataContext = settingViewModel;
-            return settingPage;
-        }
-
-        private HomePage CreateTopMusicPage(SongContent songContent)
-        {
-            HomePage topMusicPage = new HomePage();
-            topMusicPage.DataContext = new TopSongListViewModel(songContent);
-            return topMusicPage;
-        }
-
-        private PlaylistsPageViewModel CreatePlaylistsPageViewModel(User user)
-        {
-            PlaylistsPageViewModel playlistsPageViewModel = new PlaylistsPageViewModel(user);
-            playlistsPageViewModel.PropertyChanged += OnPlaylistPropertyChanged;
-            return playlistsPageViewModel;
-        }
-
-        private GenreViewModel CreateGenreViewModel()
-        {
-            GenreViewModel genreViewModel = new GenreViewModel();
-            genreViewModel.PropertyChanged += OnGenrePropertyChanged;
-            return genreViewModel;
         }
 
         private bool IsHasLikeSongList()
@@ -576,7 +504,7 @@ namespace VMusic.ViewModels.Client
 
         private void PlaylistsUpdate(Playlist playlist)
         {
-            var obj = playlistsPage.DataContext as PlaylistsPageViewModel;
+            var obj = pageDispatcher.PlaylistsPage.DataContext as PlaylistsPageViewModel;
             if (obj != null)
             {
                 obj.PlaylistsDataUpdate(playlist);
