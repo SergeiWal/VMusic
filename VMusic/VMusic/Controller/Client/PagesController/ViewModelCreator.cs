@@ -12,9 +12,9 @@ namespace VMusic.Controller.Client.PagesController
 {
     static class ViewModelCreator
     {
-        public static HomePageViewModel CreateHomePageViewModel(SongContent songContent)
+        public static HomePageViewModel CreateHomePageViewModel(Player.Player player)
         {
-            return new HomePageViewModel(songContent);
+            return new HomePageViewModel(player);
         }
 
         public static CreatePlaylistViewModel CreateAddPlaylistPageViewModel(User user,
@@ -32,9 +32,9 @@ namespace VMusic.Controller.Client.PagesController
             return settingViewModel;
         }
 
-        public static TopSongListViewModel CreateTopMusicViewModel(SongContent songContent)
+        public static TopSongListViewModel CreateTopMusicViewModel(Player.Player player)
         {
-            TopSongListViewModel topMusicPageViewModel = new TopSongListViewModel(songContent);
+            TopSongListViewModel topMusicPageViewModel = new TopSongListViewModel(player);
             return topMusicPageViewModel;
         }
 
@@ -53,9 +53,9 @@ namespace VMusic.Controller.Client.PagesController
         }
 
         public static SinglePlaylistViewModel CreateSinglePlaylistViewModel
-            (PlaylistViewModel playlist, SongContent songContent, User user, PropertyChangedEventHandler callback)
+            (PlaylistViewModel playlist, Player.Player player, User user, PropertyChangedEventHandler callback)
         {
-            SinglePlaylistViewModel singlePlaylistViewModel = new SinglePlaylistViewModel(playlist, songContent, user);
+            SinglePlaylistViewModel singlePlaylistViewModel = new SinglePlaylistViewModel(playlist, player, user);
             singlePlaylistViewModel.PropertyChanged += callback;
             return singlePlaylistViewModel;
         }

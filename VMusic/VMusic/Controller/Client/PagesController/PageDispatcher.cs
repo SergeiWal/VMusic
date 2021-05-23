@@ -43,10 +43,10 @@ namespace VMusic.Controller.Client.PagesController
             CurrentPage = HomePage;
         }
 
-        public static CurrentGenrePage CreateCurrentPage(PlaylistViewModel currentGenre, SongContent songContent)
+        public static CurrentGenrePage CreateCurrentPage(PlaylistViewModel currentGenre, Player.Player player)
         {
             CurrentGenrePage currentGenrePage = new CurrentGenrePage();
-            currentGenrePage.DataContext = new CurrentGenreViewModel(currentGenre, songContent);
+            currentGenrePage.DataContext = new CurrentGenreViewModel(currentGenre, player);
             return currentGenrePage;
         }
 

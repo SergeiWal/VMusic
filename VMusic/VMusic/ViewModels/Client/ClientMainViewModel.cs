@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using VMusic.Commands;
 using VMusic.Controller.Client.PagesController;
+using VMusic.Controller.Client.Player;
 using VMusic.Models;
 using VMusic.Repository;
 using VMusic.Views.Autorization;
@@ -21,20 +22,13 @@ namespace VMusic.ViewModels.Client
         public static string LIKE_SONG_LIST_NAME = "Избраное";
 
         private User user;
-        private bool isPlayed = false;
-        private bool isEnded = false;
         private string findSongString = "";
 
         private PackIconKind playStopButton = PackIconKind.Play;
         private PackIconKind volumeButton = PackIconKind.VolumeHigh;
 
-        private MediaPlayer player;
+        public Player Player { get; set; }
         private SongViewModel currentSong;
-        private SongContent songContent;
-
-        private double progress = 0;
-        private double duration;
-        private DispatcherTimer timer;
 
         private PageDispatcher pageDispatcher;
        
@@ -44,25 +38,17 @@ namespace VMusic.ViewModels.Client
         {
             this.user = user;
             dbWorker = new UnitOfWork();
-            player = new MediaPlayer();
-            player.MediaEnded += endAudioCallback;
+            Player = new Player();
+            Player.PropertyChanged += OnSessionSongPropertyChanged;
+            Player.PropertyChanged += OnIsButtonsPropertyChanged;
 
-            songContent = new SongContent();
-            songContent.PropertyChanged += OnSessionSongPropertyChanged;
 
             pageDispatcher = new PageDispatcher();
-            pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(songContent);
+            pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(Player);
             pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user,
                 (PlaylistsPageViewModel)pageDispatcher.PlaylistsPage.DataContext, OnPlaylistCreateOrDeletePropertyChanged);
             pageDispatcher.SettingPage.DataContext = ViewModelCreator.CreateSettingViewModel(user, OnSettingPropertyChanged);
-            pageDispatcher.TopMusicPage.DataContext = ViewModelCreator.CreateTopMusicViewModel(songContent);
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += TickCallback;
-            timer.Start();
-
-            this.PropertyChanged += OnIsButtonsPropertyChanged;
+            pageDispatcher.TopMusicPage.DataContext = ViewModelCreator.CreateTopMusicViewModel(Player);
         }
 
         public string FindSongString
@@ -92,46 +78,6 @@ namespace VMusic.ViewModels.Client
             {
                 currentSong = value;
                 OnPropertyChanged("CurrentSong");
-            }
-        }
-
-        public double Volume
-        {
-            get => player.Volume;
-            set
-            {
-                player.Volume = value;
-                OnPropertyChanged("Volume");
-            }
-        }
-
-        public double Progress
-        {
-            get => progress;
-            set
-            {
-                progress = value;
-                OnPropertyChanged("Progress");
-            }
-        }
-
-        public double Duration
-        {
-            get => duration;
-            set
-            {
-                duration = value;
-                OnPropertyChanged("Duration");
-            }
-        }
-
-        public bool IsPlayed
-        {
-            get => isPlayed;
-            set
-            {
-                isPlayed = value;
-                OnPropertyChanged("IsPlayed");
             }
         }
 
@@ -233,9 +179,9 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToCurrentSongList ?? (switchToCurrentSongList = new Command((obj) =>
                 {
-                    if (songContent.CurrentPlaylist!=null)
+                    if (Player.CurrentPlaylist!=null)
                     {
-                        pageDispatcher.CurrentSongListPage.DataContext = new CurrentSongListViewModel(songContent);
+                        pageDispatcher.CurrentSongListPage.DataContext = new CurrentSongListViewModel(Player);
                     }
 
                     CurrentPage = pageDispatcher.CurrentSongListPage;
@@ -263,7 +209,7 @@ namespace VMusic.ViewModels.Client
                 {
                     if (!string.IsNullOrEmpty(FindSongString))
                     {
-                        pageDispatcher.FindSongPage.DataContext = new FindSongViewModel(FindSongString, songContent);
+                        pageDispatcher.FindSongPage.DataContext = new FindSongViewModel(FindSongString, Player);
                         CurrentPage = pageDispatcher.FindSongPage;
                     }
                 }));
@@ -278,8 +224,8 @@ namespace VMusic.ViewModels.Client
                 {
                     if (CurrentSong != null)
                     {
-                        songContent.Prev();
-                        PlaySong(CurrentSong.Source);
+                        Player.Prev();
+                        Player.StartPlay(CurrentSong.Source);
                     }
                 }));
             }
@@ -291,15 +237,13 @@ namespace VMusic.ViewModels.Client
             {
                 return stopAndPlay ?? (stopAndPlay = new Command((obj) =>
                 {
-                    if (isPlayed)
+                    if (Player.IsPlayed)
                     {
-                        player.Pause();
-                        IsPlayed = false;
+                        Player.Stop();
                     }
                     else if(currentSong != null)
                     {
-                        player.Play();
-                        IsPlayed = true;
+                       Player.Play();
                     }
                 }));
             }
@@ -313,8 +257,8 @@ namespace VMusic.ViewModels.Client
                 {
                     if (CurrentSong != null)
                     {
-                        songContent.Next();
-                        PlaySong(CurrentSong.Source);
+                        Player.Next();
+                        Player.StartPlay(CurrentSong.Source);
                     }
                     
                 }));
@@ -346,13 +290,13 @@ namespace VMusic.ViewModels.Client
             {
                 return volumeOnOff ?? (volumeOnOff = new Command((obj) =>
                 {
-                    if (player.Volume > 0)
+                    if (Player.Volume > 0)
                     {
-                        Volume = 0;
+                        Player.Volume = 0;
                     }
                     else
                     {
-                        Volume = 0.5;
+                        Player.Volume = 0.5;
                     }
                 }));
             }
@@ -363,10 +307,10 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "CurrentSong")
             {
-                this.CurrentSong = songContent.CurrentSong;
+                this.CurrentSong = Player.CurrentSong;
                 if (this.CurrentSong != null)
                 {
-                    PlaySong(CurrentSong.Source);
+                    Player.StartPlay(CurrentSong.Source);
                 }
             }
         }
@@ -376,9 +320,9 @@ namespace VMusic.ViewModels.Client
             if (e.PropertyName == "IsExit")
             {
                 Login login = new Login();
-                if (isPlayed)
+                if (Player.IsPlayed)
                 {
-                    player.Stop();
+                    Player.Stop();
                 }
                 Close?.Invoke();
                 login.Show();
@@ -392,7 +336,7 @@ namespace VMusic.ViewModels.Client
                 var playlistsViewModel = pageDispatcher.PlaylistsPage.DataContext as PlaylistsPageViewModel;
                 pageDispatcher.SinglePlaylistPage.DataContext =
                     ViewModelCreator.CreateSinglePlaylistViewModel
-                        (playlistsViewModel.SelectedPlaylist,songContent,user, OnPlaylistUpdatePropertyChanged);
+                        (playlistsViewModel.SelectedPlaylist, Player, user, OnPlaylistUpdatePropertyChanged);
                 CurrentPage = pageDispatcher.SinglePlaylistPage;
             }
         }
@@ -421,11 +365,11 @@ namespace VMusic.ViewModels.Client
         {
             if (e.PropertyName == "IsPlayed")
             {
-                PlayStopButton = IsPlayed == true ? PackIconKind.Stop : PackIconKind.Play;
+                PlayStopButton = Player.IsPlayed == true ? PackIconKind.Stop : PackIconKind.Play;
             }
             if (e.PropertyName == "Volume")
             {
-                VolumeButton = Volume == 0? PackIconKind.VolumeLow : PackIconKind.VolumeHigh;
+                VolumeButton = Player.Volume == 0? PackIconKind.VolumeLow : PackIconKind.VolumeHigh;
             }
         }
 
@@ -436,32 +380,11 @@ namespace VMusic.ViewModels.Client
                 GenreViewModel genreViewModel = pageDispatcher.GenrePage.DataContext as GenreViewModel;
                 if (genreViewModel != null)
                 {
-                    CurrentPage = PageDispatcher.CreateCurrentPage(genreViewModel.SelectedGenre, songContent);
+                    CurrentPage = PageDispatcher.CreateCurrentPage(genreViewModel.SelectedGenre, Player);
                 }
             }
         }
 
-
-        private void TickCallback(object sender, EventArgs e)
-        {
-            if (isEnded)
-            {
-                songContent.Next();
-                PlaySong(CurrentSong.Source);
-            }
-            if (player.Source != null && player.NaturalDuration.HasTimeSpan)
-            {
-                Duration = player.NaturalDuration.TimeSpan.TotalSeconds;
-                Progress = player.Position.TotalSeconds;
-            }
-        }
-
-
-        private void endAudioCallback(object sender, EventArgs e)
-        {
-            IsPlayed= false;
-            isEnded = true;
-        }
 
         private bool IsHasLikeSongList()
         {
@@ -511,12 +434,5 @@ namespace VMusic.ViewModels.Client
             }
         }
 
-        private void PlaySong(string path)
-        {
-            player.Open(new Uri(path, UriKind.Relative));
-            player.Play();
-            IsPlayed = true;
-            isEnded = false;
-        }   
     }
 }

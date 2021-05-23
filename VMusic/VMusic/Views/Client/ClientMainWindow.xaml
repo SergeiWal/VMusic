@@ -305,8 +305,8 @@
                     </Button>
                 </WrapPanel>
                 <ProgressBar Width="360" Foreground="DeepPink"
-                             Minimum="0" Maximum="{Binding Duration}"
-                             Value="{Binding Progress}"></ProgressBar>
+                             Minimum="0" Maximum="{Binding Player.Duration}"
+                             Value="{Binding Player.Progress}"></ProgressBar>
             </StackPanel>
 
 
@@ -334,7 +334,7 @@
                 <Slider VerticalAlignment="Center"
                         Width="100"
                         Margin="2 0" 
-                        Value="{Binding Volume}" Maximum="1" Background="{x:Null}"/>
+                        Value="{Binding Player.Volume}" Maximum="1" Background="{x:Null}"/>
             </WrapPanel>
         </Grid>
         

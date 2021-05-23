@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VMusic.Commands;
+using VMusic.Controller.Client.Player;
 using VMusic.Models;
 using VMusic.Repository;
 
@@ -13,7 +14,7 @@ namespace VMusic.ViewModels.Client
     class SinglePlaylistViewModel: BaseViewModel
     {
         private User user;
-        private SongContent songContent;
+        private Player player;
         private UnitOfWork dbWorker;
         private SongViewModel selectedSong;
         private bool isUpdate = false;
@@ -22,11 +23,11 @@ namespace VMusic.ViewModels.Client
         public PlaylistViewModel Playlist { get; set; }
         public ObservableCollection<SongViewModel> SongLocalList { get; set; }
 
-        public SinglePlaylistViewModel(PlaylistViewModel playlist, SongContent songContent, User user)
+        public SinglePlaylistViewModel(PlaylistViewModel playlist, Player player, User user)
         {
             dbWorker = new UnitOfWork();
             this.user = user;
-            this.songContent = songContent;
+            this.player = player;
             Playlist = playlist;
             CollectionInitialized();
         }
@@ -57,8 +58,8 @@ namespace VMusic.ViewModels.Client
             set
             {
                 selectedSong = value;
-                songContent.CurrentPlaylist = SongLocalList;
-                songContent.CurrentSong = value;
+                player.CurrentPlaylist = SongLocalList;
+                player.CurrentSong = value;
                 OnPropertyChanged("SelectedSong");
             }
         }

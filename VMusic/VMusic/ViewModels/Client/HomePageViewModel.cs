@@ -5,22 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using VMusic.Controller.Client.Player;
 using VMusic.Repository;
 
 namespace VMusic.ViewModels.Client
 {
     class HomePageViewModel: BaseViewModel
     {
-        private SongContent songContent;
+        private Player player;
         private SongViewModel currentSong;
         private UnitOfWork dbWorker;
         private int itemCount = 0;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
-        public HomePageViewModel(SongContent songContent)
+        public HomePageViewModel(Player player)
         {
             dbWorker = new UnitOfWork();
-            this.songContent = songContent;
+            this.player = player;
             LocalSongList =
                 new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
                     .Select(o => new SongViewModel(o){Index = ++itemCount}));
@@ -32,8 +33,8 @@ namespace VMusic.ViewModels.Client
             set
             {
                 currentSong = value;
-                songContent.CurrentPlaylist = LocalSongList;
-                songContent.CurrentSong = value;
+                player.CurrentPlaylist = LocalSongList;
+                player.CurrentSong = value;
                 OnPropertyChanged("CurrentSong");
             }
         }
