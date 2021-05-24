@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using Microsoft.Win32;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
+using VMusic.Controller.Admin.Messager;
 using VMusic.Converters;
 using VMusic.Models;
-using VMusic.Repository;
 
 namespace VMusic.ViewModels.Admin
 {
     class AddMusicViewModel: BaseViewModel
     {
-        private const string FILE_NAME_DELIMITOR = "_";
-        private const string FILE_EXTENSION = ".mp3";
-        private const string FILE_PATH_PREFIX = @"..\..\Songs\";
-
         private ObservableCollection<SongViewModel> LocalSongList { get; set; }
 
         private string name;
@@ -31,13 +19,13 @@ namespace VMusic.ViewModels.Admin
         private TextBlock genre; 
         private string resultString = "";
 
-        private UnitOfWork dbWorker;
+        private AddUpdateMusicController controller;
         private string path;
         private byte[] img;
 
         public AddMusicViewModel(ObservableCollection<SongViewModel> localSongList)
         {
-            dbWorker = new UnitOfWork();
+            controller = new AddUpdateMusicController();
             LocalSongList = localSongList;
         }
 
@@ -119,30 +107,30 @@ namespace VMusic.ViewModels.Admin
 
                             if (!IsRepeat(new SongViewModel(song)))
                             {
-                                string source = CopySongToLocalFileRepository(song);
+                                string source = controller.CopySongToLocalFileRepository(path, song);
                                 if ( source != null)
                                 {
                                     song.Source = source;
-                                    AddSongToDB(song);
-                                    AddSongToLocalCollection(song);
-                                    ResultString = "Добавлено успешно!!!";
+                                    controller.AddSongToDB(song);
+                                    AddSongToLocalCollection(controller.GetSongFromDb(song.Id));
+                                    ResultString = AddMusicMessager.ADD_MUSIC_SUCCESS;
                                     ClearField();
                                 }
                             }
                             else
                             {
-                                ResultString = "Трек уже содержиться в базе!!!";
+                                ResultString = AddMusicMessager.SONG_HAS_IN_DB;
                             }
 
                         }
                         catch(SqlException e)
                         {
-                            ResultString = "Ошибка при обращении к базе данных!!!";
+                            ResultString = AddMusicMessager.DB_ERROR;
                         }
                     }
                     else
                     {
-                        ResultString = "Заполнены не все поля!!!";
+                        ResultString = AddMusicMessager.FIELDS_EMPTY;
                     }
                 }));
             }
@@ -154,14 +142,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return  addSource ??(addSource = new Command((obj) =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "All Supported Audio | *.mp3; *.wma | MP3s | *.mp3 | WMAs | *.wma";
-                    openFileDialog.InitialDirectory = @"D:\";
-
-                    if (openFileDialog.ShowDialog() == true)
-                    {
-                        path = openFileDialog.FileName;
-                    }
+                    path = controller.GetSongPath();
                 }));
             }
         }
@@ -172,22 +153,17 @@ namespace VMusic.ViewModels.Admin
             {
                 return addImage ?? (addImage = new Command((obj) =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
-                    openFileDialog.InitialDirectory = @"D:\";
+                    byte[] imgBuf = controller.GetImage();
 
-                    if (openFileDialog.ShowDialog() == true)
+                    if (imgBuf!=null)
                     {
-                        byte[] imgBuf = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-                        if ((imgBuf.Length/1024)<1024)
-                        {
-                            img = imgBuf;
-                        }
-                        else
-                        {
-                            ResultString = "Превышен допустимый размер изображения !!!";
-                        }
+                        img = imgBuf;
                     }
+                    else
+                    {
+                        ResultString = AddMusicMessager.SIZE_IMAGE_ERROR;
+                    }
+
                 }));
             }
         }
@@ -203,45 +179,16 @@ namespace VMusic.ViewModels.Admin
             return LocalSongList.Contains(song);
         }
 
-
-        private string CopySongToLocalFileRepository(Song song)
-        {
-            string newPath = FILE_PATH_PREFIX + song.Name + FILE_NAME_DELIMITOR + song.Author + FILE_EXTENSION;
-            try
-            {
-                FileInfo fileInfo = new FileInfo(path);
-                if (fileInfo.Exists)
-                {
-                    fileInfo.CopyTo(newPath);
-                }
-
-                return newPath;
-            }
-            catch (IOException)
-            {
-                ResultString = "Не удалось сохранить трек !!!";
-            }
-
-            return null;
-        }
-
-        private void AddSongToDB(Song song)
-        {
-            dbWorker.Songs.Create(song);
-            dbWorker.Save();
-        }
-
         private void AddSongToLocalCollection(Song song)
         {
-            var song_db = dbWorker.Songs.GetById(song.Id);
-            LocalSongList.Add(new SongViewModel(song_db) { Index = LocalSongList.Count + 1 });
+            LocalSongList.Add(new SongViewModel(song) { Index = LocalSongList.Count + 1 });
         }
 
         private void ClearField()
         {
-            Name = "";
-            Author = "";
-            Album = "";
+            Name = string.Empty;
+            Author = string.Empty;
+            Album = string.Empty;
         }
 
     }

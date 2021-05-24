@@ -81,7 +81,7 @@
                 Command="{Binding AddMusic}">
                 <TextBlock Text="Добавить"></TextBlock>
             </Button>
-            <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
 
 

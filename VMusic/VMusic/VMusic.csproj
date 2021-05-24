@@ -72,6 +72,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Controller\Admin\AddUpdateMusicController.cs" />
+    <Compile Include="Controller\Admin\AdminMainController.cs" />
+    <Compile Include="Controller\Admin\AdminPagesDispatcher.cs" />
+    <Compile Include="Controller\Admin\Messager\AddMusicMessager.cs" />
+    <Compile Include="Controller\Admin\MusicPageController.cs" />
+    <Compile Include="Controller\Admin\TopMusicPageController.cs" />
+    <Compile Include="Controller\Admin\UpdateMusicController.cs" />
+    <Compile Include="Controller\Admin\UserPageController.cs" />
     <Compile Include="Controller\Client\CreatePlaylistController.cs" />
     <Compile Include="Controller\Client\LikeSongsController\LikeSongsController.cs" />
     <Compile Include="Controller\Client\Messagers\CreatePlaylistMessager.cs" />
@@ -305,7 +313,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controller\Admin\" />
     <Folder Include="Songs\" />
   </ItemGroup>
   <ItemGroup>

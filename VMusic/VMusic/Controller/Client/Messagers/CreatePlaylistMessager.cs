@@ -14,7 +14,7 @@ namespace VMusic.Controller.Client.Messagers
         public static string ADD_SONG_SUCCESS = "Трек добавлен ...";
         public static string SONG_REPEAT = "Трек был уже добавлен ...";
         public static string PLAYLIST_REPEAT = "Плэйлист с таким именем существует ...";
-        public static string SIZE_IMAGE_ERROR = "Превышен допустимый размер изображения ...";
+        public static string SIZE_IMAGE_ERROR = "Ошибка при добавлении изображения ...";
         public static string ADD_IMAGE_SUCCESS = "Изображение добавлено успешно ...";
     }
 }

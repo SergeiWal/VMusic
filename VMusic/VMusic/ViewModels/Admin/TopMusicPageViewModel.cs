@@ -1,41 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
 using VMusic.Models;
-using VMusic.Repository;
 
 namespace VMusic.ViewModels.Admin
 {
     class TopMusicPageViewModel: BaseViewModel
     {
-        public static int TOP_LIST_SIZE = 10;
-        public static string TOP_LIST_NAME = "BestMusic";
-
-        private UnitOfWork dbWorker;
+        private TopMusicPageController controller;
         private Playlist topSongPlaylist;
         private int itemCount = 0;
         public ObservableCollection<SongViewModel> TopSongList { get; set; }
 
         public TopMusicPageViewModel()
         {
-            dbWorker = new UnitOfWork();
+            controller = new TopMusicPageController();
 
-            TopSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject().OrderByDescending(n => n.Rating)
-                .Select(s => new SongViewModel(s){Index = ++itemCount}).Take(TOP_LIST_SIZE));
+            TopSongList = new ObservableCollection<SongViewModel>(controller.GetSongsSortedByRating()
+                .Select(s => new SongViewModel(s){Index = ++itemCount}).Take(TopMusicPageController.TOP_LIST_SIZE));
 
             topSongPlaylist = new Playlist()
             {
-                Name = TOP_LIST_NAME,
+                Name = TopMusicPageController.TOP_LIST_NAME,
                 Image = null,
                 User = null,
                 UserId = null
             };
         }
-
 
         private Command updateTopPlaylist;
 
@@ -45,38 +38,16 @@ namespace VMusic.ViewModels.Admin
             {
                 return updateTopPlaylist ?? (updateTopPlaylist = new Command((obj) =>
                 {
-                    var playlist = dbWorker.Playlist.GetByPredicate((b) => b.Name == TOP_LIST_NAME && b.UserId == null);
+                    var playlist = controller.GetLikeSongList();
                     topSongPlaylist.Songs = new List<Song>(TopSongList.Select(b => b.song));
                     if (playlist == null)
                     {
-                        dbWorker.Playlist.Create(topSongPlaylist);
-                        AddSongsToPlaylist();
-                        dbWorker.Save();
+                        controller.CreateLikeSongList(topSongPlaylist);
                     }
-                    else
-                    {
-                        AddSongsToPlaylist();
-                        dbWorker.Save();
-                    }
+
+                    controller.AddSongs(TopSongList);
                 }));
             }
         }
-
-
-        private void AddSongsToPlaylist()
-        {
-            var playlist = dbWorker.Playlist.GetAllObject().FirstOrDefault(p=>p.Name==TOP_LIST_NAME);
-
-            if (playlist != null)
-            {
-                dbWorker.Playlist.ClearSongs(playlist.Id);
-                foreach (var song in TopSongList)
-                {
-                    playlist.Songs.Add(song.song);
-                }
-                dbWorker.Save();
-            }
-        }
-
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using VMusic.Controller.Admin;
 using VMusic.Controller.Client.Player;
 using VMusic.Models;
 using VMusic.Repository;
-using VMusic.ViewModels.Admin;
 
 namespace VMusic.ViewModels.Client
 {
@@ -18,7 +18,7 @@ namespace VMusic.ViewModels.Client
         public TopSongListViewModel(Player player)
         {
             this.player = player;
-            topPlaylist = (new UnitOfWork()).Playlist.GetByPredicate(p => p.Name == TopMusicPageViewModel.TOP_LIST_NAME);
+            topPlaylist = (new UnitOfWork()).Playlist.GetByPredicate(p => p.Name == TopMusicPageController.TOP_LIST_NAME);
             LocalSongList = new ObservableCollection<SongViewModel>(topPlaylist.Songs.OrderByDescending(s=>s.Rating).
                 Select(s=>new SongViewModel(s){Index = ++itemCount}));
         }

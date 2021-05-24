@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
 using VMusic.Models;
-using VMusic.Repository;
 
 namespace VMusic.ViewModels.Admin
 {
     class UserPageViewModel: BaseViewModel
     {
         private User admin;
-        private UnitOfWork dbWorker;
+        private UserPageController controller;
         public ObservableCollection<UserViewModel> Users { get; set; }
 
         private UserViewModel selectedUser = null;
@@ -21,7 +16,7 @@ namespace VMusic.ViewModels.Admin
         public UserPageViewModel(User admin, ObservableCollection<UserViewModel> users)
         {
             this.admin = admin;
-            dbWorker = new UnitOfWork();
+            controller = new UserPageController();
             Users = users;
         }
 
@@ -48,10 +43,8 @@ namespace VMusic.ViewModels.Admin
                     var user = obj as UserViewModel;
                     if (user != null)
                     {
-                        var dbUser = dbWorker.Users.GetById(user.Id);
-                        dbUser.IsBlocked = dbUser.IsBlocked != true;
-                        dbWorker.Save();
-                        user.IsBlocked = UserViewModel.BoolStatusToStr(dbUser.IsBlocked);
+                        bool isBlocked =  controller.BlockingUser(user.Id);
+                        user.IsBlocked = UserViewModel.BoolStatusToStr(isBlocked);
                     }
                 }));
             }
@@ -66,11 +59,7 @@ namespace VMusic.ViewModels.Admin
                     var user = obj as UserViewModel;
                     if (user != null)
                     {
-                        var dbUser = dbWorker.Users.GetById(user.Id);
-                        var oldAdmin = dbWorker.Users.GetById(admin.Id);
-                        dbUser.IsAdmin = true;
-                        oldAdmin.IsAdmin = false;
-                        dbWorker.Save();
+                        controller.TransferAdminStatus(user.Id,admin.Id);
                         user.IsAdmin = UserViewModel.BoolRoleToString(true);
                     }
                 }));
@@ -87,8 +76,7 @@ namespace VMusic.ViewModels.Admin
                     if (user != null)
                     {
                         SelectedUser = null;
-                        dbWorker.Users.Delete(user.Id);
-                        dbWorker.Save();
+                        controller.DeleteUserFromDb(user.Id);
                         Users.Remove(user);
                         CorrectUserIndexAfterDelete();
                     }

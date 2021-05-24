@@ -15,6 +15,6 @@ namespace VMusic.Controller.Client.Messagers
         public static string SONG_REPEAT = "Трек был уже добавлен ...";
         public static string SONG_DELETE = "Трек удалён из плэйлиста ...";
         public static string SONG_NOT_FOUND_IN_PLAYLIST = "Плэйлист не содержит данный трек ...";
-        public static string SIZE_IMAGE_ERROR = "Превышен допустимый размер изображения ...";
+        public static string SIZE_IMAGE_ERROR = "Ошибка при добавлении изображения ...";
     }
 }

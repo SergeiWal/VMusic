@@ -2,10 +2,11 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Controls;
-using Microsoft.Win32;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
+using VMusic.Controller.Admin.Messager;
 using VMusic.Converters;
-using VMusic.Repository;
+using VMusic.Models;
 
 namespace VMusic.ViewModels.Admin
 {
@@ -18,13 +19,12 @@ namespace VMusic.ViewModels.Admin
         private string author;
         private string album;
         private TextBlock genre;
-
         private bool isFinish = false;
-        private string resultString = "";
-
-        private UnitOfWork dbWorker;
+        private string resultString = string.Empty;
         private string path;
         private byte[] img;
+        private bool isChangePath = false;
+        private AddUpdateMusicController controller;
 
         public UpdateMusicViewModel(SongViewModel song, ObservableCollection<SongViewModel> localSongList)
         {
@@ -34,7 +34,7 @@ namespace VMusic.ViewModels.Admin
             Author = song.Author;
             path = song.Source;
             img = ImageConverter.BitmapImageToArray(song.Image);
-            dbWorker = new UnitOfWork();
+            controller = new AddUpdateMusicController();
             LocalSongList = localSongList;
         }
 
@@ -114,25 +114,33 @@ namespace VMusic.ViewModels.Admin
                     {
                         try
                         {
-                            var dbSong = dbWorker.Songs.GetById(song.Id);
-                            dbSong.Album = Album;
-                            dbSong.Author = Author;
-                            dbSong.Genre = GenreConverter.StringToGenre(Genre.Text);
-                            dbSong.Name = Name;
-                            dbSong.Image = img;
-                            dbSong.Source = path;
-                            dbWorker.Save();
+                            Song newSongData = new Song()
+                            {
+                                Album = Album,
+                                Author = Author,
+                                Genre = GenreConverter.StringToGenre(Genre.Text),
+                                Name = Name,
+                                Image = img,
+                                Source = path
+                            };
+                            if (isChangePath)
+                            {
+                                controller.DeleteOldFileInLocalDirectory(song.song);
+                                newSongData.Source = controller.CopySongToLocalFileRepository(path, song.song);
+                                song.Source = newSongData.Source;
+                            }
+                            controller.SongDataUpdate(song.Id, newSongData);
                             LocalDataUpdate();
                             IsFinish = IsFinish != true;
                         }
                         catch (SqlException e)
                         {
-                            ResultString = "Ошибка при обращении к базе данных!!!";
+                            ResultString = AddMusicMessager.DB_ERROR;
                         }
                     }
                     else
                     {
-                        ResultString = "Заполнены не все поля!!!";
+                        ResultString = AddMusicMessager.FIELDS_EMPTY;
                     }
                 }));
             }
@@ -144,14 +152,8 @@ namespace VMusic.ViewModels.Admin
             {
                 return addSource ?? (addSource = new Command((obj) =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "All Supported Audio | *.mp3; *.wma | MP3s | *.mp3 | WMAs | *.wma";
-                    openFileDialog.InitialDirectory = @"D:\";
-
-                    if (openFileDialog.ShowDialog() == true)
-                    {
-                        path = openFileDialog.FileName;
-                    }
+                    path = controller.GetSongPath();
+                    isChangePath = true;
                 }));
             }
         }
@@ -162,21 +164,14 @@ namespace VMusic.ViewModels.Admin
             {
                 return addImage ?? (addImage = new Command((obj) =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
-                    openFileDialog.InitialDirectory = @"D:\";
-
-                    if (openFileDialog.ShowDialog() == true)
+                    byte[] imgBuf = controller.GetImage();
+                    if (imgBuf != null)
                     {
-                        byte[] imgBuf = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-                        if ((imgBuf.Length / 1024) < 1024)
-                        {
-                            img = imgBuf;
-                        }
-                        else
-                        {
-                            ResultString = "Превышен допустимый размер изображения !!!";
-                        }
+                        img = imgBuf;
+                    }
+                    else
+                    {
+                        ResultString = AddMusicMessager.SIZE_IMAGE_ERROR;
                     }
                 }));
             }
@@ -199,7 +194,7 @@ namespace VMusic.ViewModels.Admin
         private bool IsFieldsNotEmpty()
         {
             return !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Author) && !string.IsNullOrEmpty(Album) 
-                   && !string.IsNullOrEmpty(path);
+                   && !string.IsNullOrEmpty(path) &&  Genre != null && !string.IsNullOrEmpty(Genre.Text);
         }
 
     }

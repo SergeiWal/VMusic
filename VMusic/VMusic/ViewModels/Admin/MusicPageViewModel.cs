@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
 using VMusic.Models;
 using VMusic.Repository;
 
@@ -15,12 +16,7 @@ namespace VMusic.ViewModels.Admin
 {
     class MusicPageViewModel: BaseViewModel
     {
-
-        private const string FILE_NAME_DELIMITOR = "_";
-        private const string FILE_EXTENSION = ".mp3";
-        private const string FILE_PATH_PREFIX = @"..\..\Songs\";
-
-        private UnitOfWork dbWorker;
+        private MusicPageController controller;
         public ObservableCollection<SongViewModel> Songs { get; set; }
 
         private SongViewModel selectedSong = null;
@@ -29,7 +25,7 @@ namespace VMusic.ViewModels.Admin
 
         public MusicPageViewModel(ObservableCollection<SongViewModel> songs)
         {
-            dbWorker = new UnitOfWork();
+            controller = new MusicPageController();
             Songs = songs;
         }
 
@@ -66,10 +62,9 @@ namespace VMusic.ViewModels.Admin
                     if (song != null)
                     {
                         SelectedSong = null;
-                        dbWorker.Songs.Delete(song.Id);
-                        dbWorker.Save();
+                        controller.DeleteSong(song.Id);
                         Songs.Remove(song);
-                        DeleteFromLocalFileRep(song);
+                        controller.DeleteFromLocalFileRep(song.song);
                         IndexCorrectAfterDelete();
                     }
                 }));
@@ -87,15 +82,6 @@ namespace VMusic.ViewModels.Admin
                         IsUpdate = IsUpdate != true;
                     }
                 }));
-            }
-        }
-
-        private void DeleteFromLocalFileRep(SongViewModel song)
-        {
-            FileInfo fileInfo = new FileInfo(song.Source);
-            if (fileInfo.Exists)
-            {
-                fileInfo.Delete();
             }
         }
 

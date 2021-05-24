@@ -81,7 +81,7 @@
                 Command="{Binding UpdateMusic}">
                 <TextBlock Text="Сохранить"></TextBlock>
             </Button>
-            <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding ResultString}" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
 
 

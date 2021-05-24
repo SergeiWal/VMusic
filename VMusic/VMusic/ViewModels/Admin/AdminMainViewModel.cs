@@ -1,73 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using VMusic.Commands;
+using VMusic.Controller.Admin;
 using VMusic.Models;
-using VMusic.Repository;
-using VMusic.ViewModels.Client;
-using VMusic.Views.Admin;
 
 namespace VMusic.ViewModels.Admin
 {
     class AdminMainViewModel: BaseWindowViewModel
     {
-        private User admin;
-        private UnitOfWork dbWorker;
+        private AdminMainController controller;
         private int songItemCount = 0;
         private int userItemCount = 0;
         public ObservableCollection<SongViewModel> LocalSongList { get; set; }
         public ObservableCollection<UserViewModel> UserLocalCollection { get; set; }
 
-        private UserPage userPage;
-        private AddMusicPage addMusicPage;
-        private MusicPage musicPage;
-        private TopMusicPage topMusicList;
-        private UpdateMusicPage updateMusicPage;
-        private Page currentPage; 
+        private AdminPagesDispatcher pagesDispatcher;
 
         public AdminMainViewModel(User admin)
         {
-            this.admin = admin;
-            dbWorker = new UnitOfWork();
+            controller = new AdminMainController();
 
-
-            LocalSongList = new ObservableCollection<SongViewModel>(dbWorker.Songs.GetAllObject()
+            LocalSongList = new ObservableCollection<SongViewModel>(controller.GetSongs()
                 .Select(b => new SongViewModel(b){Index = ++songItemCount}));
             UserLocalCollection =
-                new ObservableCollection<UserViewModel>(dbWorker.Users.GetAllObject().Where(u=>!u.IsAdmin)
+                new ObservableCollection<UserViewModel>(controller.GetUser()
                     .Select(u => new UserViewModel(u){Index = ++userItemCount}));
 
-            userPage = new UserPage();
-            userPage.DataContext = new UserPageViewModel(admin, UserLocalCollection);
-
-            addMusicPage = new AddMusicPage();
-            addMusicPage.DataContext = new AddMusicViewModel(LocalSongList);
-            
-            musicPage = new MusicPage();
-            MusicPageViewModel musicPageViewModel = new MusicPageViewModel(LocalSongList);
-            musicPageViewModel.PropertyChanged += OnSongUpdatePropertyChanged;
-            musicPage.DataContext = musicPageViewModel;
-
-            topMusicList = new TopMusicPage();
-            topMusicList.DataContext = new TopMusicPageViewModel();
-
-            updateMusicPage = new UpdateMusicPage();
-
-            CurrentPage = musicPage;
+            pagesDispatcher =
+                new AdminPagesDispatcher(admin, UserLocalCollection, LocalSongList, OnSongUpdatePropertyChanged);
         }
 
         public Page CurrentPage
         {
-            get => currentPage;
+            get => pagesDispatcher.CurrentPage;
             set
             {
-                currentPage = value;
+                pagesDispatcher.CurrentPage = value;
                 OnPropertyChanged("CurrentPage");
             }
         }
@@ -84,7 +54,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return switchToMusicList ?? (switchToMusicList = new Command((obj) =>
                 {
-                    CurrentPage = musicPage;
+                    CurrentPage = pagesDispatcher.MusicPage;
                 }));
             }
         }
@@ -95,7 +65,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return switchToTopMusicList ?? (switchToTopMusicList = new Command((obj) =>
                 {
-                    CurrentPage = topMusicList;
+                    CurrentPage = pagesDispatcher.TopMusicList;
                 }));
             }
         }
@@ -107,7 +77,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return switchToAddMusic ?? (switchToAddMusic = new Command((obj) =>
                 {
-                    CurrentPage = addMusicPage;
+                    CurrentPage = pagesDispatcher.AddMusicPage;
                 }));
             }
         }
@@ -118,7 +88,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return switchToUserList ?? (switchToUserList = new Command((obj) =>
                 {
-                    CurrentPage = userPage;
+                    CurrentPage = pagesDispatcher.UserPage;
                 }));
             }
         }
@@ -129,7 +99,7 @@ namespace VMusic.ViewModels.Admin
             {
                 return switchToUpdateMusic ?? (switchToUpdateMusic = new Command((obj) =>
                 {
-                    CurrentPage = updateMusicPage;
+                    CurrentPage = pagesDispatcher.UpdateMusicPage;
                 }));
             }
         }
@@ -138,10 +108,10 @@ namespace VMusic.ViewModels.Admin
         {
             if (e.PropertyName == "IsUpdate")
             {
-                MusicPageViewModel musicPageViewModel = (MusicPageViewModel)musicPage.DataContext;
+                MusicPageViewModel musicPageViewModel = (MusicPageViewModel)pagesDispatcher.MusicPage.DataContext;
                 UpdateMusicViewModel updateMusicViewModel = new UpdateMusicViewModel(musicPageViewModel.SelectedSong, LocalSongList);
                 updateMusicViewModel.PropertyChanged += OnSongUpdateFinishPropertyChanged;
-                updateMusicPage.DataContext = updateMusicViewModel;
+                pagesDispatcher.UpdateMusicPage.DataContext = updateMusicViewModel;
                 SwitchToUpdateMusic.Execute(new object());
             }
         }
@@ -153,6 +123,5 @@ namespace VMusic.ViewModels.Admin
                 SwitchToMusicList.Execute(new object());
             }
         }
-
     }
 }
