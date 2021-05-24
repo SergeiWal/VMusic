@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using VMusic.Commands;
+using VMusic.Controller.Authorization.Messagers;
 using VMusic.Views.Autorization;
 using VMusic.Hasher;
 using VMusic.Models;
@@ -14,12 +13,7 @@ namespace VMusic.ViewModels.Autorization
     class RegistrationViewModel : BaseWindowViewModel
     {
         private const int PASSWORD_MIN_LENGTH = 4;
-        private const string DUPLICATE_USER_DATA = "Пользаватель с таким именем или логином уже существует!!!";
-        private const string PASSWORDS_NOT_EQUEL = "Пароли не совпадают!!!";
-        private const string MIN_PASSWORD_LENGTH_ERROR = "Минимальная длина пароля 4 символа!!!";
-        private const string FIELDS_EMPTY = "Заполнены не все поля!!!";
-
-
+        
         private UnitOfWork dbWorker;
 
         private string name;
@@ -69,7 +63,7 @@ namespace VMusic.ViewModels.Autorization
                 else
                 {
                     isPasswordValid = false;
-                    InfoMessage = MIN_PASSWORD_LENGTH_ERROR;
+                    InfoMessage = AuthorizationMessager.MIN_PASSWORD_LENGTH_ERROR;
                 }
                 OnPropertyChanged("Password");
             }
@@ -152,17 +146,17 @@ namespace VMusic.ViewModels.Autorization
                     }
                     else
                     {
-                        InfoMessage = DUPLICATE_USER_DATA;
+                        InfoMessage = AuthorizationMessager.DUPLICATE_USER_DATA;
                     }
                 }
                 else
                 {
-                    InfoMessage = PASSWORDS_NOT_EQUEL;
+                    InfoMessage = AuthorizationMessager.PASSWORDS_NOT_EQUEL;
                 }
             }
             else
             {
-                InfoMessage = FIELDS_EMPTY;
+                InfoMessage = AuthorizationMessager.FIELDS_EMPTY;
             }
         }
 

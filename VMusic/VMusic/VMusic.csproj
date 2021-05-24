@@ -80,6 +80,7 @@
     <Compile Include="Controller\Admin\TopMusicPageController.cs" />
     <Compile Include="Controller\Admin\UpdateMusicController.cs" />
     <Compile Include="Controller\Admin\UserPageController.cs" />
+    <Compile Include="Controller\Authorization\Messagers\AuthorizationMessager.cs" />
     <Compile Include="Controller\Client\CreatePlaylistController.cs" />
     <Compile Include="Controller\Client\LikeSongsController\LikeSongsController.cs" />
     <Compile Include="Controller\Client\Messagers\CreatePlaylistMessager.cs" />

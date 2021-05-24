@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using VMusic.Commands;
+using VMusic.Controller.Authorization.Messagers;
 using VMusic.Hasher;
 using VMusic.Models;
 using VMusic.Repository;
@@ -15,7 +16,7 @@ namespace VMusic.ViewModels.Autorization
     class AutorizationViewModel : BaseWindowViewModel
     {
         private UnitOfWork dbWorker;
-        private string infoMessage = "";
+        private string infoMessage = string.Empty;
 
         private string login;
         private string password;
@@ -131,17 +132,17 @@ namespace VMusic.ViewModels.Autorization
                     }
                     else
                     {
-                        InfoMessage = "Пользователь заблокирован!!!";
+                        InfoMessage = AuthorizationMessager.USER_BLOCKED;
                     }
                 }
                 else
                 {
-                    InfoMessage = "Данные не верны!!!";
+                    InfoMessage = AuthorizationMessager.LOGIN_DATA_FAILED;
                 }
             }
             else
             {
-                InfoMessage = "Поля не заполнены!!!";
+                InfoMessage = AuthorizationMessager.FIELDS_EMPTY;
             }
         }
 
@@ -157,12 +158,12 @@ namespace VMusic.ViewModels.Autorization
                 }
                 else
                 {
-                    InfoMessage = "Данные не верны!!!";
+                    InfoMessage = AuthorizationMessager.LOGIN_DATA_FAILED;
                 }
             }
             else
             {
-                InfoMessage = "Поля не заполнены!!!";
+                InfoMessage = AuthorizationMessager.FIELDS_EMPTY;
             }
         }
 
