@@ -18,8 +18,8 @@ namespace VMusic.ViewModels.Admin
         {
             controller = new TopMusicPageController();
 
-            TopSongList = new ObservableCollection<SongViewModel>(controller.GetSongsSortedByRating()
-                .Select(s => new SongViewModel(s){Index = ++itemCount}).Take(TopMusicPageController.TOP_LIST_SIZE));
+            TopSongList = new ObservableCollection<SongViewModel>(controller.GetLikeSongList().Songs
+                .Select(s => new SongViewModel(s){Index = ++itemCount}));
 
             topSongPlaylist = new Playlist()
             {
@@ -39,14 +39,25 @@ namespace VMusic.ViewModels.Admin
                 return updateTopPlaylist ?? (updateTopPlaylist = new Command((obj) =>
                 {
                     var playlist = controller.GetLikeSongList();
-                    topSongPlaylist.Songs = new List<Song>(TopSongList.Select(b => b.song));
+                    topSongPlaylist.Songs = controller.GetSongsSortedByRating().ToList();
                     if (playlist == null)
                     {
                         controller.CreateLikeSongList(topSongPlaylist);
                     }
 
-                    controller.AddSongs(TopSongList);
+                    UpdateLocalSongList(topSongPlaylist.Songs);
+                    controller.AddSongs(topSongPlaylist.Songs);
                 }));
+            }
+        }
+
+        private void UpdateLocalSongList(IEnumerable<Song> likeSongs)
+        {
+            TopSongList.Clear();
+            itemCount = 0;
+            foreach (var c in likeSongs)
+            {
+                TopSongList.Add(new SongViewModel(c){Index = ++itemCount});
             }
         }
     }

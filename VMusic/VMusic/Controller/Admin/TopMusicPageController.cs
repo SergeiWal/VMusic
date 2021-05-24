@@ -20,7 +20,7 @@ namespace VMusic.Controller.Admin
 
         public IEnumerable<Song> GetSongsSortedByRating()
         {
-            return dbWorker.Songs.GetAllObject().OrderByDescending(n => n.Rating);
+            return dbWorker.Songs.GetAllObject().OrderByDescending(n => n.Rating).Take(TOP_LIST_SIZE);
         }
 
         public Playlist GetLikeSongList()
@@ -34,7 +34,7 @@ namespace VMusic.Controller.Admin
             dbWorker.Save();
         }
 
-        public void AddSongs(IEnumerable<SongViewModel> topSongList)
+        public void AddSongs(IEnumerable<Song> topSongList)
         {
             var playlist = dbWorker.Playlist.GetAllObject().FirstOrDefault(p => p.Name == TOP_LIST_NAME);
 
@@ -43,7 +43,7 @@ namespace VMusic.Controller.Admin
                 dbWorker.Playlist.ClearSongs(playlist.Id);
                 foreach (var song in topSongList)
                 {
-                    playlist.Songs.Add(song.song);
+                    playlist.Songs.Add(song);
                 }
                 dbWorker.Save();
             }
