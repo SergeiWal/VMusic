@@ -13,9 +13,10 @@ namespace VMusic.ViewModels.Autorization
 {
     class RegistrationViewModel : BaseWindowViewModel
     {
-
+        private const int PASSWORD_MIN_LENGTH = 4;
         private const string DUPLICATE_USER_DATA = "Пользаватель с таким именем или логином уже существует!!!";
         private const string PASSWORDS_NOT_EQUEL = "Пароли не совпадают!!!";
+        private const string MIN_PASSWORD_LENGTH_ERROR = "Минимальная длина пароля 4 символа!!!";
         private const string FIELDS_EMPTY = "Заполнены не все поля!!!";
 
 
@@ -26,7 +27,8 @@ namespace VMusic.ViewModels.Autorization
         private string password;
         private string repeatPassword;
 
-        private string infoMessage = "";
+        private string infoMessage = string.Empty;
+        private bool isPasswordValid = false;
 
         public RegistrationViewModel()
         {
@@ -58,7 +60,17 @@ namespace VMusic.ViewModels.Autorization
             get => password;
             set
             {
-                password = PasswordHasher.GetHash(value);
+                if (value.Length >= PASSWORD_MIN_LENGTH)
+                {
+                    password = PasswordHasher.GetHash(value);
+                    isPasswordValid = true;
+                    InfoMessage = string.Empty;
+                }
+                else
+                {
+                    isPasswordValid = false;
+                    InfoMessage = MIN_PASSWORD_LENGTH_ERROR;
+                }
                 OnPropertyChanged("Password");
             }
         }
@@ -120,7 +132,7 @@ namespace VMusic.ViewModels.Autorization
 
         private void Registration()
         {
-            if (IsFieldNotEmpty())
+            if (IsFieldNotEmpty() && isPasswordValid)
             {
                 if (IsRepeatPasswordEquals())
                 {
