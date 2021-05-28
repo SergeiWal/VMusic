@@ -232,7 +232,7 @@
               Background="#FF19181F">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -256,8 +256,8 @@
 
                 <StackPanel Grid.Column="1"
                             Margin="2 7">
-                    <TextBlock Text="{Binding  Path= CurrentSong.Name}" FontSize="18"/>
-                    <TextBlock Text="{Binding  Path= CurrentSong.Author}"  FontSize="18"/>
+                    <TextBlock Text="{Binding  Path= CurrentSong.Name}" FontSize="18" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding  Path= CurrentSong.Author}"  FontSize="18" TextWrapping="Wrap"/>
                 </StackPanel>
                 <Border Grid.Column="1" Style="{StaticResource VerticalLine}"
                         HorizontalAlignment="Right"/>

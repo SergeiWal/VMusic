@@ -1,0 +1,635 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VMusic.App" Collapsed="true">
+    <Position X="63" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Commands.Command" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="54.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAEAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Controller.Admin.AddUpdateMusicController" Collapsed="true">
+    <Position X="56" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAgAAAAEAQIAAAkACAAAAiAAAAAAI=</HashCode>
+      <FileName>Controller\Admin\AddUpdateMusicController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.AdminMainController" Collapsed="true">
+    <Position X="57.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Admin\AdminMainController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.AdminPagesDispatcher" Collapsed="true">
+    <Position X="61.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAEgAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controller\Admin\AdminPagesDispatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.MusicPageController" Collapsed="true">
+    <Position X="64.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Admin\MusicPageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.TopMusicPageController" Collapsed="true">
+    <Position X="52.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAJAAAAAAAAAgAgAAAAAAABAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Controller\Admin\TopMusicPageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.UpdateMusicController" Collapsed="true">
+    <Position X="56" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Admin\UpdateMusicController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.UserPageController" Collapsed="true">
+    <Position X="54.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAQEAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Admin\UserPageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Admin.Messager.AddMusicMessager" Collapsed="true">
+    <Position X="52.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQCAAAAgAAAAAAAAAEAAAAQCA=</HashCode>
+      <FileName>Controller\Admin\Messager\AddMusicMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Authorization.Messagers.AuthorizationMessager" Collapsed="true">
+    <Position X="64.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAABAAAgAAEAAAAAAAAAAAAAAAAKA=</HashCode>
+      <FileName>Controller\Authorization\Messagers\AuthorizationMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.CreatePlaylistController" Collapsed="true">
+    <Position X="56" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAgAAAAQAIIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Client\CreatePlaylistController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.SettingController" Collapsed="true">
+    <Position X="52.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Client\SettingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.UpdatePlaylistController" Collapsed="true">
+    <Position X="59.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAUABAAAAAAAAAAAAAAAAAQAIAEAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Client\UpdatePlaylistController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.LikeSongsController.LikeSongsController" Collapsed="true">
+    <Position X="56" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAQAAAAAAAAAAAABBQAAAABAAAAAAQA=</HashCode>
+      <FileName>Controller\Client\LikeSongsController\LikeSongsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.Messagers.CreatePlaylistMessager" Collapsed="true">
+    <Position X="57.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAIAAAAAAAAgAAQAAAAAAgAAAAAAAAAAAACAQgA=</HashCode>
+      <FileName>Controller\Client\Messagers\CreatePlaylistMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.Messagers.SettingMessager" Collapsed="true">
+    <Position X="54.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAADAAAAAAAAAAAQIAAAAAAAIAAACA=</HashCode>
+      <FileName>Controller\Client\Messagers\SettingMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.Messagers.UpdatePlaylistMessager" Collapsed="true">
+    <Position X="61.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAAAAAAAgAAQAAAAAAAAAAACAAAAQAACAQAA=</HashCode>
+      <FileName>Controller\Client\Messagers\UpdatePlaylistMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.PagesController.PageDispatcher" Collapsed="true">
+    <Position X="52.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAABEAAQAAAAACAAAIAAAgggAAAAAAAAAEAAAAAI=</HashCode>
+      <FileName>Controller\Client\PagesController\PageDispatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.PagesController.ViewModelCreator" Collapsed="true">
+    <Position X="57.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIAAAAAQAAAAABAAAAAAAAAACAACAAAAACAAQAAAAAA=</HashCode>
+      <FileName>Controller\Client\PagesController\ViewModelCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Controller.Client.Player.Player" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="56" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgQQkAIAAAACAAAAIAAIAAECiAABAEAAoIIIAACACFA=</HashCode>
+      <FileName>Controller\Client\Player\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.Converters.GenreConverter" Collapsed="true">
+    <Position X="63" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAIAAAAAAAAAA=</HashCode>
+      <FileName>Converters\GenreConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Converters.ImageConverter" Collapsed="true">
+    <Position X="54.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ImageConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Hasher.PasswordHasher" Collapsed="true">
+    <Position X="54.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Hasher\PasswordHasher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Models.Playlist">
+    <Position X="53.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAAAAEAAwAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Playlist.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+      <Property Name="Songs" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VMusic.Models.Song">
+    <Position X="60.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAAgAAAAAAgAIAAAQAAAAAABEAAAAACAAAAAA=</HashCode>
+      <FileName>Models\Song.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Genre" />
+      <Property Name="Playlists" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="VMusic.Models.User">
+    <Position X="57" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAAAAAAAAAAAAAAAQACAAAAgACAAAQAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Models.VMusicContext" Collapsed="true">
+    <Position X="59.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VMusicContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Models.VMusicContextInitializer" Collapsed="true">
+    <Position X="61.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VMusicContextInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Properties.Resources" Collapsed="true">
+    <Position X="64.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Properties.Settings" Collapsed="true">
+    <Position X="57.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Repository.PlaylistRepository" BaseTypeListCollapsed="true">
+    <Position X="75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAQAAAAAAQAABCAAAEAAEAAAAAAAAAAAIA=</HashCode>
+      <FileName>Repository\PlaylistRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.Repository.SongRepository" BaseTypeListCollapsed="true">
+    <Position X="79" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAIAAAAAQAAAAAAQAAAAAAAEAAEAAAAAAAAAAAIg=</HashCode>
+      <FileName>Repository\SongRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.Repository.UnitOfWork" BaseTypeListCollapsed="true">
+    <Position X="75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIQAKAAACAQAAAAAAAEAAAAAAAAAQAAAAAAAIAAAAA=</HashCode>
+      <FileName>Repository\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="playlistRepository" />
+      <Field Name="songRepository" />
+      <Field Name="userRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.Repository.UserRepository" BaseTypeListCollapsed="true">
+    <Position X="72.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAQAAAAAAQAAAAAAAEAAEAAAAAAAAAAAIA=</HashCode>
+      <FileName>Repository\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.AddMusicViewModel" Collapsed="true">
+    <Position X="31.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIAGQACABBEAEAwAICAJQCAAAEQAAIAAIACAACAAA=</HashCode>
+      <FileName>ViewModels\Admin\AddMusicViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.AdminMainViewModel" Collapsed="true">
+    <Position X="31.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAiAAEAIoAQABEAEAQABBACAAAAAAAAgAAAAAICAAI=</HashCode>
+      <FileName>ViewModels\Admin\AdminMainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.MusicPageViewModel" Collapsed="true">
+    <Position X="16" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAACAAgAAAMAAAAEAAAAIABAAAAAQAIAAAAAIAA=</HashCode>
+      <FileName>ViewModels\Admin\MusicPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.TopMusicPageViewModel" Collapsed="true">
+    <Position X="17.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAEBAAGAgAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Admin\TopMusicPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.UpdateMusicViewModel" Collapsed="true">
+    <Position X="20.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEEAAABAEQEEwAIiBJQCAAAMQQAIAAIACAACAAA=</HashCode>
+      <FileName>ViewModels\Admin\UpdateMusicViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Admin.UserPageViewModel" Collapsed="true">
+    <Position X="23.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAACAAAAAAQAEAAAAAAAAAAAEAAQAAAIAUAAiAEAA=</HashCode>
+      <FileName>ViewModels\Admin\UserPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Autorization.AutorizationViewModel" Collapsed="true">
+    <Position X="27.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAMABAACABQAAQAAAAAAgAAAAMEwAACBIAQBgCAEAA=</HashCode>
+      <FileName>ViewModels\Autorization\AutorizationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Autorization.RegistrationViewModel" Collapsed="true">
+    <Position X="29.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAMAAAACABAAABAAEAEgAQABAIEAIQCAAAQBgAEEEg=</HashCode>
+      <FileName>ViewModels\Autorization\RegistrationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.BaseViewModel" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.ViewModels.BaseWindowViewModel" Collapsed="true">
+    <Position X="29" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAEAAAABEAAAQBAAAAAABAAAAEQCAAAA=</HashCode>
+      <FileName>ViewModels\BaseWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VMusic.ViewModels.PlaylistViewModel" Collapsed="true">
+    <Position X="33.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAABAAAAAAAAgAEAA=</HashCode>
+      <FileName>ViewModels\PlaylistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.SongViewModel" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAgAIAAAQAAAAIABEAAAEACAABAAA=</HashCode>
+      <FileName>ViewModels\SongViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.UserViewModel" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACBAAIAAAAACAAAAAAAAQACAABAgAHAAEQAAABAQA=</HashCode>
+      <FileName>ViewModels\UserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.ClientMainViewModel" Collapsed="true">
+    <Position X="25.75" Y="4.75" Width="1.5" />
+    <InheritanceLine Type="VMusic.ViewModels.BaseWindowViewModel" FixedFromPoint="true">
+      <Path>
+        <Point X="29.75" Y="3.441" />
+        <Point X="29.75" Y="4.45" />
+        <Point X="26.5" Y="4.45" />
+        <Point X="26.5" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ACGABgIYARQBCKEAAQUIAEAACIRQFETAEhAMAQAQiQI=</HashCode>
+      <FileName>ViewModels\Client\ClientMainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.CreatePlaylistViewModel" Collapsed="true">
+    <Position X="23.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAgABAAMEAAQABAAEAoJARAOCwAIAAAACEAA=</HashCode>
+      <FileName>ViewModels\Client\CreatePlaylistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.CurrentGenreViewModel" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAABAAAAAAAEAAQAAEAAAAABAAAIAAAACAA=</HashCode>
+      <FileName>ViewModels\Client\CurrentGenreViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.CurrentSongListViewModel" Collapsed="true">
+    <Position X="26.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAABAAAIAAAACAA=</HashCode>
+      <FileName>ViewModels\Client\CurrentSongListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.FindSongViewModel" Collapsed="true">
+    <Position X="27.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAABAAAEAAAAABAAAIAAAACAA=</HashCode>
+      <FileName>ViewModels\Client\FindSongViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.GenreViewModel" Collapsed="true">
+    <Position X="30.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>ViewModels\Client\GenreViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.HomePageViewModel" Collapsed="true">
+    <Position X="32.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAABAAAEAAAAABAAAIAAAACAA=</HashCode>
+      <FileName>ViewModels\Client\HomePageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.PlaylistsPageViewModel" Collapsed="true">
+    <Position X="34.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQABAAAAAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Client\PlaylistsPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.SettingViewModel" Collapsed="true">
+    <Position X="18.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAIAAAAAAEEAQBBAgABAAEAgwAAABIAAAAQAAEA=</HashCode>
+      <FileName>ViewModels\Client\SettingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.SinglePlaylistViewModel" Collapsed="true">
+    <Position X="20" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQCACAAAgAAAAAAAQAAAQAAADAAAEB0AAAAAAEAQA=</HashCode>
+      <FileName>ViewModels\Client\SinglePlaylistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.TopSongListViewModel" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAABAAAAAAAAABAAAAAAAAABAAAIAAAACAA=</HashCode>
+      <FileName>ViewModels\Client\TopSongListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.ViewModels.Client.UpdatePlaylistViewModel" Collapsed="true">
+    <Position X="24.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAAAAACAgIBAAMEAAQABAAEAoJERAOCwAIAAIACEAA=</HashCode>
+      <FileName>ViewModels\Client\UpdatePlaylistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VMusic.Views.Admin.AddMusicPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="54.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Admin\AddMusicPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Admin.AdminMainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="59.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Views\Admin\AdminMainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Admin.MusicPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="63" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Admin\MusicPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Admin.TopMusicPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Admin\TopMusicPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Admin.UpdateMusicPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Admin\UpdateMusicPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Admin.UserPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="52.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Admin\UserPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Autorization.Login" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Views\Autorization\Login.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Autorization.LoginAsAdmin" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="59.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAIA=</HashCode>
+      <FileName>Views\Autorization\LoginAsAdmin.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Autorization.Registration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="63" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAgAAAAAABAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Views\Autorization\Registration.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.ClientMainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="52.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Views\Client\ClientMainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.CreatePlaylistPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="59.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\CreatePlaylistPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.CurrentGenrePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="61.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\CurrentGenrePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.GenrePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\GenrePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.HomePage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="52.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\HomePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.PlaylistsPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="61.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\PlaylistsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.SettingPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="56" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACCAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\SettingPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.SinglePlaylistPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="59.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\SinglePlaylistPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.Client.UpdatePlaylistPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="63" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Client\UpdatePlaylistPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VMusic.Views.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="61.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="VMusic.Controller.Client.Player.IPlayer" Collapsed="true">
+    <Position X="52.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAAgAAAAAACAAAAAAAAAAAACAABAEAAoAIIAACAABA=</HashCode>
+      <FileName>Controller\Client\Player\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VMusic.Repository.IRepository&lt;T&gt;">
+    <Position X="77.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAQAAAAAAAEAAEAAAAAAAAAAAIA=</HashCode>
+      <FileName>Repository\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="VMusic.ViewModels.IWindowController" Collapsed="true">
+    <Position X="56" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAA=</HashCode>
+      <FileName>ViewModels\IWindowController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;" Collapsed="true">
+    <Position X="56.75" Y="13" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="VMusic.Models.MusicGenre">
+    <Position X="62.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAACAAAAFAACAAAAAAAAAAAAAAAAAEABAAAA=</HashCode>
+      <FileName>Models\MusicGenre.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

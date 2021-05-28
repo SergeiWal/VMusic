@@ -34,8 +34,6 @@ namespace VMusic.ViewModels.Client
             likeSongs = new LikeSongsController(user);
             pageDispatcher = new PageDispatcher();
             pageDispatcher.HomePage.DataContext = ViewModelCreator.CreateHomePageViewModel(Player);
-            pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user, 
-                OnPlaylistCreateOrDeletePropertyChanged);
             pageDispatcher.SettingPage.DataContext = ViewModelCreator.CreateSettingViewModel(user, OnSettingPropertyChanged);
             pageDispatcher.TopMusicPage.DataContext = ViewModelCreator.CreateTopMusicViewModel(Player);
         }
@@ -122,6 +120,8 @@ namespace VMusic.ViewModels.Client
             {
                 return switchToCreatePlaylistPage ?? (switchToCreatePlaylistPage = new Command((obj) =>
                 {
+                    pageDispatcher.CreatePlaylistPage.DataContext = ViewModelCreator.CreateAddPlaylistPageViewModel(user,
+                        OnPlaylistCreateOrDeletePropertyChanged);
                     CurrentPage = pageDispatcher.CreatePlaylistPage;
                 }));
             }
